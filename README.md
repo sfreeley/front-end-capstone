@@ -10,8 +10,7 @@
     a. users taking multiple medications and users in general who want to keep track of their medications in one place
 
 ## Planning
-1. <a href="https://dbdiagram.io/d/5f146e1274ca2227330d8a66">ERD</a>
+1. [ERD]("https://dbdiagram.io/d/5f146e1274ca2227330d8a66")
 
-2. <a href="https://sketchboard.me/XCfnZXA8pWcG#/ ">Wireframe</a>
-
+2. [Wireframe]("https://sketchboard.me/XCfnZXA8pWcG#/")
 
