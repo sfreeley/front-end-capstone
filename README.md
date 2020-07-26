@@ -7,6 +7,8 @@ Self-managing and organizing daily medication use in one location
 
 Allowing users to remember and write additional notes/questions to bring to provider and/or pharmacist 
 
+Allowing users to use a search tool to search for specific keywords regarding their medications within the application
+
 Providing resources for health and medication information in one place 
 
 2. Who are the target users of this application?
