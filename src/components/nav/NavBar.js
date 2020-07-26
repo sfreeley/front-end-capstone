@@ -16,32 +16,32 @@ const NavBar = (props) => {
               <NavbarToggler onClick={toggleNavbar} className="mr-2" />
               <Collapse isOpen={!collapsed} navbar>
                 <Nav navbar>
-                {hasUser ? 
+                 
                   <NavItem>
                     <NavLink href="/medication/list" className="nav-link" activeClassName="nav-link--active">
                         Current Medication List
                     </NavLink>
-                  </NavItem> : null }
+                  </NavItem> 
 
-                  {hasUser ? 
+                  
                   <NavItem>
                     <NavLink href="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
-                  </NavItem> : null }
+                  </NavItem>
                 
-                  {hasUser ? 
+                 
                   <NavItem>
                     <NavLink href="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
                   </NavItem>
-                   : null }
+                  
                 
-                  {hasUser ? 
+                   
                   <NavItem>
                     <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
-                  </NavItem> :
-                  <NavItem>
+                  </NavItem> 
+                  {/* <NavItem>
                     <NavLink className="nav-link" href="/login">Login</NavLink>
-                  </NavItem>
-                }
+                  </NavItem> */}
+                
 
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search for keywords" aria-label="Search"/>

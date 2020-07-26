@@ -13,6 +13,7 @@ import Home from "./components/home/Home";
 //medication
 import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";
+import MedicationHistoryList from "./components/history/MedicationHistoryList";
 
 
 const ApplicationViews = (props) => {
@@ -47,10 +48,16 @@ const ApplicationViews = (props) => {
 
     <Route path="/medication/list"
     render={props => {
-        return (hasUser ? <MedicationList {...props} /> : <Redirect to="/login"/>)
+        return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
     }}
     /> 
-     </>
+
+    <Route path="/medication/history"
+    render={props => {
+        return (hasUser ? <MedicationHistoryList {...props} /> : <Redirect to="/login" />)
+    }}
+    />
+</>
  )   
  
 

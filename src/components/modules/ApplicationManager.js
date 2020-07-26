@@ -38,5 +38,22 @@ export default {
         body: JSON.stringify(newDrugObject)
       }).then(data => data.json())
       
-  }
+  },
+
+  editDrug(drugObject) {
+    return fetch(`${remoteURL}/drugs/${drugObject.id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(drugObject)
+      }).then(data => data.json())
+      
+  },
+
+  deleteDrug(id) {
+    return fetch(`${remoteURL}/drugs/${id}`, {
+        method: "DELETE"
+    }).then(result => result.json())
+},
 }
