@@ -18,6 +18,7 @@ import MedicationList from "./components/medication/MedicationList";
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
     const setUser = props.setUser
+    const clearUser = props.clearUser
 
  return(
      <>
@@ -34,7 +35,7 @@ const ApplicationViews = (props) => {
 
     <Route exact path="/"
     render={props => {
-        return (hasUser ? <Home {...props}/> : <Redirect to="/login" />)
+        return (hasUser ? <Home hasUser={hasUser} clearUser={clearUser} {...props}/>  : <Redirect to="/login" />)
     }}
     />
 
@@ -46,7 +47,7 @@ const ApplicationViews = (props) => {
 
     <Route path="/medication/list"
     render={props => {
-        return <MedicationList {...props} />
+        return (hasUser ? <MedicationList {...props} /> : <Redirect to="/login"/>)
     }}
     /> 
      </>

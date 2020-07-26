@@ -2,7 +2,7 @@ import React from "react";
 import { Form, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 
 
-const AddMedicationFormModal = ({handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, ...props}) => {
+const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll, ...props}) => {
     
     return (
         <>
@@ -28,7 +28,7 @@ const AddMedicationFormModal = ({handleFieldChange, handleAddNewDrug, newDrug, t
                             name="strength"
                             id="strength"
                             required=""
-                            placeholder="ie mg, mcg, g, mL, etc"
+                            placeholder="ie 5 mg, 100 mcg, 1 g, 5mL, etc"
                         />
                     </FormGroup>
                     <FormGroup>
@@ -71,14 +71,59 @@ const AddMedicationFormModal = ({handleFieldChange, handleAddNewDrug, newDrug, t
                             type="text"
                             name="notes"
                             id="notes"
-                            required=""
                             placeholder="Questions? Side effects?"
                         />
                     </FormGroup>
                 </Form>
+                <Button color="success" onClick={toggleNested}>Refill Details</Button>
+                <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
+            <ModalHeader>Prescription Details</ModalHeader>
+            <ModalBody>
+            {/* start of nested form */}
+            <Form className="form-group d-lg-inline-flex flex-column bd-highlight">
+                    <FormGroup>
+                        <label htmlFor="rxNumber">Prescription Number</label>
+                        <input className="p-2 bd-highlight justify-content-center"
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="rxNumber"
+                            id="rxNumber"
+                            required=""
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <label htmlFor="dateFilled">Last Date Filled</label>
+                        <input className="p-2 bd-highlight justify-content-center"
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="dateFilled"
+                            id="dateFilled"
+                            required=""
+                            placeholder="Most recent fill date (Format: MM/DD/YYYY)"
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <label htmlFor="daysSupply">Days Supply</label>
+                        <input className="p-2 bd-highlight justify-content-center"
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="daysSupply"
+                            id="daysSupply"
+                            required=""
+                            placeholder="How many days will this medication last you?"
+                        />
+                    </FormGroup>
+                </Form>
+
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={toggleNested}>Done</Button>{' '}
+              <Button color="secondary" onClick={toggleAll}>All Done</Button>
+            </ModalFooter>
+          </Modal>
                 </ModalBody>
                             <ModalFooter>
-                                <Button color="primary" onClick={handleAddNewDrug}>
+                                <Button color="primary" isLoading={false}onClick={handleAddNewDrug}>
                                     {'Add Medication'}
                                 </Button>
                                 

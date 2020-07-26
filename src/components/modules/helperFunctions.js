@@ -25,3 +25,9 @@ export function currentDateTime(currentDate) {
 
     return generateCurrentDateTime
 }
+
+export function calculateNextRefill(date, days) {
+    let result = new Date(date);
+    result += result.setDate(result.getDate() + days);
+    return currentDateTime(result);
+}
