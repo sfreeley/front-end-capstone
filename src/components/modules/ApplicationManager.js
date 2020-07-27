@@ -21,8 +21,8 @@ export default {
     return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&_expand=user`).then(data => data.json())
   },
 
-  getDrugsAllUsers() {
-    return fetch(`${remoteURL}/users/?_embed=drugs`).then(data => data.json())
+  getDrugsOneUser(id) {
+    return fetch(`${remoteURL}/users/${id}?_embed=drugs`).then(data => data.json())
   },
 
   getAllDrugs() {
