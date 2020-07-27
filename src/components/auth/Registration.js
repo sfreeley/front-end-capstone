@@ -6,9 +6,10 @@ import ApplicationManager from "../modules/ApplicationManager";
 
 const Registration = (props) => {
     let findUsername;
+    let sessionUser;
     const setUser = props.setUser;
 
-    const [newUser, setNewUser] = useState({ username: "", email: "", password: "", image: "" })
+    const [newUser, setNewUser] = useState({id:"", username: "", email: "", password: "", image: "" })
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFieldChange = event => {
@@ -35,18 +36,35 @@ const Registration = (props) => {
                 alert("Your passwords do not match. Please try again")
             } else {
                 // user.image = 
-                setIsLoading(true);
+                setIsLoading(true)
                 sessionStorage.setItem("user", JSON.stringify(newUser))
                 setUser(newUser)
-                ApplicationManager.postNewUser(newUser)
-                    .then(() => props.history.push("/"));
+                ApplicationManager.postNewUser(newUser).then(() => {
+                    alert("Success! New Account Created! Please login.")
+                    props.history.push("/login")
+                    
+                })
+               
             }
-            
+    
         })
+        
+    }  
+
     
 
-       
-    };
+    // ApplicationManager.postNewUser(newUser).then(() => 
+    // ApplicationManager.getUsers(usersFromAPI => {
+    //     usersFromAPI.find(userFromAPI => {
+    //        if(newUser.username === userFromAPI.username) {
+    //             console.log(newUser)
+    //             sessionUser = sessionStorage.setItem("user", JSON.stringify(newUser))
+    // setUser(newUser)
+    
+    //        }
+    //     })
+    // }) 
+    // )
 
    return (
         <>
@@ -125,14 +143,7 @@ const Registration = (props) => {
                 </Link>
             </div>
 
-        </>
-
-
-           
-
-            
-               
-     
+        </>        
          
   );
 }

@@ -29,6 +29,10 @@ export default {
     return fetch(`${remoteURL}/drugs`).then(data => data.json())
   },
 
+  getDrugById(id) {
+    return fetch(`${remoteURL}/drugs/${id}`).then(data => data.json())
+  },
+
   postNewDrug(newDrugObject) {
     return fetch(`${remoteURL}/drugs`, {
       method: "POST",
@@ -50,6 +54,7 @@ export default {
       }).then(data => data.json())
       
   },
+
 
   deleteDrug(id) {
     return fetch(`${remoteURL}/drugs/${id}`, {
