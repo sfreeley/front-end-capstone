@@ -36,6 +36,7 @@ const Home = (props) => {
         dateFilled: "",
         daysSupply: "",
         nextRefillDate: "",
+        taking: true,
         dateInput: ""
     })
    

@@ -4,8 +4,25 @@ import {
     CardSubtitle, CardBody, UncontrolledCollapse, CustomInput
   } from 'reactstrap';
 
-const MedicationCard = (props, editCurrentDrug) => {
+const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+
+  const currentDrugTaking = {
+    id: props.drug.id,
+    name: props.drug.name,
+    userId: sessionUser.id,
+    strength: props.drug.strength,
+    dosageForm: props.drug.dosageForm,
+    directions: props.drug.directions,
+    indication: props.drug.indication,
+    notes: props.drug.notes,
+    rxNumber: props.drug.rxNumber,
+    dateFilled: props.drug.dateFilled,
+    daysSupply: props.drug.daysSupply,
+    nextRefillDate: props.drug.nextRefillDate,
+    dateInput: props.drug.dateInput,
+    taking: false
+  }
   
     return (   
     <>
@@ -14,10 +31,12 @@ const MedicationCard = (props, editCurrentDrug) => {
     <CardDeck>
       <Card body color="info" >
         <strong>Date Entered:</strong> {props.drug.dateInput}
-        {/* <input id="checkbox" type="checkbox" className="checkbox" value={props.drug.taking} onClick={() =>  editCurrentDrug}
-        /> */}
-        {/* <label for="checkbox">Save to Medication History</label> */}
-        <Button onClick={() => editCurrentDrug} >Save to Medication History</Button>
+        <span>
+          <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
+          /> 
+          <label for="checkbox">Save to Medication History</label>
+         </span>
+        {/* <Button  onClick={() => props.history.push("/medication/history")} >Save to Medication History</Button> */}
       
         {/* <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" /> */}
         <CardBody>

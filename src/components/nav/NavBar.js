@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SearchBar from "../search/SearchBar";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 const NavBar = (props) => {
@@ -22,32 +23,25 @@ const NavBar = (props) => {
                         Current Medication List
                     </NavLink>
                   </NavItem> 
-
-                  
+   
                   <NavItem>
                     <NavLink href="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
                   </NavItem>
-                
                  
                   <NavItem>
                     <NavLink href="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
                   </NavItem>
                   
-                
-                   
                   <NavItem>
                     <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
                   </NavItem> 
                   {/* <NavItem>
                     <NavLink className="nav-link" href="/login">Login</NavLink>
                   </NavItem> */}
-                
-
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search for keywords" aria-label="Search"/>
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                </form>
                 </Nav>
+                 <span>
+                   <SearchBar {...props}/>
+                 </span>
               </Collapse>
             </Navbar>
           </div>

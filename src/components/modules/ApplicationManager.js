@@ -21,12 +21,16 @@ export default {
     return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&_expand=user`).then(data => data.json())
   },
 
-  getDrugsAllUsers() {
-    return fetch(`${remoteURL}/users/?_embed=drugs`).then(data => data.json())
+  getDrugsOneUser(id) {
+    return fetch(`${remoteURL}/users/${id}?_embed=drugs`).then(data => data.json())
   },
 
   getAllDrugs() {
     return fetch(`${remoteURL}/drugs`).then(data => data.json())
+  },
+
+  getDrugById(id) {
+    return fetch(`${remoteURL}/drugs/${id}`).then(data => data.json())
   },
 
   postNewDrug(newDrugObject) {
@@ -50,6 +54,7 @@ export default {
       }).then(data => data.json())
       
   },
+
 
   deleteDrug(id) {
     return fetch(`${remoteURL}/drugs/${id}`, {
