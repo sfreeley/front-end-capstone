@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "../search/SearchBar";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
-const NavBar = (props) => {
+const NavBar = (props, drugs) => {
     const hasUser = props.hasUser
    
     const [collapsed, setCollapsed] = useState(true);
@@ -40,7 +40,7 @@ const NavBar = (props) => {
                   </NavItem> */}
                 </Nav>
                  <span>
-                   <SearchBar {...props}/>
+                   <SearchBar {...props} drugs={drugs}/>
                  </span>
               </Collapse>
             </Navbar>

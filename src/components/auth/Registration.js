@@ -6,7 +6,6 @@ import ApplicationManager from "../modules/ApplicationManager";
 
 const Registration = (props) => {
     let findUsername;
-    let sessionUser;
     const setUser = props.setUser;
 
     const [newUser, setNewUser] = useState({id:"", username: "", email: "", password: "", image: "" })

@@ -49,7 +49,7 @@ const MedicationList = (props) => {
 
     return (
         <>
-        <NavBar {...props} />
+        <NavBar {...props} drugs={drugs} />
         <section className="">
         <div className="">
             <h3>Current Medication List</h3>

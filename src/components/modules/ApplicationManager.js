@@ -33,6 +33,10 @@ export default {
     return fetch(`${remoteURL}/drugs/${id}`).then(data => data.json())
   },
 
+  getSearchKeyword(searchTerm) {
+    return fetch(`${remoteURL}/drugs?q=${searchTerm}`).then(data => data.json())
+  },
+
   postNewDrug(newDrugObject) {
     return fetch(`${remoteURL}/drugs`, {
       method: "POST",
