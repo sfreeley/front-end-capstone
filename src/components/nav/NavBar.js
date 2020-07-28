@@ -40,9 +40,7 @@ const NavBar = (props) => {
                     <NavLink className="nav-link" href="/login">Login</NavLink>
                   </NavItem> */}
                 </Nav>
-                 <span>
-                   <SearchBar {...props}/>
-                 </span>
+                 
               </Collapse>
             </Navbar>
           </div>

@@ -28,9 +28,14 @@ const getMatchingCards = () => {
             
             console.log(drugsFromAPI)
             console.log(drugsArray)
-            console.log(searchTerm.keywordSearch)
-           
+            console.log(searchTerm.keywordSearch)  
              
+        }).then(() => {
+            if (drugsArray.length === 0) {
+                return (
+                    <div> No matches exist for your search term </div>
+                )
+            }
         })
            
 }
@@ -39,15 +44,6 @@ useEffect(() => {
     getMatchingCards();
 },[])
 
- //what do I want to search?: 
-    //how do I get this info? do q= search call with json database call 
-    //what do you do next? iterate through fetch call
-    //set search term to state 
-    //if search term matches object value...
-    //get medication card data
-    //show it in new page with search criteria 
-
-   
     return (
         <>
         <form class="form-inline my-2 my-lg-0">
@@ -61,7 +57,7 @@ useEffect(() => {
         
         {drugsArray && drugsArray.map(drug => {
             if(drugsArray.length === 0) {
-                alert("No matches exist for your search") 
+                alert("No matches exist for your search term")
             } else {
                return <MedicationCard {...props} drug={drug} />
             }

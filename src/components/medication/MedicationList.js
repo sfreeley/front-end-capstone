@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MedicationCard from "./MedicationCard";
+import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
 
@@ -70,6 +71,9 @@ const MedicationList = (props) => {
     return (
         <>
         <NavBar {...props} />
+        <span>
+        <SearchBar {...props}/>
+        </span>
         <section className="">
         <div className="">
             <h3>Current Medication List</h3>
