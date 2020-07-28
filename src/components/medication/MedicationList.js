@@ -6,6 +6,22 @@ import NavBar from "../nav/NavBar";
 const MedicationList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     const [drugs, setDrugs] = useState([]);
+    // const [editDrug, setEditDrug] = useState({
+    //         id: "",
+    //         name: "",
+    //         userId: "", 
+    //         strength: "",
+    //         dosageForm: "", 
+    //         directions: "",
+    //         indication: "",
+    //         notes: "",
+    //         rxNumber: "", 
+    //         dateFilled: "", 
+    //         daysSupply: "", 
+    //         nextRefillDate: "", 
+    //         dateInput: "",
+    //         taking: true
+    // })
     const [isChecked, setIsChecked] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     console.log(drugs)
@@ -31,25 +47,29 @@ const MedicationList = (props) => {
         });
     };
 
+    // let drugToEdit = {...editDrug, taking: false}
      //edit taking to false and move card to medication hx  
     const handleChange = (drugToEdit) => {
         setIsChecked(true)
         setIsLoading(true)
-        ApplicationManager.editDrug(drugToEdit)
-        .then(() => {
-            ApplicationManager.getDrugsForUser(sessionUser.id).then((drugFromAPI) => {
-                setDrugs(drugFromAPI)
-                props.history.push("/medication/history")
-        
-            })
+       
+            ApplicationManager.editDrug(drugToEdit)
+            .then(() => {
+                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugFromAPI) => {
+                    setDrugs(drugFromAPI)
+                    props.history.push("/medication/history")
             
-        })
+                })
+                
+            })
+        
+       
      }
 
 
     return (
         <>
-        <NavBar {...props} drugs={drugs} />
+        <NavBar {...props} />
         <section className="">
         <div className="">
             <h3>Current Medication List</h3>
@@ -58,6 +78,8 @@ const MedicationList = (props) => {
                     <MedicationCard 
                         key={drug.id}
                         drug={drug}
+                        // editDrug={editDrug}
+                        // drugToEdit={drugToEdit}
                         isChecked={isChecked}
                         isLoading={isLoading}
                         removeDrug={removeDrug}

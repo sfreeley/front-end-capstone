@@ -35,7 +35,7 @@ const MedicationHistoryCard = (props) => {
         <span>
         <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugNotTaking)}
         /> 
-         <label htmlFor="checkbox">Save to Medication History</label>
+         <label htmlFor="checkbox">Save Back into Medication List</label>
          </span>
         {/* <Button  onClick={() => props.history.push("/medication/history")} >Save to Medication History</Button> */}
       

@@ -11,6 +11,7 @@ import Registration from "./components/auth/Registration"
 import Home from "./components/home/Home";
 
 //medication
+import MedicationCard from "./components/medication/MedicationCard";
 import MedicationDetail from "./components/medication/MedicationDetail";
 import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";

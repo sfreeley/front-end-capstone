@@ -1,17 +1,12 @@
-// import React, { useState, useEffect } from "react";
-// import SearchBar from "../search/SearchBar";
+// import React from "react";
 // import MedicationCard from "../medication/MedicationCard";
-// import ApplicationManager from "../modules/ApplicationManager";
+// import { Link } from "react-router-dom";
+// import {
+//     Card, Button, CardImg, CardTitle, CardText, CardDeck,
+//     CardSubtitle, CardBody, UncontrolledCollapse, CustomInput
+//   } from 'reactstrap';
 
 // const SearchResults = (props) => {
-    
-//     return (
-//         <>
-//         <SearchBar handleFieldChange={handleFieldChange}
-//         getMatchingCards={getMatchingCards}
-//         {...props} />
-//         <MedicationCard {...props} />
-//         </>
-//     )
+ 
 // }
 // export default SearchResults;

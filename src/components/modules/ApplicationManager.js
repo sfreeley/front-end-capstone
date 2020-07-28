@@ -45,6 +45,11 @@ export default {
     return fetch(`${remoteURL}/drugs/${drugId}/?_expand=user`).then(data => data.json())
   },
 
+  //search in database for drugs specific to userId based on json search functionality (q)
+  getSearchResults(sessionUserId, userSearchTerm) {
+    return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&q=${userSearchTerm}`).then(data => data.json())
+  },
+
   //posting new drug
   postNewDrug(newDrugObject) {
     return fetch(`${remoteURL}/drugs`, {
