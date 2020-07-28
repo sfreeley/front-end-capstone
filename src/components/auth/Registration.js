@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Jumbotron, Container } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
 
 
 const Registration = (props) => {
-    let findUsername;
     const setUser = props.setUser;
-
-    const [newUser, setNewUser] = useState({id:"", username: "", email: "", password: "", image: "" })
+    const [newUser, setNewUser] = useState({username: "", email: "", password: "", image: "" })
+    const [allUsers, setAllUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false);
 
     const handleFieldChange = event => {
@@ -17,18 +16,32 @@ const Registration = (props) => {
         setNewUser(stateToChange);
     };
 
+    const getUsers = () => {
+        ApplicationManager.getUsers().then(usersFromAPI => {
+            setAllUsers(usersFromAPI)
+        })
+    }
+    
+    useEffect(() => {
+        getUsers()
+    },[]);
+    
     const registerNewUser = event => {
         event.preventDefault();
         let confirmPassword = document.querySelector("#confirmPassword").value;
-
-        ApplicationManager.getUsers()
-            .then(usersFromAPI => {
-            findUsername = usersFromAPI.find(userObj => {
+            let findUserEmail = allUsers.find(userObj => {
+                return userObj.email === newUser.email 
+             })
+            let findUsername = allUsers.find(userObj => {
                return userObj.username === newUser.username  
             })
-            if (findUsername) {
-                alert("Username already exists");
+            if (findUsername && findUserEmail ) {
+                alert("User email and username already exist")
                 document.getElementById("registerForm").reset()
+            } else if (findUserEmail) {
+                alert("User email already exists")
+            } else if (findUsername) {
+                alert("Username already exists");
             } else if (newUser.username === "" || newUser.email === "" || newUser.password === "") {
                 alert("Please fill out each field")
             } else if (newUser.password !== confirmPassword) {
@@ -36,34 +49,25 @@ const Registration = (props) => {
             } else {
                 // user.image = 
                 setIsLoading(true)
-                sessionStorage.setItem("user", JSON.stringify(newUser))
-                setUser(newUser)
                 ApplicationManager.postNewUser(newUser).then(() => {
-                    alert("Success! New Account Created! Please login.")
-                    props.history.push("/login")
+                    ApplicationManager.getUsers().then(result => {
+                        result.find(user => {
+                            if (user.username === newUser.username) {
+                                newUser.id = user.id
+                                setUser(newUser)
+                                props.history.push("/")
+                            }
+                        })
+                        
+                    })
                     
                 })
                
             }
-    
-        })
         
     }  
 
-    
-
-    // ApplicationManager.postNewUser(newUser).then(() => 
-    // ApplicationManager.getUsers(usersFromAPI => {
-    //     usersFromAPI.find(userFromAPI => {
-    //        if(newUser.username === userFromAPI.username) {
-    //             console.log(newUser)
-    //             sessionUser = sessionStorage.setItem("user", JSON.stringify(newUser))
-    // setUser(newUser)
-    
-    //        }
-    //     })
-    // }) 
-    // )
+ 
 
    return (
         <>
