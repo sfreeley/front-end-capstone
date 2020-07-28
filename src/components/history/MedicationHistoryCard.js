@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, UncontrolledCollapse, CustomInput
@@ -7,7 +8,7 @@ import {
 const MedicationHistoryCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
 
-  const currentDrugTaking = {
+  const currentDrugNotTaking = {
     id: props.drug.id,
     name: props.drug.name,
     userId: sessionUser.id,
@@ -32,9 +33,9 @@ const MedicationHistoryCard = (props) => {
       <Card body color="warning"  >
         <strong>Date Entered:</strong> {props.drug.dateInput}
         <span>
-        <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
+        <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugNotTaking)}
         /> 
-         <label for="checkbox">Save to Medication History</label>
+         <label htmlFor="checkbox">Save to Medication History</label>
          </span>
         {/* <Button  onClick={() => props.history.push("/medication/history")} >Save to Medication History</Button> */}
       
@@ -63,7 +64,9 @@ const MedicationHistoryCard = (props) => {
         
         </CardBody>
           <Button>Edit</Button>
+          <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
+          </Link>
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
       </Card>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>

@@ -31,7 +31,7 @@ const MedicationList = (props) => {
         });
     };
 
-     //edit taking to false   
+     //edit taking to false and move card to medication hx  
     const handleChange = (drugToEdit) => {
         setIsChecked(true)
         setIsLoading(true)

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
     CardSubtitle, CardBody, UncontrolledCollapse, CustomInput
@@ -51,11 +52,11 @@ const MedicationCard = (props) => {
           
           <CardText>
           <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>How I Should Take My Medication:</strong>{props.drug.directions}</li>
+          <li className="list-group-item"><strong>How I Should Take My Medication:</strong> {props.drug.directions}</li>
           <li className="list-group-item"><strong>Why am I taking this?:</strong> {props.drug.indication}</li>
           
           {props.drug.notes === "" ? null : 
-          <li className="list-group-item"><strong>Notes for me:</strong>: {props.drug.notes}</li>     
+          <li className="list-group-item"><strong>Notes for me:</strong> {props.drug.notes}</li>     
           }
           </ul>
           </CardText>
@@ -63,9 +64,14 @@ const MedicationCard = (props) => {
         
         </CardBody>
           <Button>Edit</Button>
+          <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
+          </Link>
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+      
       </Card>
+      {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
+      <>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
       Rx Details
       </Button>
@@ -78,9 +84,9 @@ const MedicationCard = (props) => {
           <CardText>
           <ul className="list-group list-group">
           <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
-          <li className="list-group-item"><strong>Last time this was filled:</strong>: {props.drug.dateFilled}</li>     
-          <li className="list-group-item"><strong>How long is this going to last me?:</strong> {props.drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When should I fill this next?:</strong>: {props.drug.nextRefillDate}</li>     
+          <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
+          <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
+          <li className="list-group-item"><strong>When should I fill this next?</strong> {props.drug.nextRefillDate}</li>     
           </ul> 
           </CardText>
         </CardBody>
@@ -89,6 +95,8 @@ const MedicationCard = (props) => {
           <Button>Delete</Button>
       </Card>
       </UncontrolledCollapse>
+      </>
+      }
     </CardDeck> 
   }
     </>

@@ -35,6 +35,7 @@ const NavBar = (props, drugs) => {
                   <NavItem>
                     <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
                   </NavItem> 
+                  {/* will only be showing nav bar if user is logged in --don't need Login? (directs back to homepage) */}
                   {/* <NavItem>
                     <NavLink className="nav-link" href="/login">Login</NavLink>
                   </NavItem> */}
