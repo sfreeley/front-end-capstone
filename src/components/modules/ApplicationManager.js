@@ -2,10 +2,13 @@ const remoteURL = "http://localhost:5002"
 
 export default {
     //user calls
+
+    //get all users from database
     getUsers() {
        return fetch(`${remoteURL}/users`).then(result => result.json())
     },
 
+    //adding new user upon registration 
     postNewUser(newUserObject) {
         return fetch(`${remoteURL}/users`, {
             method: "POST",
@@ -17,6 +20,8 @@ export default {
   },
 
   //medication calls
+  
+  //get user specific list of drugs based of session storage userId
   getDrugsForUser(sessionUserId) {
     return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&_expand=user`).then(data => data.json())
   },
@@ -25,14 +30,22 @@ export default {
     return fetch(`${remoteURL}/users/${id}?_embed=drugs`).then(data => data.json())
   },
 
+  //get all the drugs in list regardless of user
   getAllDrugs() {
     return fetch(`${remoteURL}/drugs`).then(data => data.json())
   },
 
+  //get drug by drugId
   getDrugById(id) {
     return fetch(`${remoteURL}/drugs/${id}`).then(data => data.json())
   },
 
+  //get drug by drugId specific to userId that takes the drug
+  getUserDrugById(drugId) {
+    return fetch(`${remoteURL}/drugs/${drugId}/?_expand=user`).then(data => data.json())
+  },
+
+  //posting new drug
   postNewDrug(newDrugObject) {
     return fetch(`${remoteURL}/drugs`, {
       method: "POST",
@@ -44,6 +57,7 @@ export default {
       
   },
 
+  //editing drug
   editDrug(drugObject) {
     return fetch(`${remoteURL}/drugs/${drugObject.id}`, {
       method: "PUT",
@@ -56,6 +70,7 @@ export default {
   },
 
 
+  //deleting drug
   deleteDrug(id) {
     return fetch(`${remoteURL}/drugs/${id}`, {
         method: "DELETE"

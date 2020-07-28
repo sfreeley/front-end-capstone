@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
 
+
 const Login = (props) => {
     const setUser = props.setUser;
     const [modal, setModal] = useState(false);
@@ -88,9 +89,8 @@ const Login = (props) => {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={toggle}>
-                            Try again
+                           {'Try again'}
                         </Button>
-                        {' '}
                     </ModalFooter>
                 </Modal>
                 </div>

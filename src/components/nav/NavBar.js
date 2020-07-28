@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "../search/SearchBar";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
-const NavBar = (props) => {
+const NavBar = (props, drugs) => {
     const hasUser = props.hasUser
    
     const [collapsed, setCollapsed] = useState(true);
@@ -35,12 +35,13 @@ const NavBar = (props) => {
                   <NavItem>
                     <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
                   </NavItem> 
+                  {/* will only be showing nav bar if user is logged in --don't need Login? (directs back to homepage) */}
                   {/* <NavItem>
                     <NavLink className="nav-link" href="/login">Login</NavLink>
                   </NavItem> */}
                 </Nav>
                  <span>
-                   <SearchBar {...props}/>
+                   <SearchBar {...props} drugs={drugs}/>
                  </span>
               </Collapse>
             </Navbar>

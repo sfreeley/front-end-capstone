@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import MedicationHistoryCard from "./MedicationHistoryCard";
-import MedicationCard from "../medication/MedicationCard";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
 
@@ -59,7 +58,7 @@ const MedicationHistoryList = (props) => {
                     drug={drug}
                     handleChange={handleChange}
                     isLoading={isLoading}
-                    ischecked={isChecked}
+                    isChecked={isChecked}
                     removeDrug={removeDrug}
                     {...props} 
                     />  

@@ -31,7 +31,7 @@ const MedicationList = (props) => {
         });
     };
 
-     //edit taking to false   
+     //edit taking to false and move card to medication hx  
     const handleChange = (drugToEdit) => {
         setIsChecked(true)
         setIsLoading(true)
@@ -49,7 +49,7 @@ const MedicationList = (props) => {
 
     return (
         <>
-        <NavBar {...props} />
+        <NavBar {...props} drugs={drugs} />
         <section className="">
         <div className="">
             <h3>Current Medication List</h3>
