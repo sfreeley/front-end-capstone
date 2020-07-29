@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import SearchBar from "../search/SearchBar";
+import React, { useState } from "react"
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 const NavBar = (props) => {
-    const hasUser = props.hasUser
+    const clearUser = props.clearUser
    
     const [collapsed, setCollapsed] = useState(true);
       

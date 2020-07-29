@@ -50,7 +50,7 @@ const ApplicationViews = (props) => {
 
     <Route path="/medication/list"
     render={props => {
-        return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
+        return (hasUser ? <MedicationList  drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
     }}
     /> 
 
@@ -62,7 +62,7 @@ const ApplicationViews = (props) => {
 
     <Route exact path="/medication/detail/:drugId(\d+)"
     render={props => {
-        return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+        return (hasUser ? <MedicationDetail clearUser={clearUser} {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
     }}
     />
 
