@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
-import whichModal from "./Modals";
+
 
 
 
