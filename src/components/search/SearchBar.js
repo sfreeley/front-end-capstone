@@ -6,15 +6,21 @@ import MedicationCard from "../medication/MedicationCard";
 
 
 const SearchBar = (props) => {
+    let stateToChange;
+    let filteringDrugsArray
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
 //put searchTerm into state
 const [searchTerm, setSearchTerm ] = useState({
     keywordSearch: ""
 })
 const [drugsArray, setDrugsArray] = useState([])
+const [filteredDrugsArray, setFilteredDrugsArray ] = useState([])
+console.log(filteredDrugsArray)
+
+
 
 const handleFieldChange = (event) => {
-    const stateToChange = {...searchTerm}
+     stateToChange = {...searchTerm}
     stateToChange[event.target.id] = event.target.value
     setSearchTerm(stateToChange)
     console.log(event.target.value)
@@ -22,27 +28,34 @@ const handleFieldChange = (event) => {
 
 const getMatchingCards = () => {
     
-   ApplicationManager.getSearchResults(sessionUser.id, searchTerm.keywordSearch)
+   ApplicationManager.getDrugsForUser(sessionUser.id)
         .then(drugsFromAPI => {
             setDrugsArray(drugsFromAPI)
-            
+            // setSearchTerm(searchTerm.keywordSearch)
+    
             console.log(drugsFromAPI)
             console.log(drugsArray)
             console.log(searchTerm.keywordSearch)  
+
+
              
-        }).then(() => {
-            if (drugsArray.length === 0) {
-                return (
-                    <div> No matches exist for your search term </div>
-                )
-            }
+        }).then(
+            filteringDrugsArray = drugsArray.filter(drug => 
+                drug.name.toLowerCase().includes(searchTerm.keywordSearch.toLowerCase()) ? true : false
+            )
+        ).then(() => {
+            setFilteredDrugsArray(filteringDrugsArray)
         })
+    
            
 }
                  
 useEffect(() => {
     getMatchingCards();
-},[])
+},[stateToChange])
+
+
+
 
     return (
         <>
@@ -54,17 +67,9 @@ useEffect(() => {
         </form>
 
         <div>
-        
-        {drugsArray && drugsArray.map(drug => {
-            if(drugsArray.length === 0) {
-                alert("No matches exist for your search term")
-            } else {
-               return <MedicationCard {...props} drug={drug} />
-            }
-            
+        {filteredDrugsArray && filteredDrugsArray.map(drug => {
+            return <MedicationCard {...props} drug={drug} /> 
         })}
-        
-           
         </div>
         </>
     )

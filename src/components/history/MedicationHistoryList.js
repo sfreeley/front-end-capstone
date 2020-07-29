@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MedicationHistoryCard from "./MedicationHistoryCard";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
+import SearchBar from "../search/SearchBar";
 
 const MedicationHistoryList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -49,6 +50,7 @@ const MedicationHistoryList = (props) => {
     return (
         <>
          <NavBar {...props} />
+         <span><SearchBar {...props} /> </span>
         <section className="">
             <div className="">
             <h3>Medication History</h3>

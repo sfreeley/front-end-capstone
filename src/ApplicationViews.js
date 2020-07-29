@@ -11,7 +11,7 @@ import Registration from "./components/auth/Registration"
 import Home from "./components/home/Home";
 
 //medication
-import MedicationCard from "./components/medication/MedicationCard";
+import EditMedicationForm from "./components/medication/EditMedicationForm";
 import MedicationDetail from "./components/medication/MedicationDetail";
 import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";
@@ -66,11 +66,11 @@ const ApplicationViews = (props) => {
     }}
     />
 
-    {/* <Route path="/medication/search"
+    <Route path="/medication/:drugId(\d+)/edit"
     render={props => {
-        return (hasUser ? <MedicationCard {...props} /> : <Redirect to="/login" />)
+        return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
     }}
-    /> */}
+    />
 </>
  )   
  

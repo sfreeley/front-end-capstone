@@ -5,6 +5,7 @@ import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import ApplicationManager from "../modules/ApplicationManager";
 import {currentDateTime} from "../modules/helperFunctions";
 import {calculateNextRefill} from "../modules/helperFunctions";
+import SearchBar from "../search/SearchBar";
 
 
 const Home = (props) => {
@@ -72,6 +73,7 @@ const Home = (props) => {
     <>
         <NavBar {...props} hasUser={hasUser} clearUser={clearUser} />
         <div>
+            <SearchBar {...props} />
             <span>
             <img src="https://img.icons8.com/dusk/64/000000/pills.png" alt="addDrug"/>
             <Button onClick={toggle}>

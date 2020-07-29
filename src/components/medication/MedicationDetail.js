@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
+import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
@@ -61,7 +62,7 @@ const MedicationDetail = (props) => {
         })
      }
 
-     //object to be sent to handelChange function that will edit property of "taking" to false and move card to medication hx
+     //object to be sent to handleChange function that will edit property of "taking" to false and move card to medication hx
      const currentDrugDetail = {
          ...drug,
          taking: false
@@ -72,6 +73,9 @@ const MedicationDetail = (props) => {
     <div>
     <NavBar {...props} />
     </div>
+    <span>
+      <SearchBar />
+    </span>
     <CardDeck>
       <Card body color="success" >
         <strong>Date Entered:</strong> {drug.dateInput}
