@@ -7,7 +7,7 @@ import {
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-
+  
   const currentDrugTaking = {
     id: props.drug.id,
     name: props.drug.name,
@@ -24,6 +24,7 @@ const MedicationCard = (props) => {
     dateInput: props.drug.dateInput,
     taking: false
   }
+
   
     return (   
     <>
@@ -37,11 +38,11 @@ const MedicationCard = (props) => {
           /> 
           <label for="checkbox">Save to Medication History</label>
          </span>
-        {/* <Button  onClick={() => props.history.push("/medication/history")} >Save to Medication History</Button> */}
-      
+       
         {/* <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" /> */}
         <CardBody>
           <CardTitle>
+        
           <ul className="list-group list-group flex">
           <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
           <li className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</li>
@@ -63,7 +64,15 @@ const MedicationCard = (props) => {
           <hr/>
         
         </CardBody>
-          <Button>Edit</Button>
+        <Link to={`/medication/${props.drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+                        </Link>
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
           </Link>

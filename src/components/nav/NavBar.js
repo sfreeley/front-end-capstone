@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import SearchBar from "../search/SearchBar";
+import React, { useState } from "react"
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
-const NavBar = (props, drugs) => {
-    const hasUser = props.hasUser
+const NavBar = (props) => {
+    const clearUser = props.clearUser
    
     const [collapsed, setCollapsed] = useState(true);
       
@@ -40,9 +39,7 @@ const NavBar = (props, drugs) => {
                     <NavLink className="nav-link" href="/login">Login</NavLink>
                   </NavItem> */}
                 </Nav>
-                 <span>
-                   <SearchBar {...props} drugs={drugs}/>
-                 </span>
+                 
               </Collapse>
             </Navbar>
           </div>

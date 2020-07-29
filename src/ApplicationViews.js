@@ -11,6 +11,7 @@ import Registration from "./components/auth/Registration"
 import Home from "./components/home/Home";
 
 //medication
+import EditMedicationForm from "./components/medication/EditMedicationForm";
 import MedicationDetail from "./components/medication/MedicationDetail";
 import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";
@@ -49,7 +50,7 @@ const ApplicationViews = (props) => {
 
     <Route path="/medication/list"
     render={props => {
-        return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
+        return (hasUser ? <MedicationList  drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
     }}
     /> 
 
@@ -61,15 +62,15 @@ const ApplicationViews = (props) => {
 
     <Route exact path="/medication/detail/:drugId(\d+)"
     render={props => {
-        return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+        return (hasUser ? <MedicationDetail clearUser={clearUser} {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
     }}
     />
 
-    {/* <Route path="/medication/search"
+    <Route path="/medication/:drugId(\d+)/edit"
     render={props => {
-        return (hasUser ? <MedicationCard {...props} /> : <Redirect to="/login" />)
+        return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
     }}
-    /> */}
+    />
 </>
  )   
  

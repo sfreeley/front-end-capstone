@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Jumbotron, Container } from "reactstrap";
+import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
+
+
 
 
 const Registration = (props) => {
@@ -9,6 +11,8 @@ const Registration = (props) => {
     const [newUser, setNewUser] = useState({username: "", email: "", password: "", image: "" })
     const [allUsers, setAllUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false);
+    const [modal, setModal] = useState(false);
+    
 
     const handleFieldChange = event => {
         const stateToChange = { ...newUser };
@@ -25,6 +29,11 @@ const Registration = (props) => {
     useEffect(() => {
         getUsers()
     },[]);
+
+    
+        const toggle = () => setModal(!modal);
+    
+    
     
     const registerNewUser = event => {
         event.preventDefault();
@@ -36,8 +45,8 @@ const Registration = (props) => {
                return userObj.username === newUser.username  
             })
             if (findUsername && findUserEmail ) {
-                alert("User email and username already exist")
-                document.getElementById("registerForm").reset()
+               toggle()
+               document.getElementById("registerForm").reset()
             } else if (findUserEmail) {
                 alert("User email already exists")
             } else if (findUsername) {
@@ -128,13 +137,27 @@ const Registration = (props) => {
                     />
                 </FormGroup>    
             </Form>
-
             <Button
                 type="submit"
                 className="register-form-btn" disabled={isLoading}
                 onClick={registerNewUser}>
                 Create Account
             </Button>
+        
+            <div>
+            
+                <Modal isOpen={modal} toggle={toggle}>
+                    <ModalHeader toggle={toggle}>Alert</ModalHeader>
+                    <ModalBody>
+                    User email and username already exist
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={toggle}>
+                           {'Try again'}
+                        </Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
 
 
             <div className="registerAcct">
