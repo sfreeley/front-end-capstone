@@ -48,7 +48,7 @@ const getMatchingCards = () => {
             })
         ).then(() => {
             setFilteredDrugsArray(filteringDrugsArray)
-            document.getElementById("keywordSearch").value = ""
+            // document.getElementById("keywordSearch").value = ""
         
         })   
 }

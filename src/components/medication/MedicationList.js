@@ -12,13 +12,14 @@ import { calculateNextRefill } from "../modules/helperFunctions";
 
 const MedicationList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-
+    
     //modal states
     const [modal, setModal] = useState(false);
 
     const [editModal, setEditModal] = useState(false)
     
     const [nestedModal, setNestedModal] = useState(false);
+
     const [closeAll, setCloseAll] = useState(false);
     
     const toggle = () => setModal(!modal);
@@ -38,8 +39,8 @@ const MedicationList = (props) => {
     const [isLoading, setIsLoading] = useState(false)
     
     //display medication cards state
-    const [drugs, setDrugs] = useState([]);
-    
+    const [drugs, setDrugs] = useState([])
+ 
     //put new drug that will be added into state
     const [newDrug, setNewDrug] = useState({
         userId: sessionUser.id,
@@ -57,17 +58,15 @@ const MedicationList = (props) => {
         dateInput: ""
     })
    
-    
-
-  
-    
-   //get drugs based on user to display in medication list
+   //get drugs based on user to display in medication list and sort by earliest upcoming refill date
    const getDrugs = () => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-        setDrugs(drugsFromAPI)
-    }).then(drugs.sort((date1, date2)=> setDrugs(new Date(date1.dateInput) - new Date(date2.dateInput)))
-    )}
-
+        const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+        setDrugs(sortDrugsByDate)  
+    })
+    
+}
+   
     useEffect(() => {
     getDrugs()
     }, []);
@@ -92,7 +91,7 @@ const MedicationList = (props) => {
         }  
 
     }
-
+    //handling input field 
     const handleFieldChange = (event) => {
         const stateToChange = {...newDrug};
         stateToChange[event.target.id] = event.target.value;
@@ -173,7 +172,7 @@ const editingDrug = {
 
 
     useEffect(() => {
-        ApplicationManager.getDrugById(props.match.params.drugId)
+        ApplicationManager.getDrugById(drug.id)
             .then( (result) => {
                 setDrug(result)
                 console.log(result)
