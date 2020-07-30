@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import SearchResults from "./SearchResult";
 import ApplicationManager from "../modules/ApplicationManager";
 import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
 
 
 const SearchBar = (props) => {
-    let stateToChange;
     let filteringDrugsArray
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
 //put searchTerm into state
@@ -20,7 +18,7 @@ console.log(filteredDrugsArray)
 
 
 const handleFieldChange = (event) => {
-     stateToChange = {...searchTerm}
+     const stateToChange = {...searchTerm}
     stateToChange[event.target.id] = event.target.value
     setSearchTerm(stateToChange)
     console.log(event.target.value)
@@ -40,22 +38,23 @@ const getMatchingCards = () => {
 
              
         }).then(
-            filteringDrugsArray = drugsArray.filter(drug => 
-                drug.name.toLowerCase().includes(searchTerm.keywordSearch.toLowerCase()) ? true : false
-            )
+            filteringDrugsArray = drugsArray.filter(drug => {
+                console.log(Object.values(drug))
+                let drugValues = Object.values(drug)
+                for (const drugSearch of drugValues) {
+                    return drugValues.join().toLowerCase().includes(searchTerm.keywordSearch.toLowerCase())
+                }
+            })
         ).then(() => {
             setFilteredDrugsArray(filteringDrugsArray)
-        })
-    
-           
+            document.getElementById("keywordSearch").value = ""
+        
+        })   
 }
                  
 useEffect(() => {
     getMatchingCards();
-},[stateToChange])
-
-
-
+},[])
 
     return (
         <>
@@ -68,7 +67,8 @@ useEffect(() => {
 
         <div>
         {filteredDrugsArray && filteredDrugsArray.map(drug => {
-            return <MedicationCard {...props} drug={drug} /> 
+            return drug.taking ? <MedicationCard {...props} drug={drug} /> : <MedicationHistoryCard {...props} drug={drug} />
+            
         })}
         </div>
         </>
