@@ -95,13 +95,23 @@ const MedicationCard = (props) => {
           <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
           <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
           <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When should I fill this next?</strong> {props.drug.nextRefillDate}</li>     
+          <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
           </ul> 
           </CardText>
         </CardBody>
-          <Button>Edit</Button>
+        <Link to={`/medication/${props.drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+                        </Link>
+          <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
-          <Button>Delete</Button>
+          </Link>
+          <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
       </Card>
       </UncontrolledCollapse>
       </>

@@ -4,7 +4,7 @@ import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
-// import AddMedicationFormModal from "../medication/AddMedicationFormModal";
+import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 // import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
@@ -33,6 +33,10 @@ const MedicationList = (props) => {
         setCloseAll(true);
       }
     
+    //edit checkbox value state
+    const [isChecked, setIsChecked] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    
     //display medication cards state
     const [drugs, setDrugs] = useState([]);
     
@@ -53,9 +57,7 @@ const MedicationList = (props) => {
         dateInput: ""
     })
    
-    //edit checkbox value state
-    const [isChecked, setIsChecked] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+    
 
   
     
@@ -71,7 +73,7 @@ const MedicationList = (props) => {
     }, []);
 
     // adding new drug 
-    const handleAddNewDrug = (event) => {
+    const handleNewDrug = (event) => {
         event.preventDefault();
         if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
         || newDrug.directions === "" || newDrug.indication === "") {
@@ -83,14 +85,15 @@ const MedicationList = (props) => {
             newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
             ApplicationManager.postNewDrug(newDrug).then(() => {
                 ApplicationManager.getAllDrugs();
-                props.history.push("/medication/list")
+                setNewDrug(newDrug)
+                window.location.reload()
             })
             
         }  
 
     }
 
-    const handleAddFieldChange = (event) => {
+    const handleFieldChange = (event) => {
         const stateToChange = {...newDrug};
         stateToChange[event.target.id] = event.target.value;
         console.log(event.target.value)
@@ -231,11 +234,11 @@ const editingDrug = {
             <Button onClick={toggle}>
                 {'Add New Medication'}
             </Button>
-            {/* <AddMedicationFormModal isLoading={isLoading} handleAddFieldChange={handleAddFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
-            nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
+            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleNewDrug={handleNewDrug} newDrug={newDrug} 
+            nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             
-            <EditMedicationFormModal getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} idEditDrug={idEditDrug} handleEditChange={handleEditChange}
-            nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> */}
+            {/* <EditMedicationFormModal getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} idEditDrug={idEditDrug} handleEditChange={handleEditChange}
+            nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> */} 
             </span>
 
         <section className="">

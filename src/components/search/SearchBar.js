@@ -42,6 +42,7 @@ const getMatchingCards = () => {
                 console.log(Object.values(drug))
                 let drugValues = Object.values(drug)
                 for (const drugSearch of drugValues) {
+                    
                     return drugValues.join().toLowerCase().includes(searchTerm.keywordSearch.toLowerCase())
                 }
             })
