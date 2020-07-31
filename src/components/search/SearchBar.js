@@ -26,7 +26,7 @@ const handleFieldChange = (event) => {
 }
 
 const getMatchingCards = () => {
-    drugsArray(drugsArray.filter(
+    filteredDrugsArray(drugsArray.filter(
         filteringDrugsArray = drug => {
         let drugValues = Object.values(drug)
         for (const drugSearch of drugValues) {

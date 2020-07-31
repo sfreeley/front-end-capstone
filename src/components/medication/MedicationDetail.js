@@ -95,6 +95,7 @@ const MedicationDetail = (props) => {
           <li className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</li>
           <li className="list-group-item"><strong>Medication Type:</strong> {drug.dosageForm}</li>
           </ul>
+          <Button onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} type="button" className="btn btn-info">Pill Identifier</Button>
           </CardTitle>
           {/* <CardSubtitle></CardSubtitle> */}
           
