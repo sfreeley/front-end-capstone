@@ -5,7 +5,7 @@ import { calculateNextRefill } from "../modules/helperFunctions";
 import { Link } from "react-router-dom"
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Form, FormGroup
+    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Form, FormGroup, InputGroup
   } from 'reactstrap';
 
 const EditMedicationForm = (props) => {
@@ -70,7 +70,7 @@ const editingDrug = {
             })
         }, []);
         
- //this will take the editingDrug object and update it in database 
+ //this will take the editingDrug object and update it in database and display new info
  const handleEditChange = (event) => {
     event.preventDefault()
     setIsLoading(true)
@@ -79,7 +79,8 @@ const editingDrug = {
     .then(() => {
         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
             setDrug(drugsFromAPI)
-            props.history.push("/medication/list")
+            editingDrug.taking ? props.history.push("/medication/list") :
+            props.history.push("/medication/history")
             
         })
      }) 
@@ -92,6 +93,7 @@ return (
         <NavBar {...props} />
         
         <CardDeck>
+       
           <Card body color="info" >
            
            
@@ -104,8 +106,10 @@ return (
               {/* <CardSubtitle></CardSubtitle> */}
               
               <CardText>
+              
               <Form id="form" className="form-group d-lg-inline-flex flex-column bd-highlight border">
-            <FormGroup>
+             
+            <InputGroup>
                 <label htmlFor="name"><strong>Medication Name:</strong></label>
                 <input className="p-2 bd-highlight justify-content-center"
                     value={drug.name}
@@ -116,7 +120,8 @@ return (
                     required=""
                     placeholder="Medication Name"
                 />
-            </FormGroup>
+            </InputGroup>
+           
             <FormGroup>
                 <label htmlFor="strength"><strong>Medication Strength:</strong></label>
                 <input className="p-2 bd-highlight"
@@ -205,6 +210,7 @@ return (
                             </Button>
                         </Link> 
           </Card>
+         
            
           <>
           <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
@@ -268,7 +274,9 @@ return (
                             </Button>
                         </Link> 
           </Card>
+          
           </UncontrolledCollapse>
+          
           </>
         </CardDeck> 
       

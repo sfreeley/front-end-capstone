@@ -9,7 +9,6 @@ import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
 
-
 const MedicationList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     
@@ -83,15 +82,15 @@ const MedicationList = (props) => {
             newDrug.dateInput = currentDateTime(timestamp)
             newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
             ApplicationManager.postNewDrug(newDrug).then(() => {
-                ApplicationManager.getAllDrugs();
-                setNewDrug(newDrug)
-                window.location.reload()
+                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
+                    setDrugs(drugs)
+                    toggle()
+                })      
             })
-            
         }  
-
     }
-    //handling input field 
+    
+    //handling input field for posting new drug
     const handleFieldChange = (event) => {
         const stateToChange = {...newDrug};
         stateToChange[event.target.id] = event.target.value;
@@ -107,16 +106,14 @@ const MedicationList = (props) => {
        
             ApplicationManager.editDrug(drugToEdit)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugFromAPI) => {
-                    setDrugs(drugFromAPI)
-                    window.location.reload()
+                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
+                    setDrugs(drugsFromAPI)
+                    setIsChecked(false)
                    
                 })
              }) 
         }
     
-   
-
       //edit whole drug entry state
   const [drug, setDrug] = useState({
     id: "",
@@ -144,9 +141,6 @@ const handleEditFieldChange = (event) => {
     console.log(event.target.value) 
 };
 
-
-
-
 //this is the whole drug entry that will be edited
 const editingDrug = {
     id: drug.id,
@@ -166,6 +160,7 @@ const editingDrug = {
 
 }
 
+//getting the drug object by id of drug that will be edited in modal
 const getIdOfDrug = (event) => {
     ApplicationManager.getDrugById(event.target.id)
         .then( (result) => {
@@ -175,35 +170,21 @@ const getIdOfDrug = (event) => {
     toggleEdit()
 }
         
- //this will take the editingDrug object and update it in database (this will be brought back if trial code doesn't work)
-//  const handleEditChange = (event) => {
-//     event.preventDefault()
-//     setIsLoading(true)
-
-//     ApplicationManager.editDrug(editingDrug)
-//     .then(() => {
-//         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-//             setDrug(drugsFromAPI)
-            
-//         })
-//      }) 
-// }  
-
+ 
+//editing in modal
 const handleEditChange = () => {
     setIsLoading(true)
-
+    toggleEdit()
     ApplicationManager.editDrug(editingDrug)
     .then(() => {
-        ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {
-            setDrug(drugFromAPI)
-            window.location.reload()
-            
+        ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
+            setDrugs(drugsFromAPI);
         })
+
      }) 
 }    
 
  
-
 //delete drugs from medication list
     const removeDrug = (id) => {
         ApplicationManager.deleteDrug(id)
@@ -234,6 +215,7 @@ const handleEditChange = () => {
 
         <section className="">
          <h3>Current Medication List</h3>
+        
             <div className="">
                 {drugs && drugs.map(drug => drug.taking &&
                     <MedicationCard 
@@ -248,7 +230,6 @@ const handleEditChange = () => {
                         {...props} 
                     /> )} 
             </div>
-        
         </section> 
         </>
        

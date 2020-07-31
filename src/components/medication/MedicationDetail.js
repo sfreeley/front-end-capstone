@@ -121,8 +121,10 @@ const MedicationDetail = (props) => {
                                 Edit
                             </Button>
                         </Link>
-          <Button onClick={() => removeDrug(drug.id)}>Delete</Button>
+          <Button onClick={() => removeDrug(drug.id)}>Permanently Remove</Button>
       </Card>
+      {drug.rxNumber === "" && drug.dateFilled === "" && drug.daysSupply === "" ? null : 
+      <>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
       Rx Details
       </Button>
@@ -141,13 +143,25 @@ const MedicationDetail = (props) => {
           </ul> 
           </CardText>
         </CardBody>
-          <Button>Edit</Button>
-          <Button>Delete</Button>
+        <Link to={`/medication/${drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+                        </Link>
+          <Button onClick={() => removeDrug(drug.id)}>Permanently Remove</Button>
       </Card>
       </UncontrolledCollapse>
+      </>
+      }
     </CardDeck> 
+
   
     </>
+      
 
     )
 }

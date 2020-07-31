@@ -4,9 +4,7 @@ import ApplicationManager from "../modules/ApplicationManager";
 
 
 const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  
-
+    
     return (
         <>
         {drug &&

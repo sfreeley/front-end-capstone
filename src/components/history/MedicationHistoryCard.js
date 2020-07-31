@@ -76,6 +76,8 @@ const MedicationHistoryCard = (props) => {
           </Link>
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete Forever</Button>
       </Card>
+      {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
+      <>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
       Rx Details
       </Button>
@@ -109,6 +111,8 @@ const MedicationHistoryCard = (props) => {
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete Forever</Button>
       </Card>
       </UncontrolledCollapse>
+      </>
+      }
     </CardDeck> 
     </div>
   }
