@@ -101,11 +101,11 @@ const MedicationDetail = (props) => {
           
           <CardText>
           <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>How I Should Take My Medication:</strong>{drug.directions}</li>
-          <li className="list-group-item"><strong>Why am I taking this?:</strong> {drug.indication}</li>
+          <li className="list-group-item"><strong>How I Should Take My Medication?</strong> {drug.directions}</li>
+          <li className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</li>
           
           {drug.notes === "" ? null : 
-          <li className="list-group-item"><strong>Notes for me:</strong>: {drug.notes}</li>     
+          <li className="list-group-item"><strong>Notes for me:</strong>: {drug.notes} </li>     
           }
           </ul>
           </CardText>
