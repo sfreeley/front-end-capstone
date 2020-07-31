@@ -37,8 +37,7 @@ const MedicationHistoryCard = (props) => {
         /> 
          <label htmlFor="checkbox">Save back into Medication List</label>
          </span>
-        {/* <Button  onClick={() => props.history.push("/medication/history")} >Save to Medication History</Button> */}
-      
+       
         {/* <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" /> */}
         <CardBody>
           <CardTitle>
@@ -63,11 +62,19 @@ const MedicationHistoryCard = (props) => {
           <hr/>
         
         </CardBody>
-          <Button>Edit</Button>
+          <Link to={`/medication/${props.drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+            </Link>
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
           </Link>
-          <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+          <Button onClick={() => props.removeDrug(props.drug.id)}>Delete Forever</Button>
       </Card>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
       Rx Details
@@ -83,13 +90,23 @@ const MedicationHistoryCard = (props) => {
           <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
           <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
           <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When should I fill this next?:</strong> {props.drug.nextRefillDate}</li>     
+          <li className="list-group-item"><strong>When should I renew or refill this next?</strong> {props.drug.nextRefillDate}</li>     
           </ul> 
           </CardText>
         </CardBody>
-          <Button>Edit</Button>
+          <Link to={`/medication/${props.drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+            </Link>
+          <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
-          <Button>Delete</Button>
+          </Link>
+          <Button onClick={() => props.removeDrug(props.drug.id)}>Delete Forever</Button>
       </Card>
       </UncontrolledCollapse>
     </CardDeck> 

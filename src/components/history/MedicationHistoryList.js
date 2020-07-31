@@ -53,7 +53,7 @@ const MedicationHistoryList = (props) => {
     return (
         <>
          <NavBar {...props} />
-         <span><SearchBar {...props} /> </span>
+         <span><SearchBar {...props} handleChange={handleChange} /> </span>
         <section className="">
             <div className="">
             <h3>Medication History</h3>

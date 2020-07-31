@@ -5,7 +5,7 @@ import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
 import AddMedicationFormModal from "../medication/AddMedicationFormModal";
-// import EditMedicationFormModal from "../medication/EditMedicationFormModal";
+import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
 
@@ -72,7 +72,7 @@ const MedicationList = (props) => {
     }, []);
 
     // adding new drug 
-    const handleNewDrug = (event) => {
+    const handleAddNewDrug = (event) => {
         event.preventDefault();
         if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
         || newDrug.directions === "" || newDrug.indication === "") {
@@ -109,19 +109,13 @@ const MedicationList = (props) => {
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugFromAPI) => {
                     setDrugs(drugFromAPI)
-                    props.history.push("/medication/history")
-            
+                    window.location.reload()
+                   
                 })
              }) 
         }
     
    
-    const [idEditDrug, setIdEditDrug] = useState("")
-
-    const getIdOfDrug = (drugCardId) => {
-        setIdEditDrug(drugCardId)
-        toggle()
-    }
 
       //edit whole drug entry state
   const [drug, setDrug] = useState({
@@ -140,17 +134,20 @@ const MedicationList = (props) => {
     dateInput: "",
     taking: true
 })
+console.log(drug)
 
 //handle field changes for whole drug entry edit functionality
 const handleEditFieldChange = (event) => {
     const stateToChange = {...drug};
     stateToChange[event.target.id] = event.target.value;
-    
     setDrug(stateToChange);  
     console.log(event.target.value) 
 };
 
-//this is the drug entry that will be edited
+
+
+
+//this is the whole drug entry that will be edited
 const editingDrug = {
     id: drug.id,
     name: drug.name,
@@ -163,53 +160,48 @@ const editingDrug = {
     rxNumber: drug.rxNumber,
     dateFilled: drug.dateFilled,
     daysSupply: drug.daysSupply,
-    nextRefillDate: drug.nextRefillDate,
+    nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
     taking: drug.taking
 
 }
 
-
-
-    useEffect(() => {
-        ApplicationManager.getDrugById(drug.id)
-            .then( (result) => {
-                setDrug(result)
-                console.log(result)
-                    // {
-                    // id: result.id,
-                    // name: result.name,
-                    // userId: sessionUser.id,
-                    // strength: result.strength,
-                    // dosageForm: result.dosageForm,
-                    // directions: result.directions,
-                    // indication: result.indication,
-                    // notes: result.notes,
-                    // rxNumber: result.rxNumber,
-                    // dateFilled: result.dateFilled,
-                    // daysSupply: result.daysSupply,
-                    // nextRefillDate: result.nextRefillDate,
-                    // dateInput: result.dateInput,
-                    // taking: result.taking
-                // }
-                
-                setIsLoading(false)
-            })
-        }, []);
+const getIdOfDrug = (event) => {
+    ApplicationManager.getDrugById(event.target.id)
+        .then( (result) => {
+            setDrug(result)
+            setIsLoading(false)
+        })
+    toggleEdit()
+}
         
- //this will take the editingDrug object and update it in database 
- const handleEditChange = (event) => {
-    event.preventDefault()
+ //this will take the editingDrug object and update it in database (this will be brought back if trial code doesn't work)
+//  const handleEditChange = (event) => {
+//     event.preventDefault()
+//     setIsLoading(true)
+
+//     ApplicationManager.editDrug(editingDrug)
+//     .then(() => {
+//         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
+//             setDrug(drugsFromAPI)
+            
+//         })
+//      }) 
+// }  
+
+const handleEditChange = () => {
     setIsLoading(true)
 
     ApplicationManager.editDrug(editingDrug)
     .then(() => {
-        ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-            setDrug(drugsFromAPI)
+        ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {
+            setDrug(drugFromAPI)
+            window.location.reload()
             
         })
      }) 
 }    
+
  
 
 //delete drugs from medication list
@@ -226,18 +218,18 @@ const editingDrug = {
         <>
         <NavBar {...props} />
         <span>
-        <SearchBar {...props}/>
+        <SearchBar {...props} handleChange={handleChange}/>
         </span>
         <span>
             <img src="https://img.icons8.com/dusk/64/000000/pills.png" alt="addDrug"/>
             <Button onClick={toggle}>
                 {'Add New Medication'}
             </Button>
-            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleNewDrug={handleNewDrug} newDrug={newDrug} 
+            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
             nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             
-            {/* <EditMedicationFormModal getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} idEditDrug={idEditDrug} handleEditChange={handleEditChange}
-            nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> */} 
+             <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+            nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             </span>
 
         <section className="">

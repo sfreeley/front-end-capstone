@@ -64,7 +64,15 @@ const MedicationCard = (props) => {
           <hr/>
         
         </CardBody>
-        <Link to={`/medication/${props.drug.id}/edit`}>
+        <Button 
+                                className="editMedication" 
+                                id={props.drug.id}
+                                type="button"
+                                onClick={props.getIdOfDrug}
+                                >
+                                Edit
+                            </Button>
+        {/* <Link to={`/medication/${props.drug.id}/edit`}>
                             <Button 
                                 className="editMedication" 
                                 id="editMedication"
@@ -72,10 +80,10 @@ const MedicationCard = (props) => {
                                 >
                                 Edit
                             </Button>
-                        </Link>
+                        </Link>*/}
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
-          </Link>
+          </Link> 
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
       
       </Card>
@@ -99,15 +107,14 @@ const MedicationCard = (props) => {
           </ul> 
           </CardText>
         </CardBody>
-        <Link to={`/medication/${props.drug.id}/edit`}>
-                            <Button 
+        <Button 
                                 className="editMedication" 
-                                id="editMedication"
+                                id={props.drug.id}
                                 type="button"
+                                onClick={props.getIdOfDrug}
                                 >
                                 Edit
                             </Button>
-                        </Link>
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Details</Button>
           </Link>

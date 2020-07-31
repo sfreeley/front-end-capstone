@@ -2,7 +2,7 @@ import React from "react";
 import { Form, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 
 
-const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewDrug, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
     
     return (
         <>
@@ -133,7 +133,7 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
           </Modal>
                 </ModalBody>
                             <ModalFooter>
-                                <Button type="button" color="primary" isLoading={isLoading} onClick={handleNewDrug}>
+                                <Button type="button" color="primary" isLoading={isLoading} onClick={handleAddNewDrug}>
                                     {'Add Medication'}
                                 </Button>
                                 

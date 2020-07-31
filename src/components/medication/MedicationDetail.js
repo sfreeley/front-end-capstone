@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
+import { Link } from "react-router-dom"
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
@@ -110,7 +111,15 @@ const MedicationDetail = (props) => {
           <hr/>
         
         </CardBody>
-          <Button>Edit</Button>
+        <Link to={`/medication/${drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+                        </Link>
           <Button onClick={() => removeDrug(drug.id)}>Delete</Button>
       </Card>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>

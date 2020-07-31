@@ -45,7 +45,7 @@ const Registration = (props) => {
                return userObj.username === newUser.username  
             })
             if (findUsername && findUserEmail ) {
-               toggle()
+                alert("User email and username already exists")
                document.getElementById("registerForm").reset()
             } else if (findUserEmail) {
                 alert("User email already exists")
@@ -146,7 +146,7 @@ const Registration = (props) => {
         
             <div>
             
-                <Modal isOpen={modal} toggle={toggle}>
+                {/* <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Alert</ModalHeader>
                     <ModalBody>
                     User email and username already exist
@@ -156,8 +156,8 @@ const Registration = (props) => {
                            {'Try again'}
                         </Button>
                     </ModalFooter>
-                </Modal>
-            </div>
+                </Modal>*/}
+            </div> 
 
 
             <div className="registerAcct">
