@@ -82,7 +82,7 @@ const MedicationCard = (props) => {
                             </Button>
                         </Link>*/}
           <Link to={`/medication/detail/${props.drug.id}`}>
-          <Button>Details</Button>
+          <Button>Expand</Button>
           </Link> 
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
       
@@ -93,7 +93,7 @@ const MedicationCard = (props) => {
       Rx Details
       </Button>
       <UncontrolledCollapse toggler="#toggler">
-      <Card>
+      <Card body color="danger">
         {/* <CardImg top width="100%" src="png" alt="bottle" /> */}
         <CardBody> 
           <CardTitle><strong>Prescription Details</strong></CardTitle>
@@ -116,7 +116,7 @@ const MedicationCard = (props) => {
                                 Edit
                             </Button>
           <Link to={`/medication/detail/${props.drug.id}`}>
-          <Button>Details</Button>
+          <Button>Expand</Button>
           </Link>
           <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
       </Card>

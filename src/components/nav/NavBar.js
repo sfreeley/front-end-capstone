@@ -2,61 +2,45 @@ import React, { useState } from "react"
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 
 const NavBar = (props) => {
-    const clearUser = props.clearUser
-   
-    const [collapsed, setCollapsed] = useState(true);
-      
-    const toggleNavbar = () => setCollapsed(!collapsed);
 
-        return (
-            <>
-          <div>
-            <Navbar color="faded" light >
-              <NavbarBrand href="/" className="mr-auto"><h1>Welcome to TrackRx</h1></NavbarBrand>
-              <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-              <Collapse isOpen={!collapsed} navbar>
-                <Nav navbar>
-                 
-                  <NavItem>
-                    <NavLink href="/medication/list" className="nav-link" activeClassName="nav-link--active">
-                        Current Medication List
+  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+
+  return (
+    <>
+      <div>
+        <Navbar color="faded" light >
+          <NavbarBrand href="/" className="mr-auto"><h1>Welcome to TrackRx, {sessionUser.username}</h1></NavbarBrand>
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!collapsed} navbar>
+            <Nav navbar>
+
+              <NavItem>
+                <NavLink href="/medication/list" className="nav-link" activeClassName="nav-link--active">
+                  Current Medication List
                     </NavLink>
-                  </NavItem> 
-   
-                  <NavItem>
-                    <NavLink href="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
-                  </NavItem>
-                 
-                  <NavItem>
-                    <NavLink href="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
-                  </NavItem>
-                  
-                  <NavItem>
-                    <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
-                  </NavItem> 
-                  {/* will only be showing nav bar if user is logged in --don't need Login? (directs back to homepage) */}
-                  {/* <NavItem>
-                    <NavLink className="nav-link" href="/login">Login</NavLink>
-                  </NavItem> */}
-                </Nav>
-                 
-              </Collapse>
-            </Navbar>
-          </div>
-        </>
-        );
-      
-      
-        // {props.hasUser
-        //     ? <li>
-        //         <Link className="nav-link" onClick={handleLogout} to="/login"> 
-        //         <span role="img" aria-label="logout">&#x1F52A; </span> 
-        //         Logout 
-        //         </Link>
-        //       </li>
-        //     : <li>
-        //         <Link className="nav-link" to="/login">Login</Link>
-        //       </li>}
+              </NavItem>
+
+              <NavItem>
+                <NavLink href="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink href="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
+    </>
+  );
 
 }
 export default NavBar

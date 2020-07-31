@@ -58,7 +58,7 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="indication"><strong></strong>Purpose of Medication</label>
+                        <label htmlFor="indication"><strong>Purpose of Medication</strong></label>
                         <input className="p-2 bd-highlight"
                             value={newDrug.indication}
                             onChange={handleFieldChange}
@@ -70,7 +70,7 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="notes">Medication Notes</label>
+                        <label htmlFor="notes"><strong>Medication Notes</strong></label>
                         <textarea className="p-2 bd-highlight"
                             value={newDrug.notes}
                             onChange={handleFieldChange}
@@ -81,14 +81,14 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                         />
                     </FormGroup>
                 </Form>
-                <Button color="success" onClick={toggleNested}>Refill Details</Button>
+                <Button color="success" onClick={toggleNested}><strong>Refill Details</strong></Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
             <ModalHeader>Prescription Details (leave blank if over the counter)</ModalHeader>
             <ModalBody>
             {/* start of nested form */}
             <Form className="form-group d-lg-inline-flex flex-column bd-highlight">
                     <FormGroup>
-                        <label htmlFor="rxNumber">Prescription Number</label>
+                        <label htmlFor="rxNumber"><strong>Prescription Number</strong></label>
                         <input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.rxNumber}
                             onChange={handleFieldChange}
@@ -99,19 +99,18 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="dateFilled">Last Date Filled</label>
+                        <label htmlFor="dateFilled"><strong>Last Date Filled</strong></label>
                         <input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.dateFilled}
                             onChange={handleFieldChange}
-                            type="text"
+                            type="date"
                             name="dateFilled"
                             id="dateFilled"
                             required=""
-                            placeholder="Most recent fill date (Format: MM/DD/YYYY)"
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="daysSupply">Days Supply</label>
+                        <label htmlFor="daysSupply"><strong>Days Supply</strong></label>
                         <input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.daysSupply}
                             onChange={handleFieldChange}
