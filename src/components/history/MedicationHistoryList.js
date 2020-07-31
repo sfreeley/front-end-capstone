@@ -14,10 +14,13 @@ const MedicationHistoryList = (props) => {
     //get drugs based on user
     const getDrugs = () => {
         return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-            setDrugs(drugsFromAPI)
-        }).then(drugs.sort((date1, date2)=> setDrugs(new Date(date1.dateInput) - new Date(date2.dateInput)))
-    )}
+            const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+            setDrugs(sortHistoryDrugs)  
+        })
+        
+    }
 
+        
      useEffect(() => {
         getDrugs()
     }, []);
@@ -50,7 +53,7 @@ const MedicationHistoryList = (props) => {
     return (
         <>
          <NavBar {...props} />
-         <span><SearchBar {...props} /> </span>
+         <span><SearchBar {...props} handleChange={handleChange} /> </span>
         <section className="">
             <div className="">
             <h3>Medication History</h3>

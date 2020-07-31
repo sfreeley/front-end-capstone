@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
+import { Link } from "react-router-dom"
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
@@ -94,6 +95,7 @@ const MedicationDetail = (props) => {
           <li className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</li>
           <li className="list-group-item"><strong>Medication Type:</strong> {drug.dosageForm}</li>
           </ul>
+          <Button onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} type="button" className="btn btn-info">Pill Identifier</Button>
           </CardTitle>
           {/* <CardSubtitle></CardSubtitle> */}
           
@@ -110,7 +112,15 @@ const MedicationDetail = (props) => {
           <hr/>
         
         </CardBody>
-          <Button>Edit</Button>
+        <Link to={`/medication/${drug.id}/edit`}>
+                            <Button 
+                                className="editMedication" 
+                                id="editMedication"
+                                type="button"
+                                >
+                                Edit
+                            </Button>
+                        </Link>
           <Button onClick={() => removeDrug(drug.id)}>Delete</Button>
       </Card>
       <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>

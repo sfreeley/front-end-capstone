@@ -2,17 +2,18 @@ import React from "react";
 import { Form, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 
 
-const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewDrug, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
     
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle}>What does your medication bottle tell you?</ModalHeader>
                 <ModalBody>
-                    <Form className="form-group d-lg-inline-flex flex-column bd-highlight">
+                    <Form id="addDrug" className="form-group d-lg-inline-flex flex-column bd-highlight">
                     <FormGroup>
-                        <label htmlFor="name">Medication Name</label>
+                        <label htmlFor="name"><strong>Medication Name</strong></label>
                         <input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.name}
                             onChange={handleFieldChange}
                             type="text"
                             name="name"
@@ -21,8 +22,9 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="strength">Medication Strength</label>
+                        <label htmlFor="strength"><strong>Medication Strength</strong></label>
                         <input className="p-2 bd-highlight"
+                            value={newDrug.strength}
                             onChange={handleFieldChange}
                             type="text"
                             name="strength"
@@ -32,8 +34,9 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="dosageForm">Medication Type</label>
+                        <label htmlFor="dosageForm"><strong>Medication Type</strong></label>
                         <input className="p-2 bd-highlight"
+                            value={newDrug.dosageForm}
                             onChange={handleFieldChange}
                             type="text"
                             name="dosageForm"
@@ -43,8 +46,9 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="directions">Medication Directions</label>
+                        <label htmlFor="directions"><strong>Medication Directions</strong></label>
                         <input className="p-2 bd-highlight"
+                            value={newDrug.directions}
                             onChange={handleFieldChange}
                             type="text"
                             name="directions"
@@ -54,8 +58,9 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                         />
                     </FormGroup>
                     <FormGroup>
-                        <label htmlFor="indication">Purpose of Medication</label>
+                        <label htmlFor="indication"><strong></strong>Purpose of Medication</label>
                         <input className="p-2 bd-highlight"
+                            value={newDrug.indication}
                             onChange={handleFieldChange}
                             type="text"
                             name="indication"
@@ -67,6 +72,7 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                     <FormGroup>
                         <label htmlFor="notes">Medication Notes</label>
                         <textarea className="p-2 bd-highlight"
+                            value={newDrug.notes}
                             onChange={handleFieldChange}
                             type="text"
                             name="notes"
@@ -84,6 +90,7 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                     <FormGroup>
                         <label htmlFor="rxNumber">Prescription Number</label>
                         <input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.rxNumber}
                             onChange={handleFieldChange}
                             type="text"
                             name="rxNumber"
@@ -94,6 +101,7 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                     <FormGroup>
                         <label htmlFor="dateFilled">Last Date Filled</label>
                         <input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.dateFilled}
                             onChange={handleFieldChange}
                             type="text"
                             name="dateFilled"
@@ -105,6 +113,7 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                     <FormGroup>
                         <label htmlFor="daysSupply">Days Supply</label>
                         <input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.daysSupply}
                             onChange={handleFieldChange}
                             type="text"
                             name="daysSupply"
@@ -117,17 +126,18 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
 
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={toggleNested}>Done</Button>{' '}
-              <Button color="secondary" onClick={toggleAll}>All Done</Button>
+              <Button color="primary" onClick={toggleNested}>Done</Button>
+              <Button color="primary" onClick={toggleNested}>Cancel</Button>
+              <Button color="secondary" onClick={toggleAll}>Cancel All</Button>
             </ModalFooter>
           </Modal>
                 </ModalBody>
                             <ModalFooter>
-                                <Button color="primary" isLoading={isLoading} onClick={handleAddNewDrug}>
+                                <Button type="button" color="primary" isLoading={isLoading} onClick={handleAddNewDrug}>
                                     {'Add Medication'}
                                 </Button>
                                 
-                                <Button color="primary" onClick={toggle}>
+                                <Button type="button" color="primary" onClick={toggle}>
                                     {'Cancel'}
                                 </Button>
                             

@@ -17,6 +17,9 @@ import AddMedicationFormModal from "./components/medication/AddMedicationFormMod
 import MedicationList from "./components/medication/MedicationList";
 import MedicationHistoryList from "./components/history/MedicationHistoryList";
 
+//resources
+import Resource from "./components/resource/Resource";
+
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
@@ -50,7 +53,7 @@ const ApplicationViews = (props) => {
 
     <Route path="/medication/list"
     render={props => {
-        return (hasUser ? <MedicationList  drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
+        return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
     }}
     /> 
 
@@ -69,6 +72,12 @@ const ApplicationViews = (props) => {
     <Route path="/medication/:drugId(\d+)/edit"
     render={props => {
         return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
+    }}
+    />
+
+    <Route path="/medication/resources"
+    render={props => {
+        return (hasUser ? <Resource {...props} /> : <Redirect to="/login" />)
     }}
     />
 </>

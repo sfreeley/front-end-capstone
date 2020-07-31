@@ -66,23 +66,6 @@ const editingDrug = {
             .then( (result) => {
                 setDrug(result)
                 console.log(result)
-                    // {
-                    // id: result.id,
-                    // name: result.name,
-                    // userId: sessionUser.id,
-                    // strength: result.strength,
-                    // dosageForm: result.dosageForm,
-                    // directions: result.directions,
-                    // indication: result.indication,
-                    // notes: result.notes,
-                    // rxNumber: result.rxNumber,
-                    // dateFilled: result.dateFilled,
-                    // daysSupply: result.daysSupply,
-                    // nextRefillDate: result.nextRefillDate,
-                    // dateInput: result.dateInput,
-                    // taking: result.taking
-                // }
-                
                 setIsLoading(false)
             })
         }, []);
