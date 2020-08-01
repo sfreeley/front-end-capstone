@@ -33,6 +33,7 @@ const MedicationList = (props) => {
         setCloseAll(true);
       }
     
+    
     //edit checkbox value state
     const [isChecked, setIsChecked] = useState(false)
     const [isLoading, setIsLoading] = useState(false)

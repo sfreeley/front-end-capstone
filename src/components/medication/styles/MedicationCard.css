@@ -1,1 +1,47 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans', sans-serif;
+   
+}
 
+.date {
+    /* text-align: center; */
+}
+
+.medication-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-around;
+    background-color: #ACBEA3;
+    
+}
+
+.card-style {
+    max-width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    align-content: space-around;
+
+}
+
+.card-item-style {
+    max-width: 40%;
+    height: 75%;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    background-color: #f1f1f1
+    
+}
+
+.btn-edit, .btn-expand, .btn-delete, .btn-rx-details {
+   margin: 5px;
+   background-color:  #40476d
+}
+
+.img-thumbnail {
+    max-width: 10%;
+}

@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Input
+    CardSubtitle, Container, CardBody, UncontrolledCollapse, Row, Col, CustomInput, Input
   } from 'reactstrap';
-  // import "./styles/MedicationCard.css"
+  import "./styles/MedicationCard.css"
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -26,13 +26,16 @@ const MedicationCard = (props) => {
     taking: false
   }
 
-    return (   
-      <div className="card-style">
+    return (  
+      <Container fluid className="medication-cards">
+      
     
     {props.drug &&
-   
-    <CardDeck>
-      <Card  width="50%" >
+  
+    <CardDeck className="card-style">
+    <Col sm-auto >
+    <Row width="50%">
+      <Card className="card-item-style" >
       
         <span>
           <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
@@ -40,10 +43,10 @@ const MedicationCard = (props) => {
           <label for="checkbox">Save to Medication History</label>
          </span>
        
-        {/* <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" /> */}
+        <CardImg className="img-thumbnail" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
         <CardBody>
           <CardTitle>
-          <span><strong>Date Entered:</strong> {props.drug.dateInput}</span>
+          <span className="date"><strong>Date Entered:</strong> {props.drug.dateInput}</span>
         
           <ul className="list-group list-group flex">
           <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
@@ -66,8 +69,8 @@ const MedicationCard = (props) => {
           <hr/>
         
         </CardBody>
-        <Button 
-            className="editMedication" 
+        <div className="btn-all">
+        <Button className="btn-edit" 
             id={props.drug.id}
             type="button"
             onClick={props.getIdOfDrug}
@@ -76,18 +79,23 @@ const MedicationCard = (props) => {
         </Button>
       
           <Link to={`/medication/detail/${props.drug.id}`}>
-          <Button>Expand</Button>
+          <Button className="btn-expand">Expand</Button>
           </Link> 
-          <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+          <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+          <Button 
+          className="btn-rx-details"
+          color="primary" 
+          id={`drug${props.drug.id}`} >
+          Rx Details
+        </Button>
+        </div>
+       </Card>
       
-      </Card>
       {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
       <>
-      <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
-      Rx Details
-      </Button>
-      <UncontrolledCollapse toggler="#toggler">
-      <Card body color="danger">
+      
+      <UncontrolledCollapse toggler={`#drug${props.drug.id}`} >
+      <Card>
         {/* <CardImg top width="100%" src="png" alt="bottle" /> */}
         <CardBody> 
           <CardTitle><strong>Prescription Details</strong></CardTitle>
@@ -101,28 +109,41 @@ const MedicationCard = (props) => {
           </ul> 
           </CardText>
         </CardBody>
+       
         <Button 
-                                className="editMedication" 
-                                id={props.drug.id}
-                                type="button"
-                                onClick={props.getIdOfDrug}
-                                >
-                                Edit
-                            </Button>
-          <Link to={`/medication/detail/${props.drug.id}`}>
-          <Button>Expand</Button>
-          </Link>
-          <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+            className="btn-editMedication" 
+            id={props.drug.id}
+            type="button"
+            onClick={props.getIdOfDrug}
+            
+            >
+            Edit
+        </Button>
+      
+        <Link to={`/medication/detail/${props.drug.id}`}>
+        <Button>Expand</Button>
+        </Link>
+        <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+  
       </Card>
+      
       </UncontrolledCollapse>
+     
       </>
+      
+      
       }
+      </Row>
+      </Col>
     </CardDeck> 
+   
+    
    
   }
   
     
-    </div>
+   
+    </Container> 
      
     )
 }
