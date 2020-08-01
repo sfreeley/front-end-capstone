@@ -19,7 +19,17 @@ const TrackRx = () => {
   }
 
   return (
+    <>
+    <header>
+      <div className="site-title">
+       
+      </div>
+    </header>
+    
     <ApplicationViews hasUser={hasUser} setUser={setUser} clearUser={clearUser} />
+
+  </>
+    
   )
 
 }

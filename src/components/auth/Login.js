@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col, Label, Input, FormFeedback, FormText } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
+import "./styles/Login.css"
+
 
 
 const Login = (props) => {
@@ -43,21 +45,16 @@ const Login = (props) => {
  
 
     return (
-        <>
-           
-    <div>
-      <Jumbotron fluid>
-        <Container fluid className="d-inline-flex flex-column bd-highlight border">
-          {/* <h1 className="display-4"></h1> */}
-          <img src={require("../../images/trackrx-logo.png")} alt="logo" className="rounded"/>
-        </Container>
-      </Jumbotron>
-    </div>
-        
-        <Form id="form" className="form-group d-lg-inline-flex flex-column bd-highlight border">
-            <FormGroup>
-                {/* <label htmlFor="email"></label> */}
-                <input className="p-2 bd-highlight justify-content-center"
+       <>
+        <div className="base-container" >
+        <div className="content">
+          <div className="image">
+            {/* <img src={loginImg} /> */}
+          </div>
+          <div className="form">
+            <div className="form-group">
+            <Label for="exampleEmail">Email Address</Label>
+            <Input className="p-2 bd-highlight justify-content-center email"
                     onChange={handleFieldChange}
                     type="email"
                     name="email"
@@ -65,10 +62,10 @@ const Login = (props) => {
                     required=""
                     placeholder="Email address"
                 />
-            </FormGroup>
-            <FormGroup>
-                {/* <label htmlFor="password"></label> */}
-                <input className="p-2 bd-highlight"
+            </div>
+            <div className="form-group">
+            <Label for="exampleEmail">Password</Label>
+             <Input className="p-2 bd-highlight"
                     onChange={handleFieldChange}
                     type="password"
                     name="password"
@@ -76,12 +73,15 @@ const Login = (props) => {
                     required=""
                     placeholder="Password"
                 />
-            </FormGroup>
-               
-                <div>
-                <Button color="primary" onClick={handleLogin}>
-                    {'Login'}
+            </div>
+          </div>
+        </div>
+        <div className="footer">
+        <div border="1px solid" className="d-flex p-2 bd-highlight">
+                <Button className="login-form-btn" outline color="info" onClick={handleLogin}>
+                   Login
                 </Button>
+            </div>
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Alert</ModalHeader>
                     <ModalBody>
@@ -89,22 +89,28 @@ const Login = (props) => {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={toggle}>
-                           {'Try again'}
+                           Try again
                         </Button>
                     </ModalFooter>
                 </Modal>
-                </div>
-        </Form>
-       
-        <div className="registerAcct">
-              <span className="registerAcct__text">
-                New User?
-                </span>
-                <Link to="/register">
+     
+    <div className="registerAcct">
+        <span className="registerAcct__text">
+        New User?
+        <Link to="/register">
                 Register
-                </Link>
+        </Link>
+        </span>
+                
+    </div>
+    </div>
+
+
         </div>
-        </>
+     
+     </>
+    
+    
         
     )
         

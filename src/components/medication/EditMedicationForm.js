@@ -5,7 +5,7 @@ import { calculateNextRefill } from "../modules/helperFunctions";
 import { Link } from "react-router-dom"
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Form, FormGroup, InputGroup
+    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Form, FormGroup, Input, TextArea, Label
   } from 'reactstrap';
 
 const EditMedicationForm = (props) => {
@@ -94,24 +94,22 @@ return (
         
         <CardDeck>
        
-          <Card body color="info" >
+          <Card>
            
            
             <CardBody>
               <CardTitle>
               <strong>Date Entered:</strong> {drug.dateInput}
-                <h3>Edit Medication Entry</h3>
               
               </CardTitle>
               {/* <CardSubtitle></CardSubtitle> */}
               
               <CardText>
               
-              <Form id="form" className="form-group d-lg-inline-flex flex-column bd-highlight border">
              
-            <InputGroup>
-                <label htmlFor="name"><strong>Medication Name:</strong></label>
-                <input className="p-2 bd-highlight justify-content-center"
+             
+            <Label htmlFor="name"><strong>Medication Name:</strong></Label>
+            <Input className="p-2 bd-highlight justify-content-center"
                     value={drug.name}
                     onChange={handleEditFieldChange}
                     type="name"
@@ -119,12 +117,11 @@ return (
                     id="name"
                     required=""
                     placeholder="Medication Name"
-                />
-            </InputGroup>
-           
-            <FormGroup>
-                <label htmlFor="strength"><strong>Medication Strength:</strong></label>
-                <input className="p-2 bd-highlight"
+                    />
+                
+               
+                <Label htmlFor="strength"><strong>Medication Strength:</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.strength}
                     onChange={handleEditFieldChange}
                     type="strength"
@@ -133,10 +130,10 @@ return (
                     required=""
                     placeholder="ie 5 mg, 100 mcg, 1 g, etc"
                 />
-            </FormGroup>
-            <FormGroup>
-                <label htmlFor="dosageForm"><strong>Medication Type:</strong></label>
-                <input className="p-2 bd-highlight"
+           
+            
+                <Label htmlFor="dosageForm"><strong>Medication Type:</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.dosageForm}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -145,10 +142,10 @@ return (
                     required=""
                     placeholder="ie tablet, capsule, solution"
                 />
-            </FormGroup>
-            <FormGroup>
-                <label htmlFor="directions"><strong>How I Should Take My Medication?</strong></label>
-                <input className="p-2 bd-highlight"
+            
+            
+                <Label htmlFor="directions"><strong>How I Should Take My Medication?</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.directions}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -157,10 +154,10 @@ return (
                     required=""
                     placeholder="ie take 1 tablet by mouth..."
                 />
-            </FormGroup>
-            <FormGroup>
-                <label htmlFor="indication"><strong>Why am I taking this?</strong></label>
-                <input className="p-2 bd-highlight"
+            
+            
+                <Label htmlFor="indication"><strong>Why am I taking this?</strong></Label>
+                <Input className="p-2 bd-highlight"
                      value={drug.indication}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -169,10 +166,10 @@ return (
                     required=""
                     placeholder="What did your doctor or pharmacist tell you this medication was for?"
                 />
-            </FormGroup>
-            <FormGroup>
-                <label htmlFor="notes"><strong>Notes for Me:</strong></label>
-                <textarea className="p-2 bd-highlight"
+            
+            
+                <Label htmlFor="notes"><strong>Notes for Me:</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.notes}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -181,8 +178,8 @@ return (
                     required=""
                     placeholder="Questions? Side effects?"
                 />
-            </FormGroup>
-            </Form>
+            
+        
               </CardText>
               <hr/>
             
@@ -224,8 +221,8 @@ return (
               {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
               <CardText>
               <FormGroup>
-                <label htmlFor="rxNumber"><strong>Prescription Number:</strong></label>
-                <input className="p-2 bd-highlight"
+                <Label htmlFor="rxNumber"><strong>Prescription Number:</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.rxNumber}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -236,8 +233,8 @@ return (
                 />
             </FormGroup>
               <FormGroup>
-                <label htmlFor="dateFilled"><strong>Last Date Filled:</strong></label>
-                <input className="p-2 bd-highlight"
+                <Label htmlFor="dateFilled"><strong>Last Date Filled:</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.dateFilled}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -249,8 +246,8 @@ return (
                 />
             </FormGroup>
               <FormGroup>
-                <label htmlFor="daysSupply"><strong>Days Supply:</strong></label>
-                <input className="p-2 bd-highlight"
+                <Label htmlFor="daysSupply"><strong>Days Supply:</strong></Label>
+                <Input className="p-2 bd-highlight"
                     value={drug.daysSupply}
                     onChange={handleEditFieldChange}
                     type="type"
@@ -264,15 +261,15 @@ return (
               </CardText>
             </CardBody>
               <Button onClick={handleEditChange}>Save</Button>
-              <Link to="/medication/list">
-                            <Button 
-                                className="returnMedicationList" 
-                                id="returnMedicationList"
-                                type="button"
-                                >
-                                Cancel
-                            </Button>
-                        </Link> 
+            <Link to="/medication/list">
+                <Button 
+                    className="returnMedicationList" 
+                    id="returnMedicationList"
+                    type="button"
+                    >
+                    Cancel
+                </Button>
+            </Link> 
           </Card>
           
           </UncontrolledCollapse>

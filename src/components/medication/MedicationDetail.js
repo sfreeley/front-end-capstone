@@ -8,6 +8,7 @@ import {
     CardSubtitle, CardBody, UncontrolledCollapse, CustomInput
   } from 'reactstrap';
 
+
 const MedicationDetail = (props) => {
     const [drug, setDrug] = useState({
             id: "",
@@ -75,21 +76,21 @@ const MedicationDetail = (props) => {
     <NavBar {...props} />
     </div>
     <span>
-      <SearchBar />
+      <SearchBar {...props} handleChange={handleChange} drugId={drug.id} />
+    
     </span>
     <CardDeck>
       <Card body color="success" >
-        <strong>Date Entered:</strong> {drug.dateInput}
         <span>
           <input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
           /> 
           <label for="checkbox">Save to Medication History</label>
          </span>
-        {/* <Button  onClick={() => props.history.push("/medication/history")} >Save to Medication History</Button> */}
-      
+       
         {/* <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" /> */}
         <CardBody>
           <CardTitle>
+          <span><strong>Date Entered:</strong> {drug.dateInput}</span>
           <ul className="list-group list-group flex">
           <li className="list-group-item"><strong>Medication Name:</strong> {drug.name}</li>
           <li className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</li>

@@ -4,7 +4,7 @@ import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
 
 
-const SearchBar = (props, handleChange) => {
+const SearchBar = (props) => {
     
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
 //put searchTerm into state
@@ -33,7 +33,7 @@ const getMatchingCards = (event) => {
             return drugValues.join().toLowerCase().includes(searchEvent.toLowerCase())
         }
     })
-    if (searchEvent == "") {
+    if (searchEvent === "") {
         
         filteringDrugsArray = []
     }
@@ -68,7 +68,7 @@ useEffect(() => {
 
         <div>
         {filteredDrugsArray && filteredDrugsArray.map(drug => {
-            return drug.taking ? <MedicationCard {...props} drug={drug} handleChange={handleChange} /> : <MedicationHistoryCard {...props} drug={drug} handleChange={handleChange} />
+            return drug.taking ? <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} /> : <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
             
         })}
         </div>

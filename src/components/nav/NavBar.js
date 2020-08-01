@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { firstLetterCase } from "../modules/helperFunctions";
 
 const NavBar = (props) => {
 
@@ -13,7 +14,7 @@ const NavBar = (props) => {
     <>
       <div>
         <Navbar color="faded" light >
-          <NavbarBrand href="/" className="mr-auto"><h1>Welcome to TrackRx, {sessionUser.username}</h1></NavbarBrand>
+          <NavbarBrand href="/" className="mr-auto"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
             <Nav navbar>

@@ -31,8 +31,8 @@ const MedicationHistoryList = (props) => {
         setIsLoading(true)
         ApplicationManager.editDrug(drugToEdit)
         .then(() => {
-            ApplicationManager.getDrugsForUser(sessionUser.id).then((drugFromAPI) => {
-                setDrugs(drugFromAPI)
+            ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
+                setDrugs(drugsFromAPI)
                 props.history.push("/medication/list")
     
             })

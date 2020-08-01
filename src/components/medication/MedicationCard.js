@@ -2,8 +2,9 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput
+    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Input
   } from 'reactstrap';
+  // import "./styles/MedicationCard.css"
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -25,14 +26,14 @@ const MedicationCard = (props) => {
     taking: false
   }
 
-  
     return (   
-    <>
-    {props.drug &&
+      <div className="card-style">
     
+    {props.drug &&
+   
     <CardDeck>
-      <Card body color="info" >
-        <strong>Date Entered:</strong> {props.drug.dateInput}
+      <Card  width="50%" >
+      
         <span>
           <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
           /> 
@@ -42,6 +43,7 @@ const MedicationCard = (props) => {
         {/* <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" /> */}
         <CardBody>
           <CardTitle>
+          <span><strong>Date Entered:</strong> {props.drug.dateInput}</span>
         
           <ul className="list-group list-group flex">
           <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
@@ -65,22 +67,14 @@ const MedicationCard = (props) => {
         
         </CardBody>
         <Button 
-                                className="editMedication" 
-                                id={props.drug.id}
-                                type="button"
-                                onClick={props.getIdOfDrug}
-                                >
-                                Edit
-                            </Button>
-        {/* <Link to={`/medication/${props.drug.id}/edit`}>
-                            <Button 
-                                className="editMedication" 
-                                id="editMedication"
-                                type="button"
-                                >
-                                Edit
-                            </Button>
-                        </Link>*/}
+            className="editMedication" 
+            id={props.drug.id}
+            type="button"
+            onClick={props.getIdOfDrug}
+            >
+            Edit
+        </Button>
+      
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button>Expand</Button>
           </Link> 
@@ -124,8 +118,12 @@ const MedicationCard = (props) => {
       </>
       }
     </CardDeck> 
+   
   }
-    </>
+  
+    
+    </div>
+     
     )
 }
 export default MedicationCard;

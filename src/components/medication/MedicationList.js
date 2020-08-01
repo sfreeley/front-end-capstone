@@ -107,11 +107,13 @@ const MedicationList = (props) => {
             ApplicationManager.editDrug(drugToEdit)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
+                    
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
+        
                    
                 })
-             }) 
+             })
         }
     
       //edit whole drug entry state
@@ -199,7 +201,8 @@ const handleEditChange = () => {
         <>
         <NavBar {...props} />
         <span>
-        <SearchBar {...props} handleChange={handleChange}/>
+        <SearchBar {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
+            />
         </span>
         <span>
             <img src="https://img.icons8.com/dusk/64/000000/pills.png" alt="addDrug"/>

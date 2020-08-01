@@ -28,6 +28,7 @@ const Home = (props) => {
 
     //add 
     const [newDrug, setNewDrug] = useState({
+        id: "",
         userId: sessionUser.id,
         name: "",
         strength: "",

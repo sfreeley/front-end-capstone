@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
 
 
@@ -95,7 +95,7 @@ const Registration = (props) => {
             <Form className="form-fields" id="registerForm">
                 <FormGroup>
                     {/* <label htmlFor="email"></label> */}
-                    <input
+                    <Input
                         onChange={handleFieldChange}
                         type="username"
                         name="username"
@@ -106,7 +106,7 @@ const Registration = (props) => {
                 </FormGroup>
                 <FormGroup>
                     {/* <label htmlFor="email"></label> */}
-                    <input
+                    <Input
                         onChange={handleFieldChange}
                         type="email"
                         name="email"
@@ -117,7 +117,7 @@ const Registration = (props) => {
                 </FormGroup>
                 <FormGroup>
                     {/* <label htmlFor="password"></label> */}
-                    <input
+                    <Input
                         onChange={handleFieldChange}
                         type="password"
                         name="password"
@@ -128,7 +128,7 @@ const Registration = (props) => {
                 </FormGroup>
                 <FormGroup>
                     {/* <label htmlFor="password"></label> */}
-                    <input
+                    <Input
                         type="password"
                         name="confirmPassword"
                         id="confirmPassword"

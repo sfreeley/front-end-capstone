@@ -1,3 +1,7 @@
+export function firstLetterCase(str) {
+    return (str.charAt(0).toUpperCase() + str.slice(1));
+}
+
 export function currentDateTime(currentDate) {
     let generateCurrentDateTime;
     //gets current date and time
