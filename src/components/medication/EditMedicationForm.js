@@ -5,7 +5,7 @@ import { calculateNextRefill } from "../modules/helperFunctions";
 import { Link } from "react-router-dom"
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, CardBody, UncontrolledCollapse, CustomInput, Form, FormGroup, Input, TextArea, Label
+    CardSubtitle, CardBody, UncontrolledCollapse, Input, Label
   } from 'reactstrap';
 
 const EditMedicationForm = (props) => {
@@ -220,7 +220,7 @@ return (
               <CardTitle><h3>Prescription Details</h3></CardTitle>
               {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
               <CardText>
-              <FormGroup>
+             
                 <Label htmlFor="rxNumber"><strong>Prescription Number:</strong></Label>
                 <Input className="p-2 bd-highlight"
                     value={drug.rxNumber}
@@ -231,8 +231,8 @@ return (
                     required=""
                     
                 />
-            </FormGroup>
-              <FormGroup>
+           
+              
                 <Label htmlFor="dateFilled"><strong>Last Date Filled:</strong></Label>
                 <Input className="p-2 bd-highlight"
                     value={drug.dateFilled}
@@ -244,8 +244,8 @@ return (
                     placeholder="Most recent fill date (Format: MM/DD/YYYY)"
                    
                 />
-            </FormGroup>
-              <FormGroup>
+           
+              
                 <Label htmlFor="daysSupply"><strong>Days Supply:</strong></Label>
                 <Input className="p-2 bd-highlight"
                     value={drug.daysSupply}
@@ -256,7 +256,7 @@ return (
                     required=""
                     placeholder="How many days will this medication last you?"
                 />
-            </FormGroup>
+            
               
               </CardText>
             </CardBody>

@@ -31,7 +31,7 @@ const MedicationCard = (props) => {
       
     {props.drug &&
       
-    <CardDeck className="card-style ">
+    <CardDeck className="card-style">
     <Col>
     <Row>
       <Card className="card-item-style" >
@@ -54,8 +54,7 @@ const MedicationCard = (props) => {
           <li className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</li>
           </ul>
           </CardTitle>
-          {/* <CardSubtitle></CardSubtitle> */}
-          
+        
           <CardText>
           <ul className="list-group list-group flex">
           <li className="list-group-item"><strong>How I Should Take My Medication:</strong> {props.drug.directions}</li>
@@ -79,7 +78,7 @@ const MedicationCard = (props) => {
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button className="btn-expand">Expand</Button>
           </Link> 
-          <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+          <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
          
         </div>
         
@@ -136,7 +135,6 @@ const MedicationCard = (props) => {
               <Link to={`/medication/detail/${props.drug.id}`}>
               <Button className="btn-expand">Expand</Button>
               </Link>
-              <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
               </div>
         </CardBody>
     
