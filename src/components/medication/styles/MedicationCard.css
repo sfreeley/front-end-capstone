@@ -3,9 +3,12 @@ h1, h2, h3, h4, h5, h6 {
    
 }
 
-.date {
-    /* text-align: center; */
+.span-date {
+    display: flex;
+    justify-content: center;
+    
 }
+
 
 .medication-cards {
     display: flex;
@@ -13,31 +16,48 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
     flex-wrap: wrap;
     align-content: space-around;
-    background-color: #ACBEA3;
+    
     
 }
 
 .card-style {
-    max-width: 100%;
+    max-width: 90%;
     display: flex;
-    flex: 1;
+    flex: 2;
     flex-direction: row;
-    align-content: space-around;
-
-}
-
-.card-item-style {
-    max-width: 40%;
-    height: 75%;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-    background-color: #f1f1f1
+    margin: 15px;
     
 }
 
-.btn-edit, .btn-expand, .btn-delete, .btn-rx-details {
+
+.card-item-style {
+    max-width: 50%;
+    max-height: 75%;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    background-color: #ACBEA3;
+  
+}
+
+
+.card-toggle-style {
+    max-width: 60%;
+    align-content: space-around;
+    margin-top: 20px;
+    flex: 1;
+    background-color: #f1f1f1
+
+}
+
+.btn-all {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-edit, .btn-expand, .btn-delete, .btn-rx-details, .btn-expand {
    margin: 5px;
    background-color:  #40476d
 }

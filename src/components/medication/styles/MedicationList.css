@@ -1,0 +1,42 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans', sans-serif;
+    text-align: center;
+    margin: 15px;
+   
+}
+
+.headingContainer-medicationList {
+    
+  
+    
+}
+.searchBar-container {
+    display: flex;
+    justify-content: center; 
+    border: 20px #40476d
+}
+
+.span-addDrug-container {
+    display:flex;
+    text-align: center;
+    justify-content: center;
+    
+}
+
+.img-addDrug {
+    margin: 5px;
+    
+   
+}
+
+.btn-addMedication {
+    background-color: #40476d;
+}
+
+
+.heading-addMedication {
+    display: flex;
+    justify-content: center;
+    
+   
+}

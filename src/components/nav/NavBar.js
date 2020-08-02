@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { firstLetterCase } from "../modules/helperFunctions";
+import {NavLink as routerNavLink} from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import "./styles/NavBar.css"
 
 const NavBar = (props) => {
 
@@ -12,36 +15,48 @@ const NavBar = (props) => {
 
   return (
     <>
-      <div>
-        <Navbar color="faded" light >
-          <NavbarBrand href="/" className="mr-auto"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
+      <div className="nav-bar">
+      <span className="nav-bar-logo">
+      
+        <Navbar light className="nav-bar-container" >
+          <NavbarBrand href="/" className="nav-bar-title"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
-            <Nav navbar>
+         
+            <Nav className="nav-bar-links" navbar>
+            
+            <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
+         
+            <NavItem>
+                <NavLink tag={routerNavLink} to="/" exact path="/" className="nav-link" activeClassName="nav-link--active">
+                  Home
+                </NavLink>
+              </NavItem>
 
               <NavItem>
-                <NavLink href="/medication/list" className="nav-link" activeClassName="nav-link--active">
+                <NavLink tag={routerNavLink} to="/medication/list" className="nav-link" activeClassName="nav-link--active">
                   Current Medication List
                     </NavLink>
               </NavItem>
-
+              
               <NavItem>
-                <NavLink href="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
+                <NavLink tag={routerNavLink} to="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
               </NavItem>
 
               <NavItem>
-                <NavLink href="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
+                <NavLink tag={routerNavLink} to="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
               </NavItem>
 
               <NavItem>
-                <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
+                <NavLink tag={routerNavLink} className="nav-link" onClick={props.clearUser} to="/login">Logout</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
         </Navbar>
+        </span>
       </div>
     </>
   );
 
 }
-export default NavBar
+export default withRouter(NavBar)

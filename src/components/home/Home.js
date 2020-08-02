@@ -75,16 +75,17 @@ const Home = (props) => {
     return (
         <>
             <NavBar {...props} hasUser={hasUser} clearUser={clearUser} />
-            <div>
-                <SearchBar {...props} />
-                <span>
-                    <img src="https://img.icons8.com/dusk/64/000000/pills.png" alt="addDrug" />
-                    <Button onClick={toggle}>
-                        {'Add New Medication'}
-                    </Button>
-                    <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
-                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
-                </span>
+            <div> 
+            <span className="span-addDrug-container">
+                <img className="img-addDrug" src="https://img.icons8.com/office/40/000000/plus-math.png" alt="addDrug"/>
+                <Button className="btn-addMedication" onClick={toggle}>
+                    {'Add New Medication'}
+                </Button>
+            </span>
+
+            <SearchBar {...props} />
+            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+                nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             </div>
         </>
     )

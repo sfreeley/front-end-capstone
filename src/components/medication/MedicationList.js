@@ -8,8 +8,10 @@ import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
+import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
+   
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     
     //modal states
@@ -57,18 +59,33 @@ const MedicationList = (props) => {
         taking: true,
         dateInput: ""
     })
+
+    // const [isNextRefill, setIsNextRefill] = useState(false)
    
    //get drugs based on user to display in medication list and sort by earliest upcoming refill date
    const getDrugs = () => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-        setDrugs(sortDrugsByDate)  
+        setDrugs(sortDrugsByDate) 
+        // setIsNextRefill(true) 
+        
     })
     
 }
+
+// const sortAgain = () => {
+//     if (typeof newDrug.nextRefillDate == "string" || typeof drug.nextRefillDate == "string") {
+//         getDrugs()
+//     } else {
+//         return
+//     }
+// }
+
+
    
     useEffect(() => {
     getDrugs()
+   
     }, []);
 
     // adding new drug 
@@ -84,7 +101,8 @@ const MedicationList = (props) => {
             newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
             ApplicationManager.postNewDrug(newDrug).then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
-                    setDrugs(drugs)
+                   
+                    setDrugs(drugs) 
                     toggle()
                 })      
             })
@@ -111,6 +129,7 @@ const MedicationList = (props) => {
                     
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
+                    window.location.reload()
         
                    
                 })
@@ -181,7 +200,9 @@ const handleEditChange = () => {
     ApplicationManager.editDrug(editingDrug)
     .then(() => {
         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
-            setDrugs(drugsFromAPI);
+           
+                    setDrugs(drugsFromAPI) 
+           
         })
 
      }) 
@@ -201,38 +222,43 @@ const handleEditChange = () => {
     return (
         <>
         <NavBar {...props} />
-        <span>
-        <SearchBar {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
+        {/* <span className="searchBar-container">
+        <SearchBar className="searchBar-medicationList" {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
-        </span>
-        <span>
-            <img src="https://img.icons8.com/dusk/64/000000/pills.png" alt="addDrug"/>
-            <Button onClick={toggle}>
+       </span> */}
+       
+            <div className="headingContainer-medicationList">
+            <span className="span-addDrug-container">
+            <img className="img-addDrug" src="https://img.icons8.com/office/40/000000/plus-math.png" alt="addDrug"/>
+            <Button className="btn-addMedication" onClick={toggle}>
                 {'Add New Medication'}
             </Button>
+            </span>
+        
             <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
             nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             
              <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
-            </span>
-
-        <section className="">
-         <h3>Current Medication List</h3>
-        
-            <div className="">
-                {drugs && drugs.map(drug => drug.taking &&
-                    <MedicationCard 
-                        key={drug.id}
-                        drug={drug}
-                        handleEditChange={handleEditChange}
-                        getIdOfDrug={getIdOfDrug}
-                        isChecked={isChecked}
-                        isLoading={isLoading}
-                        removeDrug={removeDrug}
-                        handleChange={handleChange} 
-                        {...props} 
-                    /> )} 
+ 
+         <h2>Current Medication List</h2>
+         </div>
+         <section className="section-currentMedicationList--container">
+            <div className="searchBar-medicationCard">
+            <SearchBar className="searchBar-medicationList" {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
+            />
+            {drugs && drugs.map(drug => drug.taking &&
+                <MedicationCard 
+                key={drug.id}
+                drug={drug}
+                handleEditChange={handleEditChange}
+                getIdOfDrug={getIdOfDrug}
+                isChecked={isChecked}
+                isLoading={isLoading}
+                removeDrug={removeDrug}
+                handleChange={handleChange}
+                {...props} 
+            /> )} 
             </div>
         </section> 
         </>

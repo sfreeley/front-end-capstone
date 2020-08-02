@@ -27,14 +27,13 @@ const MedicationCard = (props) => {
   }
 
     return (  
-      <Container fluid className="medication-cards">
+      <Container fluid className="medication-cards d-flex flex-row">
       
-    
     {props.drug &&
-  
-    <CardDeck className="card-style">
-    <Col sm-auto >
-    <Row width="50%">
+      
+    <CardDeck className="card-style ">
+    <Col>
+    <Row>
       <Card className="card-item-style" >
       
         <span>
@@ -44,9 +43,10 @@ const MedicationCard = (props) => {
          </span>
        
         <CardImg className="img-thumbnail" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
+        
         <CardBody>
           <CardTitle>
-          <span className="date"><strong>Date Entered:</strong> {props.drug.dateInput}</span>
+          <span className="span-date"><strong>Date Entered:</strong> {props.drug.dateInput} </span>
         
           <ul className="list-group list-group flex">
           <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
@@ -67,9 +67,7 @@ const MedicationCard = (props) => {
           </ul>
           </CardText>
           <hr/>
-        
-        </CardBody>
-        <div className="btn-all">
+          <div className="btn-all">
         <Button className="btn-edit" 
             id={props.drug.id}
             type="button"
@@ -82,56 +80,75 @@ const MedicationCard = (props) => {
           <Button className="btn-expand">Expand</Button>
           </Link> 
           <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
-          <Button 
+         
+        </div>
+        
+        </CardBody>
+
+        {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? 
+        <Button 
+          disabled
+          className="btn-rx-details"
+          color="secondary" 
+          id={`drug${props.drug.id}`} 
+          >
+          Rx Details
+        </Button> :
+        <Button
           className="btn-rx-details"
           color="primary" 
-          id={`drug${props.drug.id}`} >
+          id={`drug${props.drug.id}`} 
+          >
           Rx Details
         </Button>
-        </div>
+      }
+       
        </Card>
       
       {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
       <>
-      
+     
+     
       <UncontrolledCollapse toggler={`#drug${props.drug.id}`} >
-      <Card>
-        {/* <CardImg top width="100%" src="png" alt="bottle" /> */}
+      
+      <Card className="card-toggle-style">
         <CardBody> 
           <CardTitle><strong>Prescription Details</strong></CardTitle>
-          {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
-          <CardText>
-          <ul className="list-group list-group">
-          <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
-          <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
-          <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
-          </ul> 
-          </CardText>
-        </CardBody>
-       
-        <Button 
-            className="btn-editMedication" 
-            id={props.drug.id}
-            type="button"
-            onClick={props.getIdOfDrug}
-            
-            >
-            Edit
-        </Button>
+              <CardText>
+              <ul className="list-group list-group">
+              <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
+              <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
+              <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
+              <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
+              </ul> 
+              </CardText>
+              <hr/>
+              <div className="btn-all">
+              <Button 
+                className="btn-edit" 
+                id={props.drug.id}
+                type="button"
+                onClick={props.getIdOfDrug}
+                >
+                Edit
+              </Button>
       
-        <Link to={`/medication/detail/${props.drug.id}`}>
-        <Button>Expand</Button>
-        </Link>
-        <Button onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
-  
+              <Link to={`/medication/detail/${props.drug.id}`}>
+              <Button className="btn-expand">Expand</Button>
+              </Link>
+              <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Delete</Button>
+              </div>
+        </CardBody>
+    
       </Card>
+      
       
       </UncontrolledCollapse>
      
+      
+     
       </>
-      
-      
+
       }
       </Row>
       </Col>

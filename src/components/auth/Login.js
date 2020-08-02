@@ -46,12 +46,12 @@ const Login = (props) => {
 
     return (
        <>
-        <div className="base-container" >
-        <div className="content">
+        
+        <div className="content-container">
           <div className="image">
-            {/* <img src={loginImg} /> */}
+            <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
           </div>
-          <div className="form">
+          <div className="form-container">
             <div className="form-group">
             <Label for="exampleEmail">Email Address</Label>
             <Input className="p-2 bd-highlight justify-content-center email"
@@ -73,14 +73,23 @@ const Login = (props) => {
                     required=""
                     placeholder="Password"
                 />
+             <div className="btn-login registerAcct">
+             <Button className="login-form-btn" outline color="info" onClick={handleLogin}>
+                   Login
+            </Button>
+             </div>
+            <span className="registerAcct__text">
+            New User?
+            <Link to="/register">
+                Register
+            </Link>
+        </span>
             </div>
           </div>
         </div>
         <div className="footer">
         <div border="1px solid" className="d-flex p-2 bd-highlight">
-                <Button className="login-form-btn" outline color="info" onClick={handleLogin}>
-                   Login
-                </Button>
+               
             </div>
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Alert</ModalHeader>
@@ -95,18 +104,13 @@ const Login = (props) => {
                 </Modal>
      
     <div className="registerAcct">
-        <span className="registerAcct__text">
-        New User?
-        <Link to="/register">
-                Register
-        </Link>
-        </span>
+        
                 
     </div>
     </div>
 
 
-        </div>
+      
      
      </>
     

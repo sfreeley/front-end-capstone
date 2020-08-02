@@ -59,12 +59,12 @@ useEffect(() => {
 
     return (
         <>
-        <form class="form-inline my-2 my-lg-0">
+        {/* <form class="form-inline my-2 my-lg-0"> */}
             <input class="form-control mr-sm-2" name="keywordSearch" id="keywordSearch" onChange={getMatchingCards} 
             type="text" placeholder="Search for keywords" 
             aria-label="Search"/>
            
-        </form>
+        {/* </form> */}
 
         <div>
         {filteredDrugsArray && filteredDrugsArray.map(drug => {
