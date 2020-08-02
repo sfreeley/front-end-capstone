@@ -4,34 +4,10 @@
      flex-direction: column;
      align-items: center;
      justify-content: center;
-     
-     width: 100%;
-    
-     position: sticky;
-     z-index: 2;
-    
-     
+  
  }
-
- .content-container > .form-container {
-    display: flex;
-    justify-content: space-between;
-    flex: 2;
-    
-    border-right-style: none;
-    position: relative;
-    
-    /*layering: ie -1 will push it backwards; default is 0; it will not work if there is no position property (ie absolute/relative);
-    if you want your element to stay with the flow of the page, you need to use position:relative; otherwise, absolute you can use to go behind or on top of things  */
-    z-index: -1;
- }
-
-
 
  .btn-login {
-     display: flex;
-     justify-content: center;
-     align-items: center;
      text-align: center;
      padding-right: 10px;
      padding-left: 10px;
@@ -39,18 +15,10 @@
  }
 
  .registerAcct__text {
+     display: flex;
      justify-content: center;
-    
  }
 
- .form-container {
-    
-    /* look this up */
-    height: 100vh;
-   
-    position: relative;
-    z-index: 1;
- }
 
 
 

@@ -71,7 +71,7 @@ const ApplicationViews = (props) => {
 
     <Route path="/medication/:drugId(\d+)/edit"
     render={props => {
-        return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
+        return (hasUser ? <EditMedicationForm {...props} clearUser={clearUser}/> : <Redirect to="/login" />)
     }}
     />
 

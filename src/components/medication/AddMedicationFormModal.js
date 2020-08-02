@@ -1,13 +1,14 @@
 import React from "react";
-import { Form, FormGroup, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import { Form, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import "./styles/AddMedicationFormModal.css"
 
 
-const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewDrug, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
     
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>What does your medication bottle tell you?</ModalHeader>
+            <ModalHeader toggle={toggle}><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
                         <Label htmlFor="name"><strong>Medication Name</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
@@ -78,8 +79,8 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             placeholder="Questions? Side effects?"
                         />
                    
-                <div>
-                <Button color="success" onClick={toggleNested}><strong>Refill Details</strong></Button>
+                <div className="rxDetails">
+                <Button className="btn-rxDetails" color="primary" onClick={toggleNested}><strong>Refill Details</strong></Button>
                 </div>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
             <ModalHeader>Prescription Details (not required)</ModalHeader>
@@ -131,11 +132,11 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
           </Modal>
                 </ModalBody>
                             <ModalFooter>
-                                <Button type="button" color="primary" isLoading={isLoading} onClick={handleAddNewDrug}>
+                                <Button className="btn-addMedication" type="button" color="success" isLoading={isLoading} onClick={handleAddNewDrug}>
                                     {'Add Medication'}
                                 </Button>
                                 
-                                <Button type="button" color="primary" onClick={toggle}>
+                                <Button className="btn-cancel" type="button" color="danger" onClick={toggle}>
                                     {'Cancel'}
                                 </Button>
                             

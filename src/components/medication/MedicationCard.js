@@ -68,7 +68,7 @@ const MedicationCard = (props) => {
           </CardText>
           <hr/>
           <div className="btn-all">
-        <Button className="btn-edit" 
+          <Button className="btn-edit" 
             id={props.drug.id}
             type="button"
             onClick={props.getIdOfDrug}

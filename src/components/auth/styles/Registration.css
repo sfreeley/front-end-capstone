@@ -1,0 +1,8 @@
+.registration-container {
+    display: flex;
+    
+}
+
+.registration-img-logo {
+    justify-content: center;
+}

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter, Input } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
-
-
-
 
 const Registration = (props) => {
     const setUser = props.setUser;
@@ -31,7 +28,7 @@ const Registration = (props) => {
     },[]);
 
     
-        const toggle = () => setModal(!modal);
+        // const toggle = () => setModal(!modal);
     
     
     
@@ -80,69 +77,78 @@ const Registration = (props) => {
 
    return (
         <>
-            <div>
-                <Jumbotron fluid>
-                    <Container fluid>
-                        {/* <h1 className="display-4"></h1> */}
-                        <img src={require("../../images/trackrx-logo.png")} alt="logo" />
-                    </Container>
-                </Jumbotron>
-            </div>
-
-            <span className="registerHeader">
+         <div className="content-container">
+          <div className="image-logo">
+            <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
+          </div>
+          <span className="registerHeader">
                 New Account
             </span>
-            <Form className="form-fields" id="registerForm">
-                <FormGroup>
-                    {/* <label htmlFor="email"></label> */}
+          <div className="form-container">
+            <div className="form-group">
+                    <Label htmlFor="username">Username</Label>
                     <Input
                         onChange={handleFieldChange}
                         type="username"
                         name="username"
                         id="username"
                         required=""
-                        placeholder="Username"
+                        
                     />
-                </FormGroup>
-                <FormGroup>
-                    {/* <label htmlFor="email"></label> */}
+                    </div>
+               
+                    <div className="form-group">
+                    <Label htmlFor="email">Email Address</Label>
                     <Input
                         onChange={handleFieldChange}
                         type="email"
                         name="email"
                         id="email"
                         required=""
-                        placeholder="Email address"
+                        
                     />
-                </FormGroup>
-                <FormGroup>
-                    {/* <label htmlFor="password"></label> */}
+               
+               </div>
+                    
+               <div className="form-group">
+                    <Label htmlFor="password">Password</Label>
                     <Input
                         onChange={handleFieldChange}
                         type="password"
                         name="password"
                         id="password"
                         required=""
-                        placeholder="Password"
+                        
                     />
-                </FormGroup>
-                <FormGroup>
-                    {/* <label htmlFor="password"></label> */}
+                </div>
+                <div className="form-group">
+                    <Label htmlFor="password">Confirm Password</Label>
                     <Input
                         type="password"
                         name="confirmPassword"
                         id="confirmPassword"
                         required=""
-                        placeholder="Confirm Password"
-                    />
-                </FormGroup>    
-            </Form>
+                  />      
+           
+            <div className="btn-login registerAcct">
             <Button
                 type="submit"
+                outline color="info"
                 className="register-form-btn" disabled={isLoading}
                 onClick={registerNewUser}>
                 Create Account
             </Button>
+            </div>
+           
+                <span className="loginAcct__text">
+                    Already have an account?
+              </span>
+                <Link to="/login">
+                    Sign In
+                </Link>
+            </div>
+            </div>
+            </div>
         
             <div>
             
@@ -160,14 +166,7 @@ const Registration = (props) => {
             </div> 
 
 
-            <div className="registerAcct">
-                <span className="registerAcct__text">
-                    Already have an account?
-              </span>
-                <Link to="/login">
-                    Sign In
-                </Link>
-            </div>
+        
 
         </>        
          
