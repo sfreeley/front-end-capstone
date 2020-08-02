@@ -166,8 +166,6 @@ const Registration = (props) => {
             </div> 
 
 
-        
-
         </>        
          
   );

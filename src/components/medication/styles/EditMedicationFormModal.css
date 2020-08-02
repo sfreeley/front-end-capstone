@@ -5,10 +5,12 @@
 
 }
 
-.btn-addMedication {
+.btn-rxDetails-done, .btn-saveEditMedication {
     background-color: #40476d;
+    color: white;
 }
 
-.btn-cancelAdd {
+ 
+.btn-cancelEdit, .btn-rxDetails-cancelAll, .btn-rxDetails-cancel {
     background-color: #ACBEA3;
 }

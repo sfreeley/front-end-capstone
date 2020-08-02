@@ -79,14 +79,12 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                             placeholder="Questions? Side effects?"
                         />
                    
-                <div className="rxDetails">
-                <Button className="btn-rxDetails" color="primary" onClick={toggleNested}><strong>Refill Details</strong></Button>
-                </div>
+                
+                <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
             <ModalHeader>Prescription Details (not required)</ModalHeader>
             <ModalBody>
             {/* start of nested form */}
-            <Form className="form-group d-lg-inline-flex flex-column bd-highlight">
                    
                         <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
@@ -121,13 +119,13 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                             placeholder="How many days will this medication last you?"
                         />
                    
-                </Form>
+                
 
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={toggleNested}>Done</Button>
-              <Button color="primary" onClick={toggleNested}>Cancel</Button>
-              <Button color="secondary" onClick={toggleAll}>Cancel All</Button>
+              <Button className="btn-rxDetails-done" color="primary" onClick={toggleNested}>Done</Button>
+              <Button className="btn-rxDetails-cancel" color="warning" onClick={toggleNested}>Cancel</Button>
+              <Button className="btn-rxDetails-cancelAll" color="danger" onClick={toggleAll}>Cancel All</Button>
             </ModalFooter>
           </Modal>
                 </ModalBody>
@@ -136,7 +134,7 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                                     {'Add Medication'}
                                 </Button>
                                 
-                                <Button className="btn-cancel" type="button" color="danger" onClick={toggle}>
+                                <Button className="btn-cancelAdd" type="button" color="danger" onClick={toggle}>
                                     {'Cancel'}
                                 </Button>
                             
