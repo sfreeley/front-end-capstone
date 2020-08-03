@@ -81,7 +81,7 @@ const Login = (props) => {
                         <span className="registerAcct__text">
                             New User?
             <Link to="/register">
-                    Register
+                    <p>Register</p>
             </Link>
                         </span>
                     </div>

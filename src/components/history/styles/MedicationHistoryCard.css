@@ -8,23 +8,22 @@
     color: #f1f1f1
     
 }
-
+/* 
 .medication-cards {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-wrap: wrap;
-    align-content: space-around;
+    flex-wrap: nowrap;
     
-}
+    
+} */
 
 .card-style {
     max-width: 90%;
     display: flex;
     flex: 2;
-    flex-direction: row;
-    margin: 15px;
-    
+    justify-content: center;
+    flex-direction: row; 
 }
 
 .card-item-style-history {
@@ -35,8 +34,7 @@
     align-items: center;
     justify-content: center;
     margin: 20px;
-    background-color: #40476d;
-    
+    background-color: #40476d; 
 
 }
 

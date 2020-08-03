@@ -6,12 +6,28 @@ import { withRouter } from "react-router-dom";
 import "./styles/NavBar.css"
 
 const NavBar = (props) => {
+  const isAuthenticated = () => sessionStorage.getItem("user") !== null;
+  const [hasUser, setHasUser] = useState(isAuthenticated());
 
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
 
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
+
+  const clearUser = () => {
+    sessionStorage.clear();
+    setHasUser(isAuthenticated())
+}
+
+
+//   const handleLogout = () => {
+//     //call clearUser function from Kennel.js to clear session and local storage; update state of user
+//     props.clearUser();
+//     //send user back to home page
+//     props.history.push('/login')
+// }
+
 
   return (
     <>
@@ -48,7 +64,7 @@ const NavBar = (props) => {
               </NavItem>
 
               <NavItem>
-                <NavLink tag={routerNavLink} className="nav-link" onClick={props.clearUser} to="/login">Logout</NavLink>
+                <NavLink tag={routerNavLink} className="nav-link" onClick={clearUser} to="/login">Logout</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

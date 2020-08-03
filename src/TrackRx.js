@@ -13,16 +13,16 @@ const TrackRx = () => {
   };
 
  
-  const clearUser = () => {
-      sessionStorage.clear();
-      setHasUser(isAuthenticated())
-  }
+  // const clearUser = () => {
+  //     sessionStorage.clear();
+  //     setHasUser(isAuthenticated())
+  // }
 
   return (
    
     
     <div className="applicationViews">
-    <ApplicationViews hasUser={hasUser} setUser={setUser} clearUser={clearUser} />
+    <ApplicationViews hasUser={hasUser} setUser={setUser} />
     </div>
 
  

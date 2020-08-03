@@ -131,7 +131,6 @@ const MedicationList = (props) => {
                     setIsChecked(false)
                     window.location.reload()
         
-                   
                 })
              })
         }

@@ -24,7 +24,7 @@ import Resource from "./components/resource/Resource";
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
     const setUser = props.setUser
-    const clearUser = props.clearUser
+   
     
  return(
      <>
@@ -41,7 +41,7 @@ const ApplicationViews = (props) => {
 
     <Route exact path="/"
     render={props => {
-        return (hasUser ? <Home hasUser={hasUser} clearUser={clearUser} {...props} drugId={parseInt(props.match.params.drugId)} />  : <Redirect to="/login" />)
+        return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} />  : <Redirect to="/login" />)
     }}
     />
 
@@ -65,19 +65,19 @@ const ApplicationViews = (props) => {
 
     <Route exact path="/medication/detail/:drugId(\d+)"
     render={props => {
-        return (hasUser ? <MedicationDetail clearUser={clearUser} {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+        return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
     }}
     />
 
     <Route path="/medication/:drugId(\d+)/edit"
     render={props => {
-        return (hasUser ? <EditMedicationForm {...props} clearUser={clearUser}/> : <Redirect to="/login" />)
+        return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
     }}
     />
 
     <Route path="/medication/resources"
     render={props => {
-        return (hasUser ? <Resource {...props} clearUser={clearUser} /> : <Redirect to="/login" />)
+        return (hasUser ? <Resource {...props}  /> : <Redirect to="/login" />)
     }}
     />
 </>

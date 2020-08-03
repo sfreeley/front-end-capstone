@@ -4,15 +4,22 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from
 import ApplicationManager from "../modules/ApplicationManager";
 
 const Registration = (props) => {
+    // let resourceChosenId;
+    // let checkedBoxes;
     const setUser = props.setUser;
-    const [newUser, setNewUser] = useState({username: "", email: "", password: "", image: "" })
+    const [newUser, setNewUser] = useState({username: "", email: "", password: ""})
     const [allUsers, setAllUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const [modal, setModal] = useState(false);
-    
+    //trial code for checkboxes
+   
+    const [resources, setResources] = useState([])
+    console.log(resources)
 
+   
+    
     const handleFieldChange = event => {
-        const stateToChange = { ...newUser };
+        const stateToChange = { ...newUser};
         stateToChange[event.target.id] = event.target.value;
         setNewUser(stateToChange);
     };
@@ -22,14 +29,21 @@ const Registration = (props) => {
             setAllUsers(usersFromAPI)
         })
     }
+
+    //resources
+    const getResources = () => {
+        ApplicationManager.getAllResources().then(resources => {
+            setResources(resources)
+        })
+    }
     
     useEffect(() => {
-        getUsers()
+        getUsers();
+        getResources();
     },[]);
 
     
         // const toggle = () => setModal(!modal);
-    
     
     
     const registerNewUser = event => {
@@ -107,8 +121,27 @@ const Registration = (props) => {
                         required=""
                         
                     />
-               
+               {/* start of checkboxes */}
                </div>
+               <Label>Would you like any additional information on the following topics? (Please check all that apply)</Label>
+                {resources.map(resource => {
+                    return (<div className="form-group" key={resource.id}>
+                   
+                    <Input
+                        onChange={""}
+                        type="checkbox"
+                        name={resources.id}
+                        id={resource.id}
+                        
+                 
+                    />
+                     <Label htmlFor={resource.id}>{resource.title}</Label>
+                    </div>)
+                })
+                }
+                   
+               
+               
                     
                <div className="form-group">
                     <Label htmlFor="password">Password</Label>
@@ -130,7 +163,7 @@ const Registration = (props) => {
                         required=""
                   />      
            
-            <div className="btn-login registerAcct">
+            <div className="btn-login">
             <Button
                 type="submit"
                 outline color="info"
@@ -139,13 +172,16 @@ const Registration = (props) => {
                 Create Account
             </Button>
             </div>
-           
+
+                <div className="message-loginAcct">
                 <span className="loginAcct__text">
                     Already have an account?
-              </span>
+              
                 <Link to="/login">
                     Sign In
                 </Link>
+                </span>
+                </div>
             </div>
             </div>
             </div>
