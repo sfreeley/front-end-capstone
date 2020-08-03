@@ -34,7 +34,7 @@ const MedicationCard = (props) => {
     <CardDeck className="card-style">
     <Col>
     <Row>
-      <Card className="card-item-style" >
+      <Card className="card-item-style-medicationCard" >
       
         <span>
           <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
@@ -42,7 +42,7 @@ const MedicationCard = (props) => {
           <label for="checkbox">Save to Medication History</label>
          </span>
        
-        <CardImg className="img-thumbnail" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
+        <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
         
         <CardBody>
           <CardTitle>

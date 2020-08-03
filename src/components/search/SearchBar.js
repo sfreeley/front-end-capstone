@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApplicationManager from "../modules/ApplicationManager";
 import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
+import "./styles/SearchBar.css"
 
 
 const SearchBar = (props) => {
@@ -59,12 +60,14 @@ useEffect(() => {
 
     return (
         <>
+        <div className="searchBar-container">
         {/* <form class="form-inline my-2 my-lg-0"> */}
-            <input class="form-control mr-sm-2" name="keywordSearch" id="keywordSearch" onChange={getMatchingCards} 
+            <input className="form-control searchBar-position" name="keywordSearch" id="keywordSearch" onChange={getMatchingCards} 
             type="text" placeholder="Search for keywords" 
             aria-label="Search"/>
            
         {/* </form> */}
+        </div>
 
         <div>
         {filteredDrugsArray && filteredDrugsArray.map(drug => {

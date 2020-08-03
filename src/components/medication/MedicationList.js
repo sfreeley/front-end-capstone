@@ -221,10 +221,7 @@ const handleEditChange = () => {
     return (
         <>
         <NavBar {...props} />
-        {/* <span className="searchBar-container">
-        <SearchBar className="searchBar-medicationList" {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
-            />
-       </span> */}
+      
        
             <div className="headingContainer-medicationList">
             <span className="span-addDrug-container">
