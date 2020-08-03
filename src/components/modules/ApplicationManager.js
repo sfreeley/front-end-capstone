@@ -81,4 +81,13 @@ export default {
         method: "DELETE"
     }).then(result => result.json())
 },
+
+//getting user's with resources
+getUserResources() {
+  return fetch(`${remoteURL}/resources?_expand=user`).then(data => data.json())
+},
+
+getAllResources() {
+  return fetch(`${remoteURL}/resources`).then(data => data.json())
+}
 }

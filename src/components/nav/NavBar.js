@@ -1,62 +1,78 @@
 import React, { useState } from "react"
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { firstLetterCase } from "../modules/helperFunctions";
+import {NavLink as routerNavLink} from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import "./styles/NavBar.css"
 
 const NavBar = (props) => {
-    const clearUser = props.clearUser
-   
-    const [collapsed, setCollapsed] = useState(true);
-      
-    const toggleNavbar = () => setCollapsed(!collapsed);
+  const isAuthenticated = () => sessionStorage.getItem("user") !== null;
+  const [hasUser, setHasUser] = useState(isAuthenticated());
 
-        return (
-            <>
-          <div>
-            <Navbar color="faded" light >
-              <NavbarBrand href="/" className="mr-auto"><h1>Welcome to TrackRx</h1></NavbarBrand>
-              <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-              <Collapse isOpen={!collapsed} navbar>
-                <Nav navbar>
-                 
-                  <NavItem>
-                    <NavLink href="/medication/list" className="nav-link" activeClassName="nav-link--active">
-                        Current Medication List
+  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+
+  const [collapsed, setCollapsed] = useState(true);
+
+  const toggleNavbar = () => setCollapsed(!collapsed);
+
+  const clearUser = () => {
+    sessionStorage.clear();
+    setHasUser(isAuthenticated())
+}
+
+
+//   const handleLogout = () => {
+//     //call clearUser function from Kennel.js to clear session and local storage; update state of user
+//     props.clearUser();
+//     //send user back to home page
+//     props.history.push('/login')
+// }
+
+
+  return (
+    <>
+      <div className="nav-bar">
+      <span className="nav-bar-logo">
+      
+        <Navbar light className="nav-bar-container" >
+          <NavbarBrand href="/" className="nav-bar-title"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
+          <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!collapsed} navbar>
+         
+            <Nav className="nav-bar-links" navbar>
+            
+            <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
+         
+            <NavItem>
+                <NavLink tag={routerNavLink} to="/" exact path="/" className="nav-link" activeClassName="nav-link--active">
+                  Home
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={routerNavLink} to="/medication/list" className="nav-link" activeClassName="nav-link--active">
+                  Current Medication List
                     </NavLink>
-                  </NavItem> 
-   
-                  <NavItem>
-                    <NavLink href="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
-                  </NavItem>
-                 
-                  <NavItem>
-                    <NavLink href="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
-                  </NavItem>
-                  
-                  <NavItem>
-                    <NavLink className="nav-link" onClick={props.clearUser} href="/login">Logout</NavLink>
-                  </NavItem> 
-                  {/* will only be showing nav bar if user is logged in --don't need Login? (directs back to homepage) */}
-                  {/* <NavItem>
-                    <NavLink className="nav-link" href="/login">Login</NavLink>
-                  </NavItem> */}
-                </Nav>
-                 
-              </Collapse>
-            </Navbar>
-          </div>
-        </>
-        );
-      
-      
-        // {props.hasUser
-        //     ? <li>
-        //         <Link className="nav-link" onClick={handleLogout} to="/login"> 
-        //         <span role="img" aria-label="logout">&#x1F52A; </span> 
-        //         Logout 
-        //         </Link>
-        //       </li>
-        //     : <li>
-        //         <Link className="nav-link" to="/login">Login</Link>
-        //       </li>}
+              </NavItem>
+              
+              <NavItem>
+                <NavLink tag={routerNavLink} to="/medication/history" className="nav-link" activeClassName="nav-link--active">Medication History</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={routerNavLink} to="/medication/resources" className="nav-link" activeClassName="nav-link--active">Resources</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={routerNavLink} className="nav-link" onClick={clearUser} to="/login">Logout</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+        </span>
+      </div>
+    </>
+  );
 
 }
-export default NavBar
+export default withRouter(NavBar)

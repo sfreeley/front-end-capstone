@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import NavBar from "../nav/NavBar";
-import { Link } from "react-router-dom";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from "classnames";
 
@@ -41,14 +40,7 @@ const Resource = () => {
           <NavLink
             className={classnames({ active: activeTab === '4' })}
             onClick={() => { toggle('4'); }}
-          > <strong> Understanding Side Effects </strong>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === '4' })}
-            onClick={() => { toggle('5'); }}
-          > <strong> Medication Disposal </strong>
+          > <strong> Proper Medication Disposal </strong>
           </NavLink>
         </NavItem>
       </Nav>
@@ -102,7 +94,7 @@ const Resource = () => {
             </Col>
             <Col sm="6">
               <Card body>
-                <CardTitle> FDA Information Regarding OTC Medication Safety  </CardTitle>
+                <CardTitle> FDA Information Regarding OTC Medication Safety </CardTitle>
                 <CardText> Public service announcements and safety information regarding OTC medications  </CardText>
                 <Button onClick={() => window.open("https://www.fda.gov/drugs/understanding-over-counter-medicines/educational-resources-understanding-over-counter-medicine", "_blank")} type="button" className="btn btn-info">Learn More</Button>
               </Card>
@@ -110,24 +102,6 @@ const Resource = () => {
           </Row>
         </TabPane>
         <TabPane tabId="4">
-          <Row>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button onClick={() => window.open("https://react.semantic-ui.com/", "_blank")} type="button" className="btn btn-info">Learn More</Button>
-              </Card>
-            </Col>
-            <Col sm="6">
-              <Card body>
-                <CardTitle>Special Title Treatment</CardTitle>
-                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                <Button onClick={() => window.open("https://react.semantic-ui.com/", "_blank")} type="button" className="btn btn-info">Learn More</Button>
-              </Card>
-            </Col>
-          </Row>
-        </TabPane>
-        <TabPane tabId="5">
           <Row>
             <Col sm="6">
               <Card body>

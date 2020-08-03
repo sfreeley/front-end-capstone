@@ -1,0 +1,67 @@
+.checkbox-saveToMedList {
+    color: #f1f1f1
+}
+
+.span-date-history {
+    display: flex;
+    justify-content: center;
+    color: #f1f1f1
+    
+}
+/* 
+.medication-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: nowrap;
+    
+    
+} */
+
+.card-style {
+    max-width: 90%;
+    display: flex;
+    flex: 2;
+    justify-content: center;
+    flex-direction: row; 
+}
+
+.card-item-style-history {
+    max-width: 50%;
+    max-height: 75%;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    background-color: #40476d; 
+
+}
+
+
+.card-toggle-style {
+    max-width: 60%;
+    flex: 1;
+    align-content: space-around;
+    margin-top: 20px;
+    background-color: #f1f1f1
+
+}
+
+.btn-all {
+    display: flex;
+    
+}
+
+.btn-all-rxDetails {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-edit, .btn-delete, .btn-rx-details, .btn-expand {
+   background-color:  #40476d
+}
+
+.img-thumbnail {
+    max-width: 10%;
+}

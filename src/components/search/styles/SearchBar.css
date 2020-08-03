@@ -1,0 +1,13 @@
+.searchBar-container {
+    display: flex;
+    justify-content: center;
+    
+
+
+    
+}
+
+.searchBar-position {
+    max-width: 75%;
+    border: 2px solid #40476d
+}

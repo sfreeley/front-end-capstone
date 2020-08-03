@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Form, FormGroup, Jumbotron, Container, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
 
-
-
-
 const Registration = (props) => {
+    // let resourceChosenId;
+    // let checkedBoxes;
     const setUser = props.setUser;
-    const [newUser, setNewUser] = useState({username: "", email: "", password: "", image: "" })
+    const [newUser, setNewUser] = useState({username: "", email: "", password: ""})
     const [allUsers, setAllUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const [modal, setModal] = useState(false);
-    
+    //trial code for checkboxes
+   
+    const [resources, setResources] = useState([])
+    console.log(resources)
 
+   
+    
     const handleFieldChange = event => {
-        const stateToChange = { ...newUser };
+        const stateToChange = { ...newUser};
         stateToChange[event.target.id] = event.target.value;
         setNewUser(stateToChange);
     };
@@ -25,14 +29,21 @@ const Registration = (props) => {
             setAllUsers(usersFromAPI)
         })
     }
+
+    //resources
+    const getResources = () => {
+        ApplicationManager.getAllResources().then(resources => {
+            setResources(resources)
+        })
+    }
     
     useEffect(() => {
-        getUsers()
+        getUsers();
+        getResources();
     },[]);
 
     
-        const toggle = () => setModal(!modal);
-    
+        // const toggle = () => setModal(!modal);
     
     
     const registerNewUser = event => {
@@ -80,69 +91,100 @@ const Registration = (props) => {
 
    return (
         <>
-            <div>
-                <Jumbotron fluid>
-                    <Container fluid>
-                        {/* <h1 className="display-4"></h1> */}
-                        <img src={require("../../images/trackrx-logo.png")} alt="logo" />
-                    </Container>
-                </Jumbotron>
-            </div>
-
-            <span className="registerHeader">
+         <div className="content-container">
+          <div className="image-logo">
+            <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
+          </div>
+          <span className="registerHeader">
                 New Account
             </span>
-            <Form className="form-fields" id="registerForm">
-                <FormGroup>
-                    {/* <label htmlFor="email"></label> */}
-                    <input
+          <div className="form-container">
+            <div className="form-group">
+                    <Label htmlFor="username">Username</Label>
+                    <Input
                         onChange={handleFieldChange}
                         type="username"
                         name="username"
                         id="username"
                         required=""
-                        placeholder="Username"
+                        
                     />
-                </FormGroup>
-                <FormGroup>
-                    {/* <label htmlFor="email"></label> */}
-                    <input
+                    </div>
+               
+                    <div className="form-group">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
                         onChange={handleFieldChange}
                         type="email"
                         name="email"
                         id="email"
                         required=""
-                        placeholder="Email address"
+                        
                     />
-                </FormGroup>
-                <FormGroup>
-                    {/* <label htmlFor="password"></label> */}
-                    <input
+               {/* start of checkboxes */}
+               </div>
+               <Label>Would you like any additional information on the following topics? (Please check all that apply)</Label>
+                {resources.map(resource => {
+                    return (<div className="form-group" key={resource.id}>
+                   
+                    <Input
+                        onChange={""}
+                        type="checkbox"
+                        name={resources.id}
+                        id={resource.id}
+                        
+                 
+                    />
+                     <Label htmlFor={resource.id}>{resource.title}</Label>
+                    </div>)
+                })
+                }
+                   
+               
+               
+                    
+               <div className="form-group">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
                         onChange={handleFieldChange}
                         type="password"
                         name="password"
                         id="password"
                         required=""
-                        placeholder="Password"
+                        
                     />
-                </FormGroup>
-                <FormGroup>
-                    {/* <label htmlFor="password"></label> */}
-                    <input
+                </div>
+                <div className="form-group">
+                    <Label htmlFor="password">Confirm Password</Label>
+                    <Input
                         type="password"
                         name="confirmPassword"
                         id="confirmPassword"
                         required=""
-                        placeholder="Confirm Password"
-                    />
-                </FormGroup>    
-            </Form>
+                  />      
+           
+            <div className="btn-login">
             <Button
                 type="submit"
+                outline color="info"
                 className="register-form-btn" disabled={isLoading}
                 onClick={registerNewUser}>
                 Create Account
             </Button>
+            </div>
+
+                <div className="message-loginAcct">
+                <span className="loginAcct__text">
+                    Already have an account?
+              
+                <Link to="/login">
+                    Sign In
+                </Link>
+                </span>
+                </div>
+            </div>
+            </div>
+            </div>
         
             <div>
             
@@ -159,15 +201,6 @@ const Registration = (props) => {
                 </Modal>*/}
             </div> 
 
-
-            <div className="registerAcct">
-                <span className="registerAcct__text">
-                    Already have an account?
-              </span>
-                <Link to="/login">
-                    Sign In
-                </Link>
-            </div>
 
         </>        
          

@@ -1,0 +1,16 @@
+.btn-rxDetails {
+    margin: 10px;
+    padding: 5px;
+    background-color: #40476d;
+
+}
+
+.btn-rxDetails-done, .btn-saveEditMedication {
+    background-color: #40476d;
+    color: white;
+}
+
+ 
+.btn-cancelEdit, .btn-rxDetails-cancelAll, .btn-rxDetails-cancel {
+    background-color: #ACBEA3;
+}

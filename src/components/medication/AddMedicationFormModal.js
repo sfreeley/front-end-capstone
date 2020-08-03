@@ -1,18 +1,17 @@
 import React from "react";
-import { Form, FormGroup, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import { Form, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import "./styles/AddMedicationFormModal.css"
 
 
-const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewDrug, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
     
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>What does your medication bottle tell you?</ModalHeader>
+            <ModalHeader toggle={toggle}><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
-                    <Form id="addDrug" className="form-group d-lg-inline-flex flex-column bd-highlight">
-                    <FormGroup>
-                        <label htmlFor="name"><strong>Medication Name</strong></label>
-                        <input className="p-2 bd-highlight justify-content-center"
+                        <Label htmlFor="name"><strong>Medication Name</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.name}
                             onChange={handleFieldChange}
                             type="text"
@@ -20,10 +19,10 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             id="name"
                             required=""
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="strength"><strong>Medication Strength</strong></label>
-                        <input className="p-2 bd-highlight"
+                    
+                    
+                        <Label htmlFor="strength"><strong>Medication Strength</strong></Label>
+                        <Input className="p-2 bd-highlight"
                             value={newDrug.strength}
                             onChange={handleFieldChange}
                             type="text"
@@ -32,10 +31,10 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             required=""
                             placeholder="ie 5 mg, 100 mcg, 1 g, 5mL, etc"
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="dosageForm"><strong>Medication Type</strong></label>
-                        <input className="p-2 bd-highlight"
+                    
+                   
+                        <Label htmlFor="dosageForm"><strong>Medication Type</strong></Label>
+                        <Input className="p-2 bd-highlight"
                             value={newDrug.dosageForm}
                             onChange={handleFieldChange}
                             type="text"
@@ -44,10 +43,10 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             required=""
                             placeholder="ie tablet, capsule, solution, etc"
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="directions"><strong>Medication Directions</strong></label>
-                        <input className="p-2 bd-highlight"
+                   
+                   
+                        <Label htmlFor="directions"><strong>Medication Directions</strong></Label>
+                        <Input className="p-2 bd-highlight"
                             value={newDrug.directions}
                             onChange={handleFieldChange}
                             type="text"
@@ -56,10 +55,10 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             required=""
                             placeholder="ie 'take 1 tablet by mouth...'"
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="indication"><strong></strong>Purpose of Medication</label>
-                        <input className="p-2 bd-highlight"
+                    
+                    
+                        <Label htmlFor="indication"><strong>Purpose of Medication</strong></Label>
+                        <Input className="p-2 bd-highlight"
                             value={newDrug.indication}
                             onChange={handleFieldChange}
                             type="text"
@@ -68,10 +67,10 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             required=""
                             placeholder="What did your doctor or pharmacist say this drug is for?"
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="notes">Medication Notes</label>
-                        <textarea className="p-2 bd-highlight"
+                   
+                    
+                        <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
+                        <Input className="p-2 bd-highlight"
                             value={newDrug.notes}
                             onChange={handleFieldChange}
                             type="text"
@@ -79,17 +78,16 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             id="notes"
                             placeholder="Questions? Side effects?"
                         />
-                    </FormGroup>
-                </Form>
-                <Button color="success" onClick={toggleNested}>Refill Details</Button>
+                   
+                
+                <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
-            <ModalHeader>Prescription Details (leave blank if over the counter)</ModalHeader>
+            <ModalHeader>Prescription Details (not required)</ModalHeader>
             <ModalBody>
             {/* start of nested form */}
-            <Form className="form-group d-lg-inline-flex flex-column bd-highlight">
-                    <FormGroup>
-                        <label htmlFor="rxNumber">Prescription Number</label>
-                        <input className="p-2 bd-highlight justify-content-center"
+                   
+                        <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.rxNumber}
                             onChange={handleFieldChange}
                             type="text"
@@ -97,22 +95,21 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             id="rxNumber"
                             required=""
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="dateFilled">Last Date Filled</label>
-                        <input className="p-2 bd-highlight justify-content-center"
+                   
+                    
+                        <Label htmlFor="dateFilled"><strong>Last Date Filled</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.dateFilled}
                             onChange={handleFieldChange}
-                            type="text"
+                            type="date"
                             name="dateFilled"
                             id="dateFilled"
                             required=""
-                            placeholder="Most recent fill date (Format: MM/DD/YYYY)"
                         />
-                    </FormGroup>
-                    <FormGroup>
-                        <label htmlFor="daysSupply">Days Supply</label>
-                        <input className="p-2 bd-highlight justify-content-center"
+                    
+                    
+                        <Label htmlFor="daysSupply"><strong>Days Supply</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.daysSupply}
                             onChange={handleFieldChange}
                             type="text"
@@ -121,23 +118,23 @@ const AddMedicationFormModal = ({props, isLoading, handleFieldChange, handleNewD
                             required=""
                             placeholder="How many days will this medication last you?"
                         />
-                    </FormGroup>
-                </Form>
+                   
+                
 
             </ModalBody>
             <ModalFooter>
-              <Button color="primary" onClick={toggleNested}>Done</Button>
-              <Button color="primary" onClick={toggleNested}>Cancel</Button>
-              <Button color="secondary" onClick={toggleAll}>Cancel All</Button>
+              <Button className="btn-rxDetails-done" color="primary" onClick={toggleNested}>Done</Button>
+              <Button className="btn-rxDetails-cancel" color="warning" onClick={toggleNested}>Cancel</Button>
+              <Button className="btn-rxDetails-cancelAll" color="danger" onClick={toggleAll}>Cancel All</Button>
             </ModalFooter>
           </Modal>
                 </ModalBody>
                             <ModalFooter>
-                                <Button type="button" color="primary" isLoading={isLoading} onClick={handleAddNewDrug}>
+                                <Button className="btn-addMedication" type="button" color="success" isLoading={isLoading} onClick={handleAddNewDrug}>
                                     {'Add Medication'}
                                 </Button>
                                 
-                                <Button type="button" color="primary" onClick={toggle}>
+                                <Button className="btn-cancelAdd" type="button" color="danger" onClick={toggle}>
                                     {'Cancel'}
                                 </Button>
                             

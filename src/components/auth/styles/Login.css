@@ -1,0 +1,26 @@
+
+.content-container {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+  
+ }
+
+ .btn-login {
+     text-align: center;
+     padding-right: 10px;
+     padding-left: 10px;
+     margin: 10px;
+ }
+
+ .registerAcct__text {
+     display: flex;
+     justify-content: center;
+ }
+
+
+
+
+ 
+ 
