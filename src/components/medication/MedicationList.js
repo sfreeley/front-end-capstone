@@ -129,7 +129,7 @@ const MedicationList = (props) => {
                     
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
-                    window.location.reload()
+                    props.history.push("/medication/history")
         
                 })
              })
