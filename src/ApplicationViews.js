@@ -44,19 +44,19 @@ const ApplicationViews = (props) => {
     }}
     />
 
-    <Route path="/medication/new"
+    <Route exact path="/medication/new"
     render={props => {
         return <AddMedicationFormModal {...props} />
     }}
     />
 
-    <Route path="/medication/list"
+    <Route exact path="/medication/list"
     render={props => {
         return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
     }}
     /> 
 
-    <Route path="/medication/history"
+    <Route exact path="/medication/history"
     render={props => {
         return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
     }}
@@ -67,12 +67,6 @@ const ApplicationViews = (props) => {
         return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
     }}
     />
-
-    {/* <Route path="/medication/:drugId(\d+)/edit"
-    render={props => {
-        return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
-    }}
-    /> */}
 
     <Route path="/medication/resources"
     render={props => {

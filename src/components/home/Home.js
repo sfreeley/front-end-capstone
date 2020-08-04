@@ -133,7 +133,7 @@ const handleEditFieldChange = (event) => {
     console.log(event.target.value) 
 };
 
- //edit taking to false and move card to medication hx  
+ //edit med hx  
  const handleChange = (drugToEdit) => {
     setIsChecked(true)
     setIsLoading(true)
@@ -144,7 +144,7 @@ const handleEditFieldChange = (event) => {
                 
                 setDrugs(drugsFromAPI)
                 setIsChecked(false)
-                window.location.reload()
+                !drugsFromAPI.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
     
                
             })
