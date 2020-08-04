@@ -19,15 +19,13 @@
 
 .message-loginAcct {
     display: flex;
-    align-items: center;
     justify-content: center;
     
 }
 
 .loginAcct__text {
-  
+    display: flex;
     justify-content: center;
-   
-    
-   
+    text-align: center;
+
 }

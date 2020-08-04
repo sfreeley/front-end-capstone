@@ -43,8 +43,6 @@ const Registration = (props) => {
     },[]);
 
     
-        // const toggle = () => setModal(!modal);
-    
     
     const registerNewUser = event => {
         event.preventDefault();

@@ -11,7 +11,6 @@ import Registration from "./components/auth/Registration"
 import Home from "./components/home/Home";
 
 //medication
-import EditMedicationForm from "./components/medication/EditMedicationForm";
 import MedicationDetail from "./components/medication/MedicationDetail";
 import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";
@@ -35,7 +34,7 @@ const ApplicationViews = (props) => {
      />
     <Route path="/register"
     render = {props => {
-        return (!hasUser && <Registration {...props} setUser={setUser} />)
+        return (<Registration {...props} setUser={setUser} />)
     }}
     />
 
@@ -69,11 +68,11 @@ const ApplicationViews = (props) => {
     }}
     />
 
-    <Route path="/medication/:drugId(\d+)/edit"
+    {/* <Route path="/medication/:drugId(\d+)/edit"
     render={props => {
         return (hasUser ? <EditMedicationForm {...props} /> : <Redirect to="/login" />)
     }}
-    />
+    /> */}
 
     <Route path="/medication/resources"
     render={props => {

@@ -113,9 +113,11 @@ const handleEditChange = () => {
     toggleEdit()
     ApplicationManager.editDrug(editingDrug)
     .then(() => {
-        ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
+        ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {  
            
-                    setDrugs(drugsFromAPI) 
+                    setDrug(drugFromAPI) 
+                    drugFromAPI.taking ? props.history.push("/medication/list") : props.history.push("medication/history")
+                   
            
         })
 

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from "classnames";
+import ApplicationManager from "../modules/ApplicationManager";
+
 
 
 const Resource = () => {
@@ -9,6 +11,19 @@ const Resource = () => {
     const toggle = tab => {
         activeTab !== tab && setActiveTab(tab)
     }
+
+    const [resources, setResources] = useState([])
+    console.log(resources)
+    const getResources = () => {
+      ApplicationManager.getAllResources().then(resources => {
+          setResources(resources)
+      })
+  }
+  
+  useEffect(() => {
+      getResources();
+  },[]);
+
     return(
         <>
         <NavBar />
