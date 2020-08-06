@@ -4,7 +4,7 @@ import ApplicationManager from "../modules/ApplicationManager";
 import "./styles/EditMedicationFormModal.css";
 
 
-const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
+const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
     
     return (
         <>
@@ -12,6 +12,14 @@ const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handle
         <Modal isOpen={editModal} toggleEdit={toggleEdit}>
             <ModalHeader toggleEdit={toggleEdit}><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
+                        <Input type="file"
+                                name="file"
+                                placeholder="Upload an image"
+                                onChange={uploadImage}/>
+                                {isLoading ? (
+                                <h3> Loading ...</h3>
+                                ): "" }
+                                
                         <Label htmlFor="name">Medication Name</Label>
                         <Input className="p-2 bd-highlight"
                             onChange={handleEditFieldChange}

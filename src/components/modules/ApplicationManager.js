@@ -79,15 +79,21 @@ export default {
   deleteDrug(id) {
     return fetch(`${remoteURL}/drugs/${id}`, {
         method: "DELETE"
-    }).then(result => result.json())
+    }).then(data => data.json())
 },
 
-//getting user's with resources
-getUserResources() {
-  return fetch(`${remoteURL}/resources?_expand=user`).then(data => data.json())
+//get categories from health.gov API
+getCategories() {
+  return fetch("https://health.gov/myhealthfinder/api/v3/itemlist.json?lang=en&type=category").then(data => data.json())
+},
+
+//get result from dropdown selection categoryId from API
+getCategorySelectionResults(categoryId) {
+  return fetch(`https://health.gov/myhealthfinder/api/v3/topicsearch.json?lang=en&categoryId=${categoryId}`).then(data => data.json())
 },
 
 getAllResources() {
   return fetch(`${remoteURL}/resources`).then(data => data.json())
 }
+
 }

@@ -29,7 +29,29 @@ const Home = (props) => {
 
     const toggleEdit = () => setEditModal(!editModal)
     const [isLoading, setIsLoading] = useState(false);
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+
+       //start Cloudinary code
+    const [drugImage, setDrugImage] = useState("")
+
+    const uploadImage = async event => {
+        const files = event.target.files
+        const data = new FormData()
+        data.append("file", files[0])
+        data.append("upload_preset", "uploadDrugs")
+        setIsLoading(true)
+        const res = await fetch(
+        "http://api.cloudinary.com/v1_1/digj43ynr/image/upload" , {
+          method: "POST",
+          body: data
+        })
+     
+        const file = await res.json()
+        setDrugImage(file.secure_url)
+        setIsLoading(false)
+        console.log(newDrug.image)
+        console.log(drugImage)
+      }
 
     //add 
     const [newDrug, setNewDrug] = useState({
@@ -178,9 +200,26 @@ const getIdOfDrug = (event) => {
         } else {
             setIsLoading(true);
             const timestamp = Date.now()
-            newDrug.dateInput = currentDateTime(timestamp)
-            newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
-            ApplicationManager.postNewDrug(newDrug).then(() => {
+            const newMed = {
+                userId: sessionUser.id,
+                name: newDrug.name,
+                strength: newDrug.strength,
+                dosageForm: newDrug.dosageForm,
+                directions: newDrug.directions,
+                indication: newDrug.indication,
+                notes: newDrug.notes,
+                rxNumber: newDrug.rxNumber,
+                dateFilled: newDrug.dateFilled,
+                daysSupply: newDrug.daysSupply,
+                nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
+                taking: true,
+                dateInput: currentDateTime(timestamp),
+                image: drugImage
+            } 
+            
+            // newDrug.dateInput = currentDateTime(timestamp)
+            // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
+            ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getAllDrugs();
                 props.history.push("/medication/list")
             })
@@ -198,8 +237,8 @@ const getIdOfDrug = (event) => {
                 </Button>
             </span>
 
-            <SearchBar {...props} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
-            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+            <SearchBar {...props}  getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
+            <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                 nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
 
             <EditMedicationFormModal drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}

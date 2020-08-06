@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApplicationManager from "../modules/ApplicationManager";
 import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
+import { Input } from "reactstrap"
 import "./styles/SearchBar.css"
 
 
@@ -50,9 +51,9 @@ useEffect(() => {
             setDrugsArray(drugsFromAPI)
             // setSearchTerm(searchTerm.keywordSearch)
     
-            console.log(drugsFromAPI)
-            console.log(drugsArray)
-            console.log(searchTerm.keywordSearch)  
+            // console.log(drugsFromAPI)
+            // console.log(drugsArray)
+            // console.log(searchTerm.keywordSearch)  
   
         })
 },[])
@@ -62,7 +63,7 @@ useEffect(() => {
         <>
         <div className="searchBar-container">
         {/* <form class="form-inline my-2 my-lg-0"> */}
-            <input className="form-control searchBar-position" name="keywordSearch" id="keywordSearch" onChange={getMatchingCards} 
+            <Input className="form-control searchBar-position" name="keywordSearch" id="keywordSearch" onChange={getMatchingCards} 
             type="text" placeholder="Search for keywords" 
             aria-label="Search"/>
            

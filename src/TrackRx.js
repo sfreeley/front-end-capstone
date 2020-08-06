@@ -3,6 +3,9 @@ import ApplicationViews from "./ApplicationViews";
 import './App.css';
 
 const TrackRx = () => {
+  
+
+
   const isAuthenticated = () => sessionStorage.getItem("user") !== null;
 
   const [hasUser, setHasUser] = useState(isAuthenticated());

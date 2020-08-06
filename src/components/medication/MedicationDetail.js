@@ -47,9 +47,29 @@ const MedicationDetail = (props) => {
       setNestedModal(!nestedModal);
       setCloseAll(true);
     }
-  
-    
 
+  //start Cloudinary code
+ const [drugImage, setDrugImage] = useState("")
+
+
+ const uploadImage = async event => {
+   const files = event.target.files
+   const data = new FormData()
+   data.append("file", files[0])
+   data.append("upload_preset", "uploadDrugs")
+   setIsLoading(true)
+   const res = await fetch(
+   "http://api.cloudinary.com/v1_1/digj43ynr/image/upload" , {
+     method: "POST",
+     body: data
+   })
+
+   const file = await res.json()
+   setDrugImage(file.secure_url)
+   setIsLoading(false)
+ }
+  
+  
     useEffect( () => {
         ApplicationManager.getDrugById(props.drugId)
             .then(drug => {
@@ -88,7 +108,7 @@ const MedicationDetail = (props) => {
          taking: false
      }
 
-    //this is the whole drug entry that will be edited
+//this is the whole drug entry that will be edited
 const editingDrug = {
   id: drug.id,
   name: drug.name,
@@ -103,7 +123,8 @@ const editingDrug = {
   daysSupply: drug.daysSupply,
   nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
   dateInput: drug.dateInput,
-  taking: drug.taking
+  taking: drug.taking,
+  image: drugImage
 
 }
 
@@ -117,7 +138,7 @@ const getIdOfDrug = (event) => {
   toggleEdit()
 }
 
-     //handle field changes for whole drug entry edit functionality
+  //handle field changes for whole drug entry edit functionality
   const handleEditFieldChange = (event) => {
   const stateToChange = {...drug};
   stateToChange[event.target.id] = event.target.value;
@@ -132,7 +153,7 @@ const handleEditChange = () => {
   ApplicationManager.editDrug(editingDrug)
   .then(() => {
       ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {  
-         
+                 
                   setDrug(drugFromAPI) 
          
       })
@@ -144,7 +165,7 @@ const handleEditChange = () => {
     return (
     
     <>
-     <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+     <EditMedicationFormModal uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
     <NavBar {...props} />
    <h3>Individual Medication View</h3>
@@ -162,7 +183,7 @@ const handleEditChange = () => {
           <label for="checkbox">Save to Medication History</label>
          </span>
        
-        <CardImg className="img-thumbnail" src={require("../../images/smiling-bottle.png")} alt="medicationBottle" />
+        <CardImg className="img-thumbnail" src={drug.image} alt="medicationBottle" />
         <CardBody>
           <CardTitle>
           <span><strong>Date Entered:</strong> {drug.dateInput}</span>

@@ -1,15 +1,23 @@
-import React from "react";
-import { Form, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import React, { useState } from "react";
+import {Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-
-const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
-    
+const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+   
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle}><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
+                
+                <Input type="file"
+                        name="file"
+                        placeholder="Upload an image"
+                        onChange={uploadImage}/>
+                        {isLoading ? (
+                        <h3> Loading ...</h3>
+                        ): "" }
+                    
                         <Label htmlFor="name"><strong>Medication Name</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.name}

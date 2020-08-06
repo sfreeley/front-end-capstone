@@ -34,7 +34,7 @@ const NavBar = (props) => {
       <div className="nav-bar">
       <span className="nav-bar-logo">
       
-        <Navbar light className="nav-bar-container" >
+        <Navbar light bg-white className="nav-bar-container"  >
           <NavbarBrand href="/" className="nav-bar-title"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
