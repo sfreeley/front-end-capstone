@@ -143,13 +143,14 @@ const handleEditChange = () => {
     return (
         <>
          <NavBar {...props} />
-         <h3>Medication History</h3>
-         <span> <SearchBar {...props} handleChange={handleChange} /> </span>
+        
         <section className="">
         <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             <div className="">
                  <div className="">
+                 <h3>Medication History</h3>
+                 <span> <SearchBar {...props} handleChange={handleChange} /> </span>
                     {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard 
                     key={drug.id}
                     drug={drug}

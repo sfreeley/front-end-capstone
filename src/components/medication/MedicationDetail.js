@@ -170,20 +170,17 @@ const handleEditChange = () => {
     <NavBar {...props} />
    <h3>Individual Medication View</h3>
       <span><SearchBar {...props} handleChange={handleChange} drugId={drug.id} /> </span>
-    
+    <div className="div-medicationDetails">
     <Container fluid className="medication-cards d-flex flex-row">
     <CardDeck className="card-style">
     <Col>
         <Row>
         <>
       <Card className="card-item-style-details" >
-        <span className="span-medicationDetail">
-          <input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
-          /> 
-          <label for="checkbox">Save to Medication History</label>
-         </span>
        
-        <CardImg className="img-thumbnail" src={drug.image} alt="medicationBottle" />
+       
+        {drug.image &&
+        <CardImg className="img-thumbnail" src={drug.image} />}
         <CardBody>
           <CardTitle>
           <span><strong>Date Entered:</strong> {drug.dateInput}</span>
@@ -209,6 +206,11 @@ const handleEditChange = () => {
           <li className="list-group-item"><strong>Notes for me:</strong>: {drug.notes} </li>     
           }
           </ul>
+          <span className="span-medicationDetail">
+          <input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
+          /> 
+          <label for="checkbox">Save to Medication History</label>
+         </span>
           </CardText>
           <hr/>
           <div className="btn-all">
@@ -294,6 +296,7 @@ const handleEditChange = () => {
     
 
   </Container> 
+  </div>
   </>
   
     )

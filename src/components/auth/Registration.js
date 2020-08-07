@@ -13,8 +13,7 @@ const Registration = (props) => {
     const [modal, setModal] = useState(false);
     //trial code for checkboxes
    
-    const [resources, setResources] = useState([])
-    console.log(resources)
+   
 
    
     
@@ -30,16 +29,11 @@ const Registration = (props) => {
         })
     }
 
-    //resources
-    const getResources = () => {
-        ApplicationManager.getAllResources().then(resources => {
-            setResources(resources)
-        })
-    }
+   
     
     useEffect(() => {
         getUsers();
-        getResources();
+        
     },[]);
 
     
@@ -119,24 +113,7 @@ const Registration = (props) => {
                         required=""
                         
                     />
-               {/* start of checkboxes */}
-               </div>
-               <Label>Would you like any additional information on the following topics? (Please check all that apply)</Label>
-                {resources.map(resource => {
-                    return (<div className="form-group" key={resource.id}>
-                   
-                    <Input
-                        onChange={""}
-                        type="checkbox"
-                        name={resources.id}
-                        id={resource.id}
-                        
-                 
-                    />
-                     <Label htmlFor={resource.id}>{resource.title}</Label>
-                    </div>)
-                })
-                }
+                    </div>
                    
                
                

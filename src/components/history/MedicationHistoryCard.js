@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardDeck, Row, Col,
-    CardSubtitle, CardBody, UncontrolledCollapse, Container
+    CardBody, UncontrolledCollapse, Container, Label, Input, ListGroup, ListGroupItem
   } from 'reactstrap';
 import "./styles/MedicationHistoryCard.css";
 
@@ -28,23 +28,17 @@ const MedicationHistoryCard = (props) => {
 
     return (  
      
-   <Container fluid className="medication-cards d-flex flex-row">
+  //  <Container fluid className="medication-cards d-flex flex-row">
    
+  <>
     {props.drug &&
       <CardDeck className="card-style">
-       <Col>
+       {/* <Col> */}
     <Row>
-    
-   
+  
       <Card body className="card-item-style-history">
-       
-        <span>
-        <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugNotTaking)}
-        /> 
-         <label className="checkbox-saveToMedList" htmlFor="checkbox">Save back into Medication List</label>
-         </span>
-       
-        <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" />
+   
+        <CardImg className="img-thumbnail-medicationHx"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" />
 
         <CardBody>
           <CardTitle>
@@ -67,6 +61,13 @@ const MedicationHistoryCard = (props) => {
           <li className="list-group-item"><strong>Notes for me</strong>: {props.drug.notes}</li>     
           }
           </ul>
+          <div className="checkbox-alignment">
+          <span className="span-checbox-medicationHx">
+          <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugNotTaking)}
+         /> 
+         <label className="checkbox-saveToMedList" htmlFor="checkbox">Save back into Medication List</label>
+         </span>
+         </div>
           </CardText>
           <hr/>
           <div className="btn-all">
@@ -114,12 +115,12 @@ const MedicationHistoryCard = (props) => {
           <CardTitle><strong>Prescription Details</strong></CardTitle>
          
           <CardText>
-          <ul className="list-group list-group">
-          <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
-          <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
-          <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
-          </ul> 
+          <ListGroup className="list-group list-group">
+          <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
+          </ListGroup> 
           </CardText>
           <hr/>
         <div className="btn-all-rxDetails">
@@ -139,23 +140,15 @@ const MedicationHistoryCard = (props) => {
       </UncontrolledCollapse>
       </>
       }
-      
-      
-      
   
     </Row>
-    </Col>
+    {/* </Col> */}
     </CardDeck>
     
      
   }
+  </>
 
-  </Container>
-   
-    
-    
-   
- 
    
     )
 }

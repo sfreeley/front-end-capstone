@@ -102,14 +102,14 @@ const Resource = (props) => {
           <ToastHeader>  
           </ToastHeader>
           <ToastBody >
-            <a href={result.AccessibleVersion}>{result.Title}</a>
+            <a rel="noopener noreferrer" target="_blank" href={result.AccessibleVersion}>{result.Title}</a>
           </ToastBody>
         </Toast>
       </div>
            
           })
           
-        })
+        }
         </div>
       <Nav tabs className="tab-idMed">
         <NavItem >

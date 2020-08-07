@@ -1,66 +1,99 @@
-h1, h2, h3, h4, h5, h6 {
+* {
     font-family: 'Noto Sans', sans-serif;
-   
 }
 
 .span-date {
     display: flex;
-    justify-content: center;
-    
+    justify-content: center;  
 }
 
-
-.medication-cards {
+.card-style-containerz {
+    
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: space-around;
-    
+    /* justify-content: center;
+    align-items: center; */
+    width: 90%;
+    flex-wrap: nowrap;
     
 }
+
 
 .card-style {
-    max-width: 90%;
+    max-width: 100%;
+    /* max-width: 100%; */
     display: flex;
-    flex: 2;
+    justify-content: space-between;
     flex-direction: row;
     margin: 15px; 
+    flex-wrap: wrap;
+    flex-basis: auto; 
+}
+
+.card-toggle-style-group {
+    /* width: 60%; */
+    display: inline-block;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 
 .card-item-style-medicationCard {
-    max-width: 50%;
-    max-height: 75%;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
+     /* max-width: 50%;
+    max-height: 75%;  */
+    /* width: 100%; */
+    /* flex: 1; */
+   
+    /* align-items: center; */
     justify-content: center;
-    margin: 20px;
-    background-color: #ACBEA3;
+    /* margin: 20px; */
+    background-color: #acbea370;
+   
   
+}
+
+.checkbox-alignment {
+    display: flex;
+    justify-content: center;
 }
 
 
 .card-toggle-style {
-    max-width: 60%;
-    align-content: space-around;
-    margin-top: 20px;
-    flex: 1;
-    background-color: #f1f1f1
+   
+    display: inline-block;
+    justify-content: center;
+    align-content: space-between;
+    background-color: #f1f1f1;
+    margin: 15px;
 
 }
+
 
 .btn-all {
     display: flex;
     justify-content: center;
 }
 
+.btn-rxDetails-container {
+    display: flex;
+    justify-content: center;
+}
+
 .btn-edit, .btn-expand, .btn-delete, .btn-rx-details, .btn-expand {
    margin: 5px;
-   background-color:  #40476d
+   background-color: #40476d;
+   border: none
 }
 
 .img-thumbnail-medicationCard {
-    max-width: 10%;
+    max-width: 20%;
 }
+
+ .list-group-item-notes {
+    overflow: hidden;
+   
+}
+
+/* .list-group-group {
+    overflow-y: scroll;
+}  */

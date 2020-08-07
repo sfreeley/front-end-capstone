@@ -5,6 +5,23 @@ h1, h2, h3, h4, h5, h6 {
    
 }
 
+/* .section-currentMedicationList--container {
+    display: flex;
+    width: 90%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+} */
+
+.medication-cards-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+    width: 90%;  
+}
+
+
 .span-addDrug-container {
     display:flex;
     text-align: center;
@@ -14,8 +31,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .img-addDrug {
     margin: 5px;
-    
-   
 }
 
 .btn-addMedication {
@@ -26,11 +41,12 @@ h1, h2, h3, h4, h5, h6 {
 .heading-addMedication {
     display: flex;
     justify-content: center;
-    
-   
+     
 }
 
-.section-currentMedicationList--container {
-    height: 100vh;
-    position: relative;
-}
+/* .searchBar-medicationCard {
+    display: flex;
+    justify-content: center;
+} */
+
+

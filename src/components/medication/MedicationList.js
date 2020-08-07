@@ -84,29 +84,18 @@ const MedicationList = (props) => {
         image: drugImage
     })
 
-    // const [isNextRefill, setIsNextRefill] = useState(false)
+    
    
    //get drugs based on user to display in medication list and sort by earliest upcoming refill date
    const getDrugs = () => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-        setDrugs(sortDrugsByDate) 
-        // setIsNextRefill(true) 
+        setDrugs(sortDrugsByDate)
         
     })
     
 }
 
-// const sortAgain = () => {
-//     if (typeof newDrug.nextRefillDate == "string" || typeof drug.nextRefillDate == "string") {
-//         getDrugs()
-//     } else {
-//         return
-//     }
-// }
-
-
-   
     useEffect(() => {
     getDrugs()
    
@@ -141,8 +130,8 @@ const MedicationList = (props) => {
             // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
             ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
-                   
-                    setDrugs(drugs) 
+                    const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+                    setDrugs(sortDrugsByDate) 
                     toggle()
                 })      
             })
@@ -217,7 +206,8 @@ const editingDrug = {
     daysSupply: drug.daysSupply,
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
-    taking: drug.taking
+    taking: drug.taking,
+    image: drugImage
 
 
 }
@@ -275,18 +265,20 @@ const handleEditChange = () => {
             </Button>
             </span>
         
-            <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
+            <AddMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
             nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             
-             <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+             <EditMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
  
          <h2>Current Medication List</h2>
          </div>
-         <section className="section-currentMedicationList--container">
+        
             <div className="searchBar-medicationCard">
             <SearchBar className="searchBar-medicationList" {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
+             <section className="section-currentMedicationList--container">
+            <main className="medication-cards-container">
             {drugs && drugs.map(drug => drug.taking &&
                 <MedicationCard 
                 key={drug.id}
@@ -299,8 +291,10 @@ const handleEditChange = () => {
                 handleChange={handleChange}
                 {...props} 
             /> )} 
-            </div>
+            </main>
+            
         </section> 
+        </div>
         </>
        
     )

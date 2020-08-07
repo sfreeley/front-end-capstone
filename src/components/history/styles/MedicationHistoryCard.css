@@ -27,18 +27,18 @@
 }
 
 .card-item-style-history {
-    max-width: 50%;
+    max-width: 40%;
     max-height: 75%;
     flex: 1;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 20px;
-    background-color: #40476d; 
+    background-color: #40476d8f; 
 
 }
 
-
+/* 
 .card-toggle-style {
     max-width: 60%;
     flex: 1;
@@ -46,22 +46,45 @@
     margin-top: 20px;
     background-color: #f1f1f1
 
+} */
+
+/* .checkbox-alignment {
+    display: flex;
+    justify-content: center;
+} */
+
+.span-checbox-medicationHx {
+    display: flex;
+    justify-content: center;
 }
+
+
+.card-toggle-style {
+    width: 60%;
+    align-content: space-around;
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    margin: 15px;
+}
+
 
 .btn-all {
     display: flex;
+    
     
 }
 
 .btn-all-rxDetails {
     display: flex;
+    
     justify-content: center;
 }
 
 .btn-edit, .btn-delete, .btn-rx-details, .btn-expand {
-   background-color:  #40476d
+   background-color:  #40476d;
+   
 }
 
-.img-thumbnail {
-    max-width: 10%;
+.img-thumbnail-medicationHx {
+    max-width: 15%;
 }

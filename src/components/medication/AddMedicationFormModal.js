@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
    
     return (
         <>
@@ -15,8 +15,8 @@ const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, hand
                         placeholder="Upload an image"
                         onChange={uploadImage}/>
                         {isLoading ? (
-                        <h3> Loading ...</h3>
-                        ): "" }
+                        <h3> Loading ... </h3>
+                        ): <div><img src={drugImage}/> </div>}
                     
                         <Label htmlFor="name"><strong>Medication Name</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
@@ -81,7 +81,7 @@ const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, hand
                         <Input className="p-2 bd-highlight"
                             value={newDrug.notes}
                             onChange={handleFieldChange}
-                            type="text"
+                            type="textarea"
                             name="notes"
                             id="notes"
                             placeholder="Questions? Side effects?"
