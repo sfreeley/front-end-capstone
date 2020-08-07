@@ -26,6 +26,7 @@ const MedicationDetail = (props) => {
             daysSupply: "", 
             nextRefillDate: "", 
             dateInput: "",
+            refills: "",
             taking: true
         
     })
@@ -124,6 +125,7 @@ const editingDrug = {
   nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
   dateInput: drug.dateInput,
   taking: drug.taking,
+  refills: parseInt(drug.refills),
   image: drugImage
 
 }
@@ -265,6 +267,7 @@ const handleEditChange = () => {
           <CardText>
           <ul className="list-group list-group">
           <li className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</li>
+          <li className="list-group-item"><strong>Refills Remaining:</strong> {drug.refills}</li>
           <li className="list-group-item"><strong>Last time this was filled:</strong>: {drug.dateFilled}</li>     
           <li className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</li>     
           <li className="list-group-item"><strong>When should I fill this next?:</strong>: {drug.nextRefillDate}</li>     

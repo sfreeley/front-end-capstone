@@ -24,6 +24,7 @@ const MedicationCard = (props) => {
     daysSupply: props.drug.daysSupply,
     nextRefillDate: props.drug.nextRefillDate,
     dateInput: props.drug.dateInput,
+    refills: props.drug.refills,
     taking: false
   }
 
@@ -118,6 +119,7 @@ const MedicationCard = (props) => {
               <CardText>
               <ul className="list-group list-group">
               <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
+              <li className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</li>
               <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
               <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
               <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     

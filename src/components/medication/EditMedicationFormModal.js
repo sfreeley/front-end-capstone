@@ -5,7 +5,8 @@ import "./styles/EditMedicationFormModal.css";
 
 
 const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
-    
+    const numberRefillArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
     return (
         <>
         {drug &&
@@ -102,8 +103,20 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                             type="text"
                             name="rxNumber"
                             id="rxNumber"
-                            required=""
+                           
                         />
+
+                        <Label htmlFor="refills">Number of Refills Left</Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            onChange={handleEditFieldChange}
+                            value={drug.refills}
+                            type="select"
+                            name="refills"
+                            id="refills">
+                            {numberRefillArray.map(refill => {
+                                return <option key={drug.id} value={refill}>{refill}</option>
+                            })}
+                            </Input>
                    
                         <Label htmlFor="dateFilled">Last Date Filled</Label>
                         <Input className="p-2 bd-highlight justify-content-center"

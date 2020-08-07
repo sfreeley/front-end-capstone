@@ -3,7 +3,7 @@ import {Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "
 import "./styles/AddMedicationFormModal.css"
 
 const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
-   
+    const numberRefillArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
@@ -103,6 +103,19 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                             id="rxNumber"
                             required=""
                         />
+
+                        <Label htmlFor="refills"><strong>Number of Refills Left</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.refills}
+                            onChange={handleFieldChange}
+                            type="select"
+                            name="refills"
+                            id="refills"
+                            >
+                            {numberRefillArray.map(refill => {
+                                return <option value={newDrug.refill}>{refill}</option>
+                            })}
+                            </Input>
                    
                     
                         <Label htmlFor="dateFilled"><strong>Last Date Filled</strong></Label>
@@ -127,8 +140,6 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                             placeholder="How many days will this medication last you?"
                         />
                    
-                
-
             </ModalBody>
             <ModalFooter>
               <Button className="btn-rxDetails-done" color="primary" onClick={toggleNested}>Done</Button>

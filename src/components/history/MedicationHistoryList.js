@@ -70,6 +70,7 @@ const MedicationHistoryList = (props) => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
+    "refills": "",
     taking: true
 })
 console.log(drug)
@@ -97,6 +98,7 @@ const editingDrug = {
     daysSupply: drug.daysSupply,
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
+    refills: parseInt(drug.refills),
     taking: drug.taking
 
 }

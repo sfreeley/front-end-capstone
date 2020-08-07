@@ -81,6 +81,7 @@ const MedicationList = (props) => {
         nextRefillDate: "",
         taking: true,
         dateInput: "",
+        refills: "",
         image: drugImage
     })
 
@@ -91,6 +92,7 @@ const MedicationList = (props) => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
         setDrugs(sortDrugsByDate)
+       
         
     })
     
@@ -123,6 +125,7 @@ const MedicationList = (props) => {
                 daysSupply: newDrug.daysSupply,
                 nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
                 taking: true,
+                refills: parseInt(newDrug.refills),
                 dateInput: currentDateTime(timestamp),
                 image: drugImage
             } 
@@ -133,6 +136,7 @@ const MedicationList = (props) => {
                     const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate) 
                     toggle()
+                    
                 })      
             })
         }  
@@ -179,6 +183,7 @@ const MedicationList = (props) => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
+    refills: "",
     taking: true
 })
 console.log(drug)
@@ -207,6 +212,7 @@ const editingDrug = {
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
     taking: drug.taking,
+    refills: parseInt(drug.refills),
     image: drugImage
 
 
@@ -244,7 +250,8 @@ const handleEditChange = () => {
         ApplicationManager.deleteDrug(id)
         .then(() => {
             ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                return setDrugs(drugsFromAPI)
+                const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+                return setDrugs(sortDrugsByDate)
             });
         });
     };
@@ -275,7 +282,7 @@ const handleEditChange = () => {
          </div>
         
             <div className="searchBar-medicationCard">
-            <SearchBar className="searchBar-medicationList" {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
+            <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
              <section className="section-currentMedicationList--container">
             <main className="medication-cards-container">

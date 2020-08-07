@@ -4,19 +4,13 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from
 import ApplicationManager from "../modules/ApplicationManager";
 
 const Registration = (props) => {
-    // let resourceChosenId;
-    // let checkedBoxes;
     const setUser = props.setUser;
     const [newUser, setNewUser] = useState({username: "", email: "", password: ""})
     const [allUsers, setAllUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false);
     const [modal, setModal] = useState(false);
-    //trial code for checkboxes
-   
-   
-
-   
     
+
     const handleFieldChange = event => {
         const stateToChange = { ...newUser};
         stateToChange[event.target.id] = event.target.value;
@@ -49,7 +43,6 @@ const Registration = (props) => {
             })
             if (findUsername && findUserEmail ) {
                 alert("User email and username already exists")
-               document.getElementById("registerForm").reset()
             } else if (findUserEmail) {
                 alert("User email already exists")
             } else if (findUsername) {

@@ -23,6 +23,7 @@ const MedicationHistoryCard = (props) => {
     daysSupply: props.drug.daysSupply,
     nextRefillDate: props.drug.nextRefillDate,
     dateInput: props.drug.dateInput,
+    refills: props.drug.refills,
     taking: true
   }
 
@@ -117,6 +118,7 @@ const MedicationHistoryCard = (props) => {
           <CardText>
           <ListGroup className="list-group list-group">
           <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>
           <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
           <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
           <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     

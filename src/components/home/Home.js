@@ -68,6 +68,7 @@ const Home = (props) => {
         daysSupply: "",
         nextRefillDate: "",
         taking: true,
+        refills: "",
         dateInput: ""
     }) 
 
@@ -106,6 +107,7 @@ useEffect(() => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
+    refills: "",
     taking: true
 })
 console.log(drug)
@@ -125,6 +127,7 @@ const editingDrug = {
     daysSupply: drug.daysSupply,
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
+    refills: parseInt(drug.refills),
     taking: drug.taking
 
 }
@@ -214,6 +217,7 @@ const getIdOfDrug = (event) => {
                 nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
                 taking: true,
                 dateInput: currentDateTime(timestamp),
+                refills: parseInt(newDrug.refills),
                 image: drugImage
             } 
             
@@ -226,6 +230,17 @@ const getIdOfDrug = (event) => {
         }
     }
 
+    //delete drugs from medication list
+    const removeDrug = (id) => {
+        ApplicationManager.deleteDrug(id)
+        .then(() => {
+            ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                
+                return setDrugs(drugsFromAPI)
+            });
+        });
+    };
+
     return (
         <>
             <NavBar {...props} hasUser={hasUser} clearUser={clearUser} />
@@ -237,7 +252,7 @@ const getIdOfDrug = (event) => {
                 </Button>
             </span>
 
-            <SearchBar {...props}  getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
+            <SearchBar {...props}  setDrugs={setDrugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
             <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                 nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
 
