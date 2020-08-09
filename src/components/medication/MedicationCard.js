@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardBody, UncontrolledPopover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem, Input, Label
@@ -33,17 +33,17 @@ const MedicationCard = (props) => {
       <Card className="shadow-lg medicationCard" >
       <Row>
       <Col  >
-        <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
+        <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
         
         <CardBody>
           <CardTitle>
           <span className="span-date"><strong>Date Entered:</strong> {props.drug.dateInput} </span>
         
-          <ul className="list-group-group list-group flex">
-          <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
-          <li className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</li>
-          <li className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</li>
-          </ul>
+          <ListGroup className="list-group-group list-group flex">
+          <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</ListGroupItem>
+          </ListGroup>
           </CardTitle>
         
           <CardText>
@@ -59,7 +59,7 @@ const MedicationCard = (props) => {
           <span>
           <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
           /> 
-          <Label for="checkbox">Save to Medication History</Label>
+          <Label htmlFor="checkbox">Save to Medication History</Label>
          </span>
          </div>
          <hr/>
@@ -94,8 +94,7 @@ const MedicationCard = (props) => {
           Rx Details
         </Button> :
         <Button
-          className="btn-rx-details"
-          color="primary" 
+          className="btn-rx-details" 
           type="button"
           id={`drug${props.drug.id}`}
           // id={`drug${props.drug.id}`} 
@@ -123,13 +122,13 @@ const MedicationCard = (props) => {
         <Card> 
           {/* <CardTitle></CardTitle> */}
               <CardText>
-              <ul className="list-group list-group">
-              <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
-              <li className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</li>
-              <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
-              <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-              <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
-              </ul> 
+              <ListGroup className="list-group list-group">
+              <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
+              <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>
+              <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
+              <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
+              <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
+              </ListGroup> 
               </CardText>
              
               <div className="btn-all">

@@ -19,10 +19,6 @@
     justify-content: center;
 }
 
-/* .card {
-    
-    margin-bottom: 5px;
-} */
 
 .btn-all {
     display: flex;
@@ -52,7 +48,3 @@
     overflow: hidden;
    
 }
-
-/* .list-group-group {
-    overflow-y: scroll;
-}  */

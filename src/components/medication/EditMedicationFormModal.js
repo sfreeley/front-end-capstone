@@ -5,7 +5,7 @@ import "./styles/EditMedicationFormModal.css";
 
 
 const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
-    const numberRefillArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
     return (
         <>

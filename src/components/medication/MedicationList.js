@@ -163,6 +163,7 @@ const MedicationList = (props) => {
                     
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
+                    setIsLoading(false)
                     props.history.push("/medication/history")
         
                 })

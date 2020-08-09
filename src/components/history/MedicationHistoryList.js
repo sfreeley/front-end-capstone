@@ -5,6 +5,7 @@ import NavBar from "../nav/NavBar";
 import SearchBar from "../search/SearchBar";
 import { calculateNextRefill } from "../modules/helperFunctions";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
+import { Container } from "reactstrap";
 
 const MedicationHistoryList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -70,7 +71,7 @@ const MedicationHistoryList = (props) => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
-    "refills": "",
+    refills: "",
     taking: true
 })
 console.log(drug)
@@ -146,13 +147,14 @@ const handleEditChange = () => {
         <>
          <NavBar {...props} />
         
-        <section className="">
         <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
-            <div className="">
-                 <div className="">
+           
                  <h3>Medication History</h3>
-                 <span> <SearchBar {...props} handleChange={handleChange} /> </span>
+                 <SearchBar {...props} handleChange={handleChange} /> 
+
+                 <Container className="section-historicalMedicationList--container">
+                 {/* add CardDeck here 8/9/20 */}
                     {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard 
                     key={drug.id}
                     drug={drug}
@@ -164,9 +166,9 @@ const handleEditChange = () => {
                     {...props} 
                     />  
                     )}
-                 </div>
-            </div>
-        </section> 
+                
+                    </Container> 
+       
     </>
         
     )
