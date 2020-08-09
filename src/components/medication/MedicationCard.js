@@ -1,15 +1,13 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {
-    Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    Container, CardBody, UncontrolledCollapse, Row, Col, ListGroup, ListGroupItem, Input, Label
+    Card, Button, CardImg, CardTitle, CardText, CardBody, UncontrolledPopover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem, Input, Label
   } from 'reactstrap';
   import "./styles/MedicationCard.css"
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const isFirstCard = true;
-  
+ 
   const currentDrugTaking = {
     id: props.drug.id,
     name: props.drug.name,
@@ -30,14 +28,12 @@ const MedicationCard = (props) => {
 
     return (  
     <> 
-      
-    {props.drug &&
-      <div className="card-style-containerz">
-    <div className="card-style">
-   
+     <Col xs="6">
     
-      <div className="card-item-style-medicationCard" >
-        <img className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
+      <Card className="shadow-lg medicationCard" >
+      <Row>
+      <Col  >
+        <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
         
         <CardBody>
           <CardTitle>
@@ -66,8 +62,7 @@ const MedicationCard = (props) => {
           <Label for="checkbox">Save to Medication History</Label>
          </span>
          </div>
-          </CardText>
-          <hr/>
+         <hr/>
           <div className="btn-all">
           <Button className="btn-edit" 
             id={props.drug.id}
@@ -80,9 +75,11 @@ const MedicationCard = (props) => {
           <Link to={`/medication/detail/${props.drug.id}`}>
           <Button className="btn-expand">Expand</Button>
           </Link> 
-          <Button className="btn-delete" color="danger" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
+          <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
          
         </div>
+          </CardText>
+         
         
         </CardBody>
           <div className="btn-rxDetails-container">
@@ -91,31 +88,40 @@ const MedicationCard = (props) => {
           disabled
           className="btn-rx-details"
           color="secondary" 
-          id={`drug${props.drug.id}`} 
+          type="button"
+          id="PopoverLegacy"
           >
           Rx Details
         </Button> :
         <Button
           className="btn-rx-details"
           color="primary" 
-          id={`drug${props.drug.id}`} 
+          type="button"
+          id={`drug${props.drug.id}`}
+          // id={`drug${props.drug.id}`} 
           >
           Rx Details
         </Button>
+        
       }
+     
       </div>
-    </div> 
-  </div>
+      </Col>
+      </Row>
+      </Card>
+     
+    
+      
+      
 
       {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
-      <div className="card-toggle-style-group">
-      <div className="card-toggle-style">
-      
-      
-      <UncontrolledCollapse toggler={`#drug${props.drug.id}`} >
     
-        <CardBody> 
-          <CardTitle><strong>Prescription Details</strong></CardTitle>
+      
+      <UncontrolledPopover trigger="focus" placement="top" target={`drug${props.drug.id}`}  >
+      <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
+      <PopoverBody>
+        <Card> 
+          {/* <CardTitle></CardTitle> */}
               <CardText>
               <ul className="list-group list-group">
               <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
@@ -125,7 +131,7 @@ const MedicationCard = (props) => {
               <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
               </ul> 
               </CardText>
-              <hr/>
+             
               <div className="btn-all">
               <Button 
                 className="btn-edit" 
@@ -140,17 +146,15 @@ const MedicationCard = (props) => {
               <Button className="btn-expand">Expand</Button>
               </Link>
               </div>
-        </CardBody>
-      </UncontrolledCollapse>
-      </div>
-      </div>
+        </Card>
+        </PopoverBody>
+      </UncontrolledPopover>
      
-     
-    }
+    } 
       
-      </div>
+    </Col> 
    
-  }
+  
   
   </>
     

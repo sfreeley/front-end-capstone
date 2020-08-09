@@ -1,4 +1,4 @@
-.span-medicationDetail {
+/* .span-medicationDetail {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
 
 .div-medicationDetails {
     display: flex;
-    /* flex-direction: row; */
+   
     justify-content: center;
     align-items: center;
 }
@@ -22,10 +22,10 @@
  .card-style {
     max-width: 90%;
     display: flex;
-    /* flex: 2; */
+   
     flex-direction: column;
     margin: 15px; 
-}
+} */
 
 .card-item-style-details {
     max-width: 50%;
@@ -55,7 +55,7 @@
 
 .btn-edit, .btn-rxID, .btn-delete, .btn-rx-details, .btn-expand {
     margin: 5px;
-    background-color:  #40476d
+    
  }
 
  .btn-rxID-container {

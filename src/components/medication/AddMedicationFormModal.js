@@ -3,7 +3,7 @@ import {Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "
 import "./styles/AddMedicationFormModal.css"
 
 const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
-    const numberRefillArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    const numberRefillArray = ["No refills left", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>

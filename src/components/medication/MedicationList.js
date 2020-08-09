@@ -8,6 +8,7 @@ import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
+import { Container, Row, CardDeck } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
@@ -281,11 +282,14 @@ const handleEditChange = () => {
          <h2>Current Medication List</h2>
          </div>
         
-            <div className="searchBar-medicationCard">
+            
             <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
-             <section className="section-currentMedicationList--container">
-            <main className="medication-cards-container">
+             <Container className="section-currentMedicationList--container">
+             <CardDeck>
+            <Row xs="4">
+           
+        
             {drugs && drugs.map(drug => drug.taking &&
                 <MedicationCard 
                 key={drug.id}
@@ -298,10 +302,12 @@ const handleEditChange = () => {
                 handleChange={handleChange}
                 {...props} 
             /> )} 
-            </main>
-            
-        </section> 
-        </div>
+           
+              
+      </Row>
+      </CardDeck> 
+        </Container> 
+       
         </>
        
     )
