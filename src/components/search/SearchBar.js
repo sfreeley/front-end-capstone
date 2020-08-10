@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ApplicationManager from "../modules/ApplicationManager";
 import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
-import { Input } from "reactstrap"
+import { Input, Row, Col } from "reactstrap"
 import "./styles/SearchBar.css"
 
 
@@ -72,8 +72,20 @@ useEffect(() => {
 
         <div>
         {filteredDrugsArray && filteredDrugsArray.map(drug => {
-            return drug.taking ? <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} /> : <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
-            
+            return drug.taking ?
+
+            <Row className="div-medicationCard-searchResult">
+            <Col>
+            <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} /> 
+            </Col>
+            </Row> : 
+
+            <Row className="div-medicationHxCard-searchResult">
+            <Col>
+            <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
+            </Col>
+            </Row>
+           
         })}
         </div>
         </>

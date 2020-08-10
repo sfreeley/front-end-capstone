@@ -1,17 +1,21 @@
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Noto Sans', sans-serif;
     text-align: center;
-    margin: 15px;
-   
+}
+
+.addMedication-image--label {
+    display: flex;
+    justify-content: center;
 }
 
 .section-currentMedicationList--container {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: .1em;
+    margin-bottom: 1em;
+    
       
 }
 
-.card-deck {
+.card-deck { 
     width: 100%;
 }
 
@@ -27,8 +31,8 @@ h1, h2, h3, h4, h5, h6 {
     
 }
 
-.img-addDrug {
-    margin: 5px;
+.img-addDrug:hover {
+    transform: scale(1.2);
 }
 
 .btn-addMedication {
@@ -36,11 +40,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-.heading-addMedication {
-    display: flex;
-    justify-content: center;
-     
-}
 
 
 

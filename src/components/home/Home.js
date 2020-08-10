@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
+import { Button, Label } from "reactstrap";
 import NavBar from "../nav/NavBar";
 import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import ApplicationManager from "../modules/ApplicationManager";
@@ -246,11 +246,15 @@ const getIdOfDrug = (event) => {
             <NavBar {...props} hasUser={hasUser} clearUser={clearUser} />
             <div> 
             <span className="span-addDrug-container">
-                <img className="img-addDrug" src="https://img.icons8.com/office/40/000000/plus-math.png" alt="addDrug"/>
-                <Button className="btn-addMedication" onClick={toggle}>
-                    {'Add New Medication'}
-                </Button>
+            <img onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
+            
+            {/* <Button className="btn-addMedication" >
+                {'Add New Medication'}
+            </Button> */}
             </span>
+            <div className="addMedication-image--label">
+            <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
+            </div>
 
             <SearchBar {...props}  setDrugs={setDrugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
             <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}

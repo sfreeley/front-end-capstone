@@ -7,6 +7,7 @@ import {
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const oneRefillRemaining = (props.drug.refills === 1)
  
   const currentDrugTaking = {
     id: props.drug.id,
@@ -29,10 +30,9 @@ const MedicationCard = (props) => {
     return (  
     <> 
      <Col xs="6">
-    
-      <Card className="shadow-lg medicationCard" >
-      <Row>
-      <Col  >
+      <Card className="shadow-lg medicationCard h-100" >
+      {/* <Row>
+      <Col> */}
         <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
         
         <CardBody>
@@ -63,8 +63,8 @@ const MedicationCard = (props) => {
          </span>
          </div>
          <hr/>
-          <div className="btn-all">
-          <Button className="btn-edit" 
+          <div className="btn-all-medicationCard">
+          <Button className="btn-edit-medList" 
             id={props.drug.id}
             type="button"
             onClick={props.getIdOfDrug}
@@ -73,9 +73,9 @@ const MedicationCard = (props) => {
         </Button>
       
           <Link to={`/medication/detail/${props.drug.id}`}>
-          <Button className="btn-expand">Expand</Button>
+          <Button className="btn-expand-medList">Expand</Button>
           </Link> 
-          <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
+          <Button className="btn-delete-medList" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
          
         </div>
           </CardText>
@@ -86,7 +86,7 @@ const MedicationCard = (props) => {
         {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? 
         <Button 
           disabled
-          className="btn-rx-details"
+          className="btn-rx-details-medList"
           color="secondary" 
           type="button"
           id="PopoverLegacy"
@@ -94,10 +94,9 @@ const MedicationCard = (props) => {
           Rx Details
         </Button> :
         <Button
-          className="btn-rx-details" 
+          className="btn-rx-details-medList" 
           type="button"
-          id={`drug${props.drug.id}`}
-          // id={`drug${props.drug.id}`} 
+          id={`drug${props.drug.id}`} 
           >
           Rx Details
         </Button>
@@ -105,8 +104,8 @@ const MedicationCard = (props) => {
       }
      
       </div>
-      </Col>
-      </Row>
+      {/* </Col>
+      </Row> */}
       </Card>
      
     
@@ -116,20 +115,21 @@ const MedicationCard = (props) => {
       {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
     
       
-      <UncontrolledPopover trigger="focus" placement="top" target={`drug${props.drug.id}`}  >
+      <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.id}`}  >
       <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
       <PopoverBody>
         <Card> 
-          {/* <CardTitle></CardTitle> */}
-              <CardText>
+            <CardText>
               <ListGroup className="list-group list-group">
               <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
-              <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>
+              {props.drug.refills === null ? 
+              <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+              <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>}
               <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
               <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
               <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
               </ListGroup> 
-              </CardText>
+            </CardText>
              
               <div className="btn-all">
               <Button 
@@ -150,9 +150,9 @@ const MedicationCard = (props) => {
       </UncontrolledPopover>
      
     } 
-      
-    </Col> 
    
+    </Col> 
+    
   
   
   </>

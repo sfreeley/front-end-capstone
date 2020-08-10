@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
+import { Button, Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
@@ -8,7 +8,8 @@ import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
-import { Container, Row, CardDeck } from "reactstrap"
+import { calculateBetweenDates } from "../modules/helperFunctions";
+import { Container, CardDeck } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
@@ -67,6 +68,8 @@ const MedicationList = (props) => {
    console.log(drugImage)
  }
  
+// end cloudinary code 
+
     //put new drug that will be added into state
     const [newDrug, setNewDrug] = useState({
         userId: sessionUser.id,
@@ -93,16 +96,53 @@ const MedicationList = (props) => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
         setDrugs(sortDrugsByDate)
-       
-        
+        drugs.filter(drug => {
+            if (calculateTimeLeft(new Date(drug.nextRefillDate), Date.now()) <= 7) {
+                console.log("hahahahahahahah")
+                alert("hahaha")
+                setTimeLeftUntilDate()
+            }
+        })
+     
+         
     })
     
 }
+
+
 
     useEffect(() => {
     getDrugs()
    
     }, []);
+
+
+    // const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateBetweenDates());  
+     
+const calculateTimeLeft = (date1, today) => {
+ let dt1 = new Date(date1);
+ let dt2 = new Date(today);
+ let dt2Date = Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate())
+ let dt1Date = Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())
+
+
+ let differenceInDates = Math.floor((dt1Date - dt2Date) / (1000 * 60 * 60 * 24));
+ if (differenceInDates <= 7) {
+     alert(`This medication has a refill or renewal date ${Math.abs(differenceInDates)} day(s) from today`)
+ }
+
+ return differenceInDates
+    }
+
+    const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeft()); 
+    //every time timeLeftUntilDate is updated in state, useEffect will fire
+useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeftUntilDate(calculateTimeLeft());
+    }, 1000);
+    // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+    return () => clearTimeout(timer);
+  });
 
     // adding new drug 
     const handleAddNewDrug = (event) => {
@@ -123,7 +163,7 @@ const MedicationList = (props) => {
                 notes: newDrug.notes,
                 rxNumber: newDrug.rxNumber,
                 dateFilled: newDrug.dateFilled,
-                daysSupply: newDrug.daysSupply,
+                daysSupply: parseInt(newDrug.daysSupply),
                 nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
                 taking: true,
                 refills: parseInt(newDrug.refills),
@@ -137,12 +177,24 @@ const MedicationList = (props) => {
                     const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate) 
                     toggle()
+                    const timestamp = Date.now()
+                    calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp)
+                    console.log(calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp))
+                    // setTimeLeftUntilDate( calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
+                    // console.log(newMed.nextRefillDate)
+                    // console.log(calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
+                    
+                    
                     
                 })      
             })
         }  
     }
-    
+
+   
+
+
+
     //handling input field for posting new drug
     const handleFieldChange = (event) => {
         const stateToChange = {...newDrug};
@@ -210,7 +262,7 @@ const editingDrug = {
     notes: drug.notes,
     rxNumber: drug.rxNumber,
     dateFilled: drug.dateFilled,
-    daysSupply: drug.daysSupply,
+    daysSupply: parseInt(drug.daysSupply),
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
     taking: drug.taking,
@@ -220,6 +272,8 @@ const editingDrug = {
 
 }
 
+
+
 //getting the drug object by id of drug that will be edited in modal
 const getIdOfDrug = (event) => {
     ApplicationManager.getDrugById(event.target.id)
@@ -228,7 +282,10 @@ const getIdOfDrug = (event) => {
             setIsLoading(false)
         })
     toggleEdit()
+
 }
+
+
         
  
 //editing in modal
@@ -240,6 +297,10 @@ const handleEditChange = () => {
         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
             const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate) 
+                    const timestamp = Date.now()
+                    setTimeLeftUntilDate( calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
+
+                    
            
         })
 
@@ -268,12 +329,15 @@ const handleEditChange = () => {
        
             <div className="headingContainer-medicationList">
             <span className="span-addDrug-container">
-            <img className="img-addDrug" src="https://img.icons8.com/office/40/000000/plus-math.png" alt="addDrug"/>
-            <Button className="btn-addMedication" onClick={toggle}>
+            <img onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
+            
+            {/* <Button className="btn-addMedication" >
                 {'Add New Medication'}
-            </Button>
+            </Button> */}
             </span>
-        
+            <div className="addMedication-image--label">
+            <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
+            </div>
             <AddMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
             nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             
@@ -287,8 +351,8 @@ const handleEditChange = () => {
             <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
              <Container className="section-currentMedicationList--container">
-             <CardDeck>
-            <Row xs="4">
+             <CardDeck xs="4" >
+            {/* <Row xs="4"> */}
            
         
             {drugs && drugs.map(drug => drug.taking &&
@@ -305,7 +369,7 @@ const handleEditChange = () => {
             /> )} 
            
               
-      </Row>
+      {/* </Row> */}
       </CardDeck> 
         </Container> 
        

@@ -16,7 +16,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         onChange={uploadImage}/>
                         {isLoading ? (
                         <h3> Loading ... </h3>
-                        ): <div><img src={drugImage}/> </div>}
+                        ): <div> <img src={drugImage}/> </div>}
                     
                         <Label htmlFor="name"><strong>Medication Name</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"

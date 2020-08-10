@@ -5,7 +5,8 @@ import NavBar from "../nav/NavBar";
 import SearchBar from "../search/SearchBar";
 import { calculateNextRefill } from "../modules/helperFunctions";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
-import { Container } from "reactstrap";
+import { Container, Row, CardDeck } from "reactstrap";
+import "./styles/MedicationHistoryList.css";
 
 const MedicationHistoryList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -154,7 +155,8 @@ const handleEditChange = () => {
                  <SearchBar {...props} handleChange={handleChange} /> 
 
                  <Container className="section-historicalMedicationList--container">
-                 {/* add CardDeck here 8/9/20 */}
+                 <CardDeck xs="4">
+                 {/* <Row xs="4" > */}
                     {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard 
                     key={drug.id}
                     drug={drug}
@@ -166,6 +168,9 @@ const handleEditChange = () => {
                     {...props} 
                     />  
                     )}
+                    
+                    {/* </Row> */}
+                    </CardDeck>
                 
                     </Container> 
        

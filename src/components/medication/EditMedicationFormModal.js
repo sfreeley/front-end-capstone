@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Label, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
-import ApplicationManager from "../modules/ApplicationManager";
 import "./styles/EditMedicationFormModal.css";
 
 
@@ -9,9 +8,9 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
 
     return (
         <>
-        {drug &&
+        
         <Modal isOpen={editModal} toggleEdit={toggleEdit}>
-            <ModalHeader toggleEdit={toggleEdit}><strong>What does your medication bottle tell you?</strong></ModalHeader>
+            <ModalHeader closeButton><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
                         <Input type="file"
                                 name="file"
@@ -159,7 +158,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                             
                     </ModalFooter>
                 </Modal>
-            }
+            
     </>
     )
 

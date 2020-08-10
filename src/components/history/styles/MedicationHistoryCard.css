@@ -1,39 +1,32 @@
-.checkbox-saveToMedList {
-    color: #f1f1f1
-}
-
 .span-date-history {
     display: flex;
     justify-content: center;
-    color: #f1f1f1
-    
+    color: #f1f1f1  
+}
+
+.card {
+    width: 100%;
+    margin-bottom: 10px; 
 }
 
 .medicationHxCard {
     background-color: #40476d8f;
+    box-shadow: 1px 1px 1px inset;
+    margin: 10px;
 }
 
-.span-checkbox-medicationHx {
+.btn-all-medicationHx {
     display: flex;
     justify-content: center;
-}
-
-
-.btn-all {
-    display: flex;
       
 }
 
-.btn-all-rxDetails {
-    display: flex;
-    
-    justify-content: center;
-}
-
-.btn-edit, .btn-delete, .btn-rx-details, .btn-expand {
-  
-   
-}
+.btn-edit-medHxList, .btn-expand-medHxList, .btn-delete-medHxList, .btn-rx-details-medHxList {
+    margin: 5px;
+    border: none;
+    background-color: #40476dd7;
+ }
+ 
 
 .img-thumbnail-medicationHx {
     max-width: 15%;

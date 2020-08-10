@@ -7,11 +7,21 @@
     justify-content: center;  
 }
 
-
-.medicationCard {
+.medicationCard  {
     background-color: #acbea370;
     box-shadow: 1px 1px 1px inset;
-    margin: 10px;
+    margin: 2em;
+    
+}
+
+.card {
+    /* height: 100%; */
+    width: 100%;
+   
+}
+
+.background-yellow {
+    background-color: yellow;
 }
 
 .checkbox-alignment {
@@ -20,7 +30,7 @@
 }
 
 
-.btn-all {
+.btn-all-medicationCard {
     display: flex;
     justify-content: center;
 }
@@ -30,21 +40,18 @@
     justify-content: center;
 }
 
-.btn-edit, .btn-expand, .btn-delete, .btn-rx-details, .btn-expand {
+.btn-edit-medList, .btn-expand-medList, .btn-delete-medList, .btn-rx-details-medList {
    margin: 5px;
-   
-   border: none
+   border: none;
+   background-color: #40476dd7;
 }
 
-.img-delete-trashCan {
-    max-width: 10px;
-}
 
 .img-thumbnail-medicationCard {
     max-width: 10%;
 }
 
- .list-group-item-notes {
+ /* .list-group-item-notes {
     overflow: hidden;
    
-}
+} */
