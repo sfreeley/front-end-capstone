@@ -15,6 +15,7 @@ import "./styles/MedicationList.css"
 const MedicationList = (props) => {
    
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+    const timestamp = Date.now()
     
     //modal states
     const [modal, setModal] = useState(false);
@@ -107,26 +108,25 @@ const MedicationList = (props) => {
     }, []);
 
 
-    const [timeLeftUntilRefillDate, setTimeLeftUntilRefillDate] = useState(calculateBetweenDates());  
+    // const [timeLeftUntilRefillDate, setTimeLeftUntilRefillDate] = useState(calculateBetweenDates());  
      
-    const timestamp = Date.now()
-            const newMed = {
-                userId: sessionUser.id,
-                name: newDrug.name,
-                strength: newDrug.strength,
-                dosageForm: newDrug.dosageForm,
-                directions: newDrug.directions,
-                indication: newDrug.indication,
-                notes: newDrug.notes,
-                rxNumber: newDrug.rxNumber,
-                dateFilled: newDrug.dateFilled,
-                daysSupply: parseInt(newDrug.daysSupply),
-                nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
-                taking: true,
-                refills: parseInt(newDrug.refills),
-                dateInput: currentDateTime(timestamp),
-                image: drugImage
-            } 
+    const newMed = {
+        userId: sessionUser.id,
+        name: newDrug.name,
+        strength: newDrug.strength,
+        dosageForm: newDrug.dosageForm,
+        directions: newDrug.directions,
+        indication: newDrug.indication,
+        notes: newDrug.notes,
+        rxNumber: newDrug.rxNumber,
+        dateFilled: newDrug.dateFilled,
+        daysSupply: parseInt(newDrug.daysSupply),
+        nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
+        taking: true,
+        refills: parseInt(newDrug.refills),
+        dateInput: currentDateTime(timestamp),
+        image: drugImage
+    } 
 
 
     // adding new drug 
@@ -148,12 +148,8 @@ const MedicationList = (props) => {
                     // const timestamp = Date.now()
                     // calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp)
                     // console.log(calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp))
-                    setTimeLeftUntilRefillDate( calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
-                    // console.log(newMed.nextRefillDate)
-                    // console.log(calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
-                    
-                    
-                    
+                    // setTimeLeftUntilRefillDate( calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
+        
                 })      
             })
            
@@ -161,9 +157,6 @@ const MedicationList = (props) => {
        
     }
    
-   
-         
-
     //handling input field for posting new drug
     const handleFieldChange = (event) => {
         const stateToChange = {...newDrug};
@@ -191,7 +184,7 @@ const MedicationList = (props) => {
              })
         }
     
-      //edit whole drug entry state
+ //edit whole drug entry state
   const [drug, setDrug] = useState({
     id: "",
     name: "",
@@ -209,7 +202,7 @@ const MedicationList = (props) => {
     refills: "",
     taking: true
 })
-console.log(drug)
+
 
 //handle field changes for whole drug entry edit functionality
 const handleEditFieldChange = (event) => {
@@ -264,11 +257,7 @@ const handleEditChange = () => {
             const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
             
             setDrugs(sortDrugsByDate) 
-           
-                    setTimeLeftUntilRefillDate(calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
-                  
-                    
-                    
+            // setTimeLeftUntilRefillDate(calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))         
                     
         })
 
@@ -298,10 +287,7 @@ const handleEditChange = () => {
             <div className="headingContainer-medicationList">
             <span className="span-addDrug-container">
             <img onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
-            
-            {/* <Button className="btn-addMedication" >
-                {'Add New Medication'}
-            </Button> */}
+    
             </span>
             <div className="addMedication-image--label">
             <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
@@ -334,8 +320,6 @@ const handleEditChange = () => {
                 isLoading={isLoading}
                 removeDrug={removeDrug}
                 handleChange={handleChange}
-                // timeLeftUntilDate={timeLeftUntilDate}
-                // timerInDays={timerInDays}
             /> )} 
            
               

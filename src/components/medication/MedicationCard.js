@@ -9,7 +9,6 @@ const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
   const oneRefillRemaining = (props.drug.refills === 1)
   
- 
   const currentDrugTaking = {
     id: props.drug.id,
     name: props.drug.name,
@@ -48,17 +47,16 @@ const MedicationCard = (props) => {
   } 
  
 const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
-       //every time timeLeftUntilDate is updated in state, useEffect will fire
-      useEffect(() => {
-      const timer = setTimeout(() => {
-         setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
-       }, 1000);
-       // runs every time useEffect runs except first run and will clear the timer if component is not mounted
-       return () => clearTimeout(timer);
-     });
 const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
-
-  const timerInDays = [];
+const timerInDays = [];
+  //every time timeLeftUntilDate is updated in state, useEffect will fire
+  useEffect(() => {
+  const timer = setTimeout(() => {
+      setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
+    }, 1000);
+    // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+    return () => clearTimeout(timer);
+  });
 
   Object.keys(timeLeftUntilDate).forEach((interval) => {
       if(!timeLeftUntilDate[interval]) {
@@ -67,7 +65,7 @@ const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
 
       timerInDays.push(
           <span>
-              {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`}
+             <h5 className={sevenDaysUntilRefill && 'background-yellow'}> {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`} </h5> 
           </span>
       )
   })
@@ -84,7 +82,7 @@ const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
         <CardBody>
         {props.drug.dateFilled === "" ? null :
         <div className="div-countdownToRefill">
-        {timerInDays.length ? timerInDays : <span> Due for Refill </span>}
+        {timerInDays.length ? timerInDays : <h4 className="dueForRefill"> <span> Due for Refill </span> </h4>} 
         </div>
         }
           <CardTitle>
@@ -134,7 +132,7 @@ const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
         
         </CardBody>
           <div className="btn-rxDetails-container">
-        {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? 
+        {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === null && props.drug.nextRefillDate ==="undefined NaN, NaN" ? 
         <Button 
           disabled
           className="btn-rx-details-medList"
@@ -163,7 +161,7 @@ const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
       
       
 
-      {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
+      {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" && props.drug.nextRefillDate ==="undefined NaN, NaN" && props.drug.refills === null ? null : 
     
       
       <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.id}`}  >
@@ -172,10 +170,13 @@ const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
         <Card> 
             <CardText>
               <ListGroup className="list-group list-group">
-              <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
+              {props.drug.rxNumber === "" ? null : 
+              <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>}
+              {props.drug.rxNumber === "" ? null :
+              <>
               {props.drug.refills === null ? 
               <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
-              <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>}
+              <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>} </> }
               <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
               <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
               <ListGroupItem className={sevenDaysUntilRefill && 'background-red'}><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     

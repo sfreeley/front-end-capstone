@@ -11,6 +11,15 @@
     background-color: tomato;
 }
 
+.div-countdownToRefill {
+    display: flex;
+    justify-content: center;
+}
+
+.dueForRefill {
+    color: tomato;
+}
+
 .medicationCard  {
     background-color: #acbea370;
     box-shadow: 1px 1px 1px inset;
@@ -25,7 +34,8 @@
 }
 
 .background-yellow {
-    background-color: yellow;
+    background-color: rgba(255, 255, 0, 0.582);
+    border-radius: 5px;
 }
 
 .checkbox-alignment {
