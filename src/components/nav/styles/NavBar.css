@@ -1,6 +1,14 @@
 .nav-bar {
     display: flex;
     justify-content: center;
+     /* position: fixed;
+    z-index: 999;
+    background-color: #f1f1f1;
+    width: 100%;
+    top: 0; */
+
+   
+
 }
 
 .nav-bar-logo {
@@ -27,6 +35,5 @@
     background: hsla(100, 17%, 69%, 0.561);
     border-radius: 5px;
     padding: 0 10px;
-   
     pointer-events: none;
 }

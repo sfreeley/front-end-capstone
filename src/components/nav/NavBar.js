@@ -34,15 +34,14 @@ const NavBar = (props) => {
       <div className="nav-bar">
       <span className="nav-bar-logo">
       
-        <Navbar light className="nav-bar-container" >
+        <Navbar light bg-white className="nav-bar-container"  >
+        <NavbarBrand href="/" className="nav-bar-logo"><img src={require("../../images/circle-logo.png")} alt="trackRx-logo" /></NavbarBrand>
           <NavbarBrand href="/" className="nav-bar-title"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />
           <Collapse isOpen={!collapsed} navbar>
          
             <Nav className="nav-bar-links" navbar>
             
-            <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
-         
             <NavItem>
                 <NavLink tag={routerNavLink} to="/" exact path="/" className="nav-link" activeClassName="nav-link--active">
                   Home

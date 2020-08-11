@@ -1,67 +1,33 @@
-.checkbox-saveToMedList {
-    color: #f1f1f1
-}
-
 .span-date-history {
     display: flex;
     justify-content: center;
-    color: #f1f1f1
-    
-}
-/* 
-.medication-cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: nowrap;
-    
-    
-} */
-
-.card-style {
-    max-width: 90%;
-    display: flex;
-    flex: 2;
-    justify-content: center;
-    flex-direction: row; 
+    color: #f1f1f1  
 }
 
-.card-item-style-history {
-    max-width: 50%;
-    max-height: 75%;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
-    background-color: #40476d; 
-
+.card {
+    width: 100%;
+    margin-bottom: 10px; 
 }
 
-
-.card-toggle-style {
-    max-width: 60%;
-    flex: 1;
-    align-content: space-around;
-    margin-top: 20px;
-    background-color: #f1f1f1
-
+.medicationHxCard {
+    background-color: #40476d8f;
+    box-shadow: 1px 1px 1px inset;
+    margin: 10px;
 }
 
-.btn-all {
-    display: flex;
-    
-}
-
-.btn-all-rxDetails {
+.btn-all-medicationHx {
     display: flex;
     justify-content: center;
+      
 }
 
-.btn-edit, .btn-delete, .btn-rx-details, .btn-expand {
-   background-color:  #40476d
-}
+.btn-edit-medHxList, .btn-expand-medHxList, .btn-delete-medHxList, .btn-rx-details-medHxList {
+    margin: 5px;
+    border: none;
+    background-color: #40476dd7;
+ }
+ 
 
-.img-thumbnail {
-    max-width: 10%;
+.img-thumbnail-medicationHx {
+    max-width: 15%;
 }

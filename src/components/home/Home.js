@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
+import { Button, Label } from "reactstrap";
 import NavBar from "../nav/NavBar";
 import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import ApplicationManager from "../modules/ApplicationManager";
@@ -29,7 +29,29 @@ const Home = (props) => {
 
     const toggleEdit = () => setEditModal(!editModal)
     const [isLoading, setIsLoading] = useState(false);
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(false);
+
+       //start Cloudinary code
+    const [drugImage, setDrugImage] = useState("")
+
+    const uploadImage = async event => {
+        const files = event.target.files
+        const data = new FormData()
+        data.append("file", files[0])
+        data.append("upload_preset", "uploadDrugs")
+        setIsLoading(true)
+        const res = await fetch(
+        "http://api.cloudinary.com/v1_1/digj43ynr/image/upload" , {
+          method: "POST",
+          body: data
+        })
+     
+        const file = await res.json()
+        setDrugImage(file.secure_url)
+        setIsLoading(false)
+        console.log(newDrug.image)
+        console.log(drugImage)
+      }
 
     //add 
     const [newDrug, setNewDrug] = useState({
@@ -46,6 +68,7 @@ const Home = (props) => {
         daysSupply: "",
         nextRefillDate: "",
         taking: true,
+        refills: "",
         dateInput: ""
     }) 
 
@@ -84,6 +107,7 @@ useEffect(() => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
+    refills: "",
     taking: true
 })
 console.log(drug)
@@ -103,6 +127,7 @@ const editingDrug = {
     daysSupply: drug.daysSupply,
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
+    refills: parseInt(drug.refills),
     taking: drug.taking
 
 }
@@ -178,28 +203,61 @@ const getIdOfDrug = (event) => {
         } else {
             setIsLoading(true);
             const timestamp = Date.now()
-            newDrug.dateInput = currentDateTime(timestamp)
-            newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
-            ApplicationManager.postNewDrug(newDrug).then(() => {
+            const newMed = {
+                userId: sessionUser.id,
+                name: newDrug.name,
+                strength: newDrug.strength,
+                dosageForm: newDrug.dosageForm,
+                directions: newDrug.directions,
+                indication: newDrug.indication,
+                notes: newDrug.notes,
+                rxNumber: newDrug.rxNumber,
+                dateFilled: newDrug.dateFilled,
+                daysSupply: newDrug.daysSupply,
+                nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
+                taking: true,
+                dateInput: currentDateTime(timestamp),
+                refills: parseInt(newDrug.refills),
+                image: drugImage
+            } 
+            
+            // newDrug.dateInput = currentDateTime(timestamp)
+            // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
+            ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getAllDrugs();
                 props.history.push("/medication/list")
             })
         }
     }
 
+    //delete drugs from medication list
+    const removeDrug = (id) => {
+        ApplicationManager.deleteDrug(id)
+        .then(() => {
+            ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                
+                return setDrugs(drugsFromAPI)
+            });
+        });
+    };
+
     return (
         <>
             <NavBar {...props} hasUser={hasUser} clearUser={clearUser} />
             <div> 
             <span className="span-addDrug-container">
-                <img className="img-addDrug" src="https://img.icons8.com/office/40/000000/plus-math.png" alt="addDrug"/>
-                <Button className="btn-addMedication" onClick={toggle}>
-                    {'Add New Medication'}
-                </Button>
+            <img onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
+            
+            {/* <Button className="btn-addMedication" >
+                {'Add New Medication'}
+            </Button> */}
             </span>
+            <div className="addMedication-image--label">
+            <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
+            </div>
 
-            <SearchBar {...props} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
-            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+            <SearchBar {...props}  setDrugs={setDrugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
+            <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                 nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
 
             <EditMedicationFormModal drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}

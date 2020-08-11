@@ -4,7 +4,8 @@ import { Link } from "react-router-dom"
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
-    Card, Button, CardImg, CardTitle, CardText, CardDeck, CardBody, UncontrolledCollapse, Container, Row, Col } from 'reactstrap';
+    Card, Button, CardImg, CardTitle, CardText, CardBody, Container, Row, Col, ListGroup,
+    ListGroupItem, Input, Label } from 'reactstrap';
   import EditMedicationFormModal from "../medication/EditMedicationFormModal";
   import { calculateNextRefill } from "../modules/helperFunctions";
   import "./styles/MedicationDetail.css";
@@ -26,11 +27,11 @@ const MedicationDetail = (props) => {
             daysSupply: "", 
             nextRefillDate: "", 
             dateInput: "",
+            refills: "",
             taking: true
         
     })
     
-    const isMedCurrentlyTaking = drug.taking ? true : false
 
     const [isLoading, setIsLoading] = useState(true)
     const [isChecked, setIsChecked] = useState(false)
@@ -47,9 +48,29 @@ const MedicationDetail = (props) => {
       setNestedModal(!nestedModal);
       setCloseAll(true);
     }
-  
-    
 
+  //start Cloudinary code
+ const [drugImage, setDrugImage] = useState("")
+
+
+ const uploadImage = async event => {
+   const files = event.target.files
+   const data = new FormData()
+   data.append("file", files[0])
+   data.append("upload_preset", "uploadDrugs")
+   setIsLoading(true)
+   const res = await fetch(
+   "http://api.cloudinary.com/v1_1/digj43ynr/image/upload" , {
+     method: "POST",
+     body: data
+   })
+
+   const file = await res.json()
+   setDrugImage(file.secure_url)
+   setIsLoading(false)
+ }
+  
+  
     useEffect( () => {
         ApplicationManager.getDrugById(props.drugId)
             .then(drug => {
@@ -88,7 +109,7 @@ const MedicationDetail = (props) => {
          taking: false
      }
 
-    //this is the whole drug entry that will be edited
+//this is the whole drug entry that will be edited
 const editingDrug = {
   id: drug.id,
   name: drug.name,
@@ -100,10 +121,12 @@ const editingDrug = {
   notes: drug.notes,
   rxNumber: drug.rxNumber,
   dateFilled: drug.dateFilled,
-  daysSupply: drug.daysSupply,
+  daysSupply: parseInt(drug.daysSupply),
   nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
   dateInput: drug.dateInput,
-  taking: drug.taking
+  taking: drug.taking,
+  refills: parseInt(drug.refills),
+  image: drugImage
 
 }
 
@@ -117,7 +140,7 @@ const getIdOfDrug = (event) => {
   toggleEdit()
 }
 
-     //handle field changes for whole drug entry edit functionality
+  //handle field changes for whole drug entry edit functionality
   const handleEditFieldChange = (event) => {
   const stateToChange = {...drug};
   stateToChange[event.target.id] = event.target.value;
@@ -132,7 +155,7 @@ const handleEditChange = () => {
   ApplicationManager.editDrug(editingDrug)
   .then(() => {
       ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {  
-         
+                 
                   setDrug(drugFromAPI) 
          
       })
@@ -144,52 +167,58 @@ const handleEditChange = () => {
     return (
     
     <>
-     <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+     <EditMedicationFormModal uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
     <NavBar {...props} />
    <h3>Individual Medication View</h3>
-      <span><SearchBar {...props} handleChange={handleChange} drugId={drug.id} /> </span>
+      <SearchBar {...props} handleChange={handleChange} drugId={drug.id} /> 
+      <Container fluid className="medicationDetails--container">
     
-    <Container fluid className="medication-cards d-flex flex-row">
-    <CardDeck className="card-style">
-    <Col>
-        <Row>
-        <>
-      <Card className="card-item-style-details" >
-        <span className="span-medicationDetail">
-          <input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
-          /> 
-          <label for="checkbox">Save to Medication History</label>
-         </span>
-       
-        <CardImg className="img-thumbnail" src={require("../../images/smiling-bottle.png")} alt="medicationBottle" />
+    <Row xs="2">
+      <Col>
+      <Card className="shadow-lg medicationDetails">
+    
+        
+        <CardImg className="img-thumbnail-details" src={drug.image} />
         <CardBody>
           <CardTitle>
-          <span><strong>Date Entered:</strong> {drug.dateInput}</span>
-
-          <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>Medication Name:</strong> {drug.name}</li>
-          <li className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</li>
-          <li className="list-group-item"><strong>Medication Type:</strong> {drug.dosageForm}</li>
-          </ul>
+          <span className="span-date">
+          <strong>Date Entered:</strong> {drug.dateInput}
+          </span>
+          <ListGroup className="list-group list-group flex">
+          <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {drug.name}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Medication Type:</strong> {drug.dosageForm}</ListGroupItem>
+          </ListGroup>
 
           <div className="btn-rxID-container">
-          <Button className="btn-rxID" onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} type="button">Pill Identifier</Button>
+          <img onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} className="btn-rxID" src="https://img.icons8.com/cotton/64/000000/checkmark.png" alt="checkmark-icon"/>
+          <Label htmlFor="checkmark-rxID-label"><strong>Pill Identifier</strong></Label>
           </div>
           
           </CardTitle>
 
           <CardText>
-          <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>How I Should Take My Medication?</strong> {drug.directions}</li>
-          <li className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</li>
+          <ListGroup className="list-group list-group flex">
+          <ListGroupItem className="list-group-item"><strong>How I Should Take My Medication?</strong> {drug.directions}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</ListGroupItem>
           
           {drug.notes === "" ? null : 
-          <li className="list-group-item"><strong>Notes for me:</strong>: {drug.notes} </li>     
+          <ListGroupItem className="list-group-item"><strong>Notes for me:</strong>: {drug.notes} </ListGroupItem>     
           }
-          </ul>
+          </ListGroup>
+
+          <div className="checkbox-alignment">
+          <span className="span-checkbox-medicationDetail">
+          <Input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
+          /> 
+          <Label for="checkbox">Save to Medication History</Label>
+         </span>
+         </div>
+
           </CardText>
           <hr/>
+
           <div className="btn-all">
           <Button className="btn-edit" 
             id={drug.id}
@@ -197,82 +226,65 @@ const handleEditChange = () => {
             onClick={getIdOfDrug}
             >
             Edit
+            {/* <img src="https://img.icons8.com/ios-glyphs/30/000000/edit.png" alt="b/w pencil-icon"/> */}
         </Button>
-          {/* <Link to={`/medication/${drug.id}/edit`}>
-                            <Button
-                                className="btn-edit"
-                                id="editMedication"
-                                type="button"
-                                >
-                                Edit
-                            </Button>
-                        </Link> */}
-          <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>Permanently Remove</Button>
+          <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>
+          Permanently Remove
+          <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" alt="trash-can-icon"/>
+          </Button>
           </div>
 
         </CardBody>
-        {drug.rxNumber === "" && drug.dateFilled === "" && drug.daysSupply === "" ? 
-     
-        <Button 
-          disabled
-          className="btn-rx-details"
-          color="secondary" 
-          id={`drug${drug.id}`} 
-          >
-          Rx Details
-        </Button> :
-        <Button
-          className="btn-rx-details"
-          color="primary" 
-          id={`drug${drug.id}`} 
-          >
-          Rx Details
-        </Button>
-        } 
+        
+      
+      
       </Card>
-        </>
-      {drug.rxNumber === "" && drug.dateFilled === "" && drug.daysSupply === "" ? null : 
-     <>
-      <UncontrolledCollapse toggler={`#drug${drug.id}`}>
-      <Card className="card-toggle-style" >
-        {/* <CardImg top width="100%" src="png" alt="bottle" /> */}
+      </Col>
+     
+   
+   
+          <Col>
+      <Card className="shadow-lg medicationDetails">
         <CardBody> 
           <CardTitle><strong>Prescription Details</strong></CardTitle>
-          {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
+        
           <CardText>
-          <ul className="list-group list-group">
-          <li className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</li>
-          <li className="list-group-item"><strong>Last time this was filled:</strong>: {drug.dateFilled}</li>     
-          <li className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When should I fill this next?:</strong>: {drug.nextRefillDate}</li>     
-          </ul> 
+          <ListGroup className="list-group list-group">
+          <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
+          {drug.refills === null ? 
+          <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+          <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
+          <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
+          </ListGroup> 
           </CardText>
         
         <div className="btn-all">
-        <Link to={`/medication/${drug.id}/edit`}>
-                            <Button 
-                                className="editMedication" 
-                                id="editMedication"
-                                type="button"
-                                >
-                                Edit
-                            </Button>
-                        </Link>
+        <Button className="btn-edit" 
+            id={drug.id}
+            type="button"
+            onClick={getIdOfDrug}
+            >
+            Edit
+            {/* <img src="https://img.icons8.com/ios-glyphs/30/000000/edit.png" alt="b/w pencil-icon"/> */}
+        </Button>
         </div>
           {/* <Button onClick={() => removeDrug(drug.id)}>Permanently Remove</Button> */}
           </CardBody>
+         
       </Card>
-      </UncontrolledCollapse>
-      </>
-    }
-      </Row>
-      
       </Col>
+       
      
-    </CardDeck> 
+      
+      </Row>
+     
+      </Container>
     
-
-  </Container> 
+     
+ 
+ 
   </>
   
     )

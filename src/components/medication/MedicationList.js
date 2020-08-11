@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
+import { Button, Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
@@ -8,6 +8,8 @@ import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
+import { calculateBetweenDates } from "../modules/helperFunctions";
+import { Container, CardDeck } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
@@ -42,7 +44,32 @@ const MedicationList = (props) => {
     
     //display medication cards state
     const [drugs, setDrugs] = useState([])
+
+    //start Cloudinary code
+ const [drugImage, setDrugImage] = useState("")
+
+
+ const uploadImage = async event => {
+   const files = event.target.files
+   const data = new FormData()
+   data.append("file", files[0])
+   data.append("upload_preset", "uploadDrugs")
+   setIsLoading(true)
+   const res = await fetch(
+   "http://api.cloudinary.com/v1_1/digj43ynr/image/upload" , {
+     method: "POST",
+     body: data
+   })
+
+   const file = await res.json()
+   setDrugImage(file.secure_url)
+   setIsLoading(false)
+   console.log(newDrug.image)
+   console.log(drugImage)
+ }
  
+// end cloudinary code 
+
     //put new drug that will be added into state
     const [newDrug, setNewDrug] = useState({
         userId: sessionUser.id,
@@ -57,36 +84,50 @@ const MedicationList = (props) => {
         daysSupply: "",
         nextRefillDate: "",
         taking: true,
-        dateInput: ""
+        dateInput: "",
+        refills: "",
+        image: drugImage
     })
 
-    // const [isNextRefill, setIsNextRefill] = useState(false)
+    
    
    //get drugs based on user to display in medication list and sort by earliest upcoming refill date
    const getDrugs = () => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-        setDrugs(sortDrugsByDate) 
-        // setIsNextRefill(true) 
-        
+        setDrugs(sortDrugsByDate)
+     
     })
     
 }
 
-// const sortAgain = () => {
-//     if (typeof newDrug.nextRefillDate == "string" || typeof drug.nextRefillDate == "string") {
-//         getDrugs()
-//     } else {
-//         return
-//     }
-// }
-
-
-   
     useEffect(() => {
     getDrugs()
    
     }, []);
+
+
+    const [timeLeftUntilRefillDate, setTimeLeftUntilRefillDate] = useState(calculateBetweenDates());  
+     
+    const timestamp = Date.now()
+            const newMed = {
+                userId: sessionUser.id,
+                name: newDrug.name,
+                strength: newDrug.strength,
+                dosageForm: newDrug.dosageForm,
+                directions: newDrug.directions,
+                indication: newDrug.indication,
+                notes: newDrug.notes,
+                rxNumber: newDrug.rxNumber,
+                dateFilled: newDrug.dateFilled,
+                daysSupply: parseInt(newDrug.daysSupply),
+                nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
+                taking: true,
+                refills: parseInt(newDrug.refills),
+                dateInput: currentDateTime(timestamp),
+                image: drugImage
+            } 
+
 
     // adding new drug 
     const handleAddNewDrug = (event) => {
@@ -96,19 +137,33 @@ const MedicationList = (props) => {
             alert("Please fill out required fields")
         } else {
             setIsLoading(true);
-            const timestamp = Date.now()
-            newDrug.dateInput = currentDateTime(timestamp)
-            newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
-            ApplicationManager.postNewDrug(newDrug).then(() => {
+            
+            // newDrug.dateInput = currentDateTime(timestamp)
+            // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
+            ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
-                   
-                    setDrugs(drugs) 
+                    const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+                    setDrugs(sortDrugsByDate) 
                     toggle()
+                    // const timestamp = Date.now()
+                    // calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp)
+                    // console.log(calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp))
+                    setTimeLeftUntilRefillDate( calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
+                    // console.log(newMed.nextRefillDate)
+                    // console.log(calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
+                    
+                    
+                    
                 })      
             })
-        }  
+           
+        }
+       
     }
-    
+   
+   
+         
+
     //handling input field for posting new drug
     const handleFieldChange = (event) => {
         const stateToChange = {...newDrug};
@@ -129,6 +184,7 @@ const MedicationList = (props) => {
                     
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
+                    setIsLoading(false)
                     props.history.push("/medication/history")
         
                 })
@@ -150,6 +206,7 @@ const MedicationList = (props) => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
+    refills: "",
     taking: true
 })
 console.log(drug)
@@ -174,12 +231,59 @@ const editingDrug = {
     notes: drug.notes,
     rxNumber: drug.rxNumber,
     dateFilled: drug.dateFilled,
-    daysSupply: drug.daysSupply,
+    daysSupply: parseInt(drug.daysSupply),
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
-    taking: drug.taking
+    taking: drug.taking,
+    refills: parseInt(drug.refills),
+    image: drugImage
+
 
 }
+const calculateTimeLeftUntilRefill = () => {
+    let dt1 = new Date(editingDrug.nextRefillDate);
+    let dt2 = Date.now();
+    
+    let difference = +dt1 - +dt2
+    let timeLeftUntilDate = {}
+
+    if (difference > 0) {
+        timeLeftUntilDate= {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            // minutes: Math.floor((difference / 1000 / 60) % 60),
+            // seconds: Math.floor((difference / 1000) % 60)  
+        }
+    }
+    return timeLeftUntilDate
+   
+  } 
+ 
+const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
+       //every time timeLeftUntilDate is updated in state, useEffect will fire
+      useEffect(() => {
+      const timer = setTimeout(() => {
+         setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
+       }, 86400000);
+       // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+       return () => clearTimeout(timer);
+     });
+
+  const timerInDays = [];
+
+  Object.keys(timeLeftUntilDate).forEach((interval) => {
+      if(!timeLeftUntilDate[interval]) {
+          return
+      }
+
+      timerInDays.push(
+          <span>
+              {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`}
+          </span>
+      )
+  })
+
+
 
 //getting the drug object by id of drug that will be edited in modal
 const getIdOfDrug = (event) => {
@@ -189,9 +293,9 @@ const getIdOfDrug = (event) => {
             setIsLoading(false)
         })
     toggleEdit()
+
 }
-        
- 
+
 //editing in modal
 const handleEditChange = () => {
     setIsLoading(true)
@@ -199,9 +303,10 @@ const handleEditChange = () => {
     ApplicationManager.editDrug(editingDrug)
     .then(() => {
         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
-           
-                    setDrugs(drugsFromAPI) 
-           
+            const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+                    setDrugs(sortDrugsByDate) 
+                    // setTimeLeftUntilRefillDate(calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
+                    setTimeLeftUntilDate(timeLeftUntilDate)
         })
 
      }) 
@@ -213,10 +318,14 @@ const handleEditChange = () => {
         ApplicationManager.deleteDrug(id)
         .then(() => {
             ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                return setDrugs(drugsFromAPI)
+                const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+                return setDrugs(sortDrugsByDate)
             });
         });
     };
+
+ 
+
 
     return (
         <>
@@ -225,24 +334,33 @@ const handleEditChange = () => {
        
             <div className="headingContainer-medicationList">
             <span className="span-addDrug-container">
-            <img className="img-addDrug" src="https://img.icons8.com/office/40/000000/plus-math.png" alt="addDrug"/>
-            <Button className="btn-addMedication" onClick={toggle}>
+            <img onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
+            
+            {/* <Button className="btn-addMedication" >
                 {'Add New Medication'}
-            </Button>
+            </Button> */}
             </span>
-        
-            <AddMedicationFormModal isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
+            <div className="addMedication-image--label">
+            <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
+            </div>
+            <AddMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug} 
             nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
             
-             <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+             <EditMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
  
          <h2>Current Medication List</h2>
          </div>
-         <section className="section-currentMedicationList--container">
-            <div className="searchBar-medicationCard">
-            <SearchBar className="searchBar-medicationList" {...props} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
+        
+           
+            
+            <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
+             <Container className="section-currentMedicationList--container">
+             <CardDeck xs="4" >
+            {/* <Row xs="4"> */}
+           
+        
             {drugs && drugs.map(drug => drug.taking &&
                 <MedicationCard 
                 key={drug.id}
@@ -255,8 +373,12 @@ const handleEditChange = () => {
                 handleChange={handleChange}
                 {...props} 
             /> )} 
-            </div>
-        </section> 
+           
+              
+      {/* </Row> */}
+      </CardDeck> 
+        </Container> 
+       
         </>
        
     )

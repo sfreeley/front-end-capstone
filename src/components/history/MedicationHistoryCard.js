@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-    Card, Button, CardImg, CardTitle, CardText, CardDeck, Row, Col,
-    CardSubtitle, CardBody, UncontrolledCollapse, Container
+    Card, CardDeck, Button, CardImg, CardTitle, CardText, Row, Col,
+    CardBody, PopoverHeader, PopoverBody, UncontrolledPopover, Label, Input, ListGroup, ListGroupItem, 
   } from 'reactstrap';
 import "./styles/MedicationHistoryCard.css";
 
@@ -23,53 +23,53 @@ const MedicationHistoryCard = (props) => {
     daysSupply: props.drug.daysSupply,
     nextRefillDate: props.drug.nextRefillDate,
     dateInput: props.drug.dateInput,
+    refills: props.drug.refills,
     taking: true
   }
 
     return (  
+     <>
      
-   <Container fluid className="medication-cards d-flex flex-row">
-   
-    {props.drug &&
-      <CardDeck className="card-style">
-       <Col>
+      <Col xs="6">
+     
+      <Card className="shadow-lg medicationHxCard h-100">
+      
     <Row>
-    
-   
-      <Card body className="card-item-style-history">
-       
-        <span>
-        <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugNotTaking)}
-        /> 
-         <label className="checkbox-saveToMedList" htmlFor="checkbox">Save back into Medication List</label>
-         </span>
-       
-        <CardImg className="img-thumbnail"src={"https://img.icons8.com/dusk/64/000000/prescription-pill-bottle.png/"} alt="medicationBottle" />
+    <Col>
+  
+        <CardImg className="img-thumbnail-medicationHx" src={"https://img.icons8.com/color/48/000000/stop-sign.png"} alt="medicationBottle" />
 
         <CardBody>
           <CardTitle>
           <span className="span-date-history"><strong>Date Entered:</strong> {props.drug.dateInput} </span>
 
-          <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
-          <li className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</li>
-          <li className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</li>
-          </ul>
+          <ListGroup className="list-group list-group flex">
+          <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</ListGroupItem>
+          </ListGroup>
           </CardTitle>
           
           <CardText>
           
-          <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>How should I take my medication?</strong> {props.drug.directions}</li>
-          <li className="list-group-item"><strong>Why am I taking this?</strong> {props.drug.indication}</li>
+          <ListGroup className="list-group-group list-group flex">
+          <ListGroupItem className="list-group-item-entry"><strong>How I Should Take My Medication:</strong> {props.drug.directions} </ListGroupItem>
+          <ListGroupItem className="list-group-item-entry"><strong>Why am I taking this?</strong> {props.drug.indication}</ListGroupItem>
           
           {props.drug.notes === "" ? null : 
-          <li className="list-group-item"><strong>Notes for me</strong>: {props.drug.notes}</li>     
+          <ListGroupItem className="list-group-item-notes"><strong>Notes for me</strong>: {props.drug.notes}</ListGroupItem>     
           }
-          </ul>
-          </CardText>
+          </ListGroup>
+          <div className="checkbox-alignment">
+          <span>
+          <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugNotTaking)}
+         /> 
+         <Label htmlFor="checkbox">Save back into Medication List</Label>
+         </span>
+         </div>
+          
           <hr/>
-          <div className="btn-all">
+          <div className="btn-all-medicationHx">
           <Button className="btn-edit" 
             id={props.drug.id}
             type="button"
@@ -82,47 +82,53 @@ const MedicationHistoryCard = (props) => {
           </Link>
           <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
           </div>
+          </CardText>
         
         </CardBody>
+        <div className="btn-rxDetails-container">
         {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? 
         <Button 
           disabled
           className="btn-rx-details"
-          color="secondary" 
-          id={`drug${props.drug.id}`} 
+          type="button"
+          id="PopoverLegacy"
           >
           Rx Details
         </Button> :
         <Button
-          className="btn-rx-details"
-          color="primary" 
-          id={`drug${props.drug.id}`} 
+          className="btn-rx-details" 
+          type="button"
+          id={`drug${props.drug.id}`}
           >
           Rx Details
         </Button>
       }
-        
-      </Card>
+      </div>
+      </Col>
+      </Row>  
+     </Card>
+    
           
       {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
      
-      <>
-      <UncontrolledCollapse toggler={`#drug${props.drug.id}`}>
-      <Card className="card-toggle-style">
       
-        <CardBody> 
-          <CardTitle><strong>Prescription Details</strong></CardTitle>
-         
+      <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.id}`} >
+      <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
+      <PopoverBody>
+      <Card>
           <CardText>
-          <ul className="list-group list-group">
-          <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
-          <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
-          <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-          <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
-          </ul> 
+          <ListGroup className="list-group list-group">
+          <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
+          {props.drug.refills === null ? 
+            <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+          <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>}
+          <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
+          </ListGroup> 
           </CardText>
-          <hr/>
-        <div className="btn-all-rxDetails">
+          
+        <div className="btn-all-medicationHx">
         <Button className="btn-edit" 
             id={props.drug.id}
             type="button"
@@ -134,28 +140,21 @@ const MedicationHistoryCard = (props) => {
           <Button className="btn-expand">Expand</Button>
           </Link>
           </div>
-          </CardBody>
+         
       </Card>
-      </UncontrolledCollapse>
-      </>
+      </PopoverBody>
+      </UncontrolledPopover>
+     
       }
-      
-      
-      
   
-    </Row>
-    </Col>
-    </CardDeck>
+      </Col>
+     
+    
     
      
-  }
 
-  </Container>
-   
-    
-    
-   
- 
+  </>
+
    
     )
 }

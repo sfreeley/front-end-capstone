@@ -1,14 +1,15 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {
-    Card, Button, CardImg, CardTitle, CardText, CardDeck,
-    CardSubtitle, Container, CardBody, UncontrolledCollapse, Row, Col, CustomInput, Input
+    Card, Button, CardImg, CardTitle, CardText, CardBody, UncontrolledPopover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem, Input, Label
   } from 'reactstrap';
   import "./styles/MedicationCard.css"
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const oneRefillRemaining = (props.drug.refills === 1)
   
+ 
   const currentDrugTaking = {
     id: props.drug.id,
     name: props.drug.name,
@@ -23,51 +24,98 @@ const MedicationCard = (props) => {
     daysSupply: props.drug.daysSupply,
     nextRefillDate: props.drug.nextRefillDate,
     dateInput: props.drug.dateInput,
+    refills: props.drug.refills,
     taking: false
   }
 
+  const calculateTimeLeftUntilRefill = () => {
+    let dt1 = new Date(props.drug.nextRefillDate);
+    let dt2 = Date.now();
+    
+    let difference = +dt1 - +dt2
+    let timeLeftUntilDate = {}
+
+    if (difference > 0) {
+        timeLeftUntilDate= {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            // minutes: Math.floor((difference / 1000 / 60) % 60),
+            // seconds: Math.floor((difference / 1000) % 60)  
+        }
+    }
+    return timeLeftUntilDate
+   
+  } 
+ 
+const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
+       //every time timeLeftUntilDate is updated in state, useEffect will fire
+      useEffect(() => {
+      const timer = setTimeout(() => {
+         setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
+       }, 86400000);
+       // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+       return () => clearTimeout(timer);
+     });
+const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
+
+  const timerInDays = [];
+
+  Object.keys(timeLeftUntilDate).forEach((interval) => {
+      if(!timeLeftUntilDate[interval]) {
+          return
+      }
+
+      timerInDays.push(
+          <span>
+              {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`}
+          </span>
+      )
+  })
+
+
     return (  
-      <Container fluid className="medication-cards d-flex flex-row">
-      
-    {props.drug &&
-      
-    <CardDeck className="card-style">
-    <Col>
-    <Row>
-      <Card className="card-item-style-medicationCard" >
-      
-        <span>
-          <input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
-          /> 
-          <label for="checkbox">Save to Medication History</label>
-         </span>
-       
-        <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationBottle" />
+    <> 
+     <Col xs="6">
+      <Card className="shadow-lg medicationCard h-100" >
+      {/* <Row>
+      <Col> */}
+        <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
         
         <CardBody>
+        {props.drug.dateFilled === "" ? null :
+        <div className="div-countdownToRefill">
+        {timerInDays.length ? timerInDays : <span> Due for Refill </span>}
+        </div>
+        }
           <CardTitle>
           <span className="span-date"><strong>Date Entered:</strong> {props.drug.dateInput} </span>
         
-          <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</li>
-          <li className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</li>
-          <li className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</li>
-          </ul>
+          <ListGroup className="list-group-group list-group flex">
+            <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {props.drug.name}</ListGroupItem>
+            <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {props.drug.strength}</ListGroupItem>
+            <ListGroupItem className="list-group-item"><strong>Medication Type:</strong> {props.drug.dosageForm}</ListGroupItem>
+          </ListGroup>
           </CardTitle>
         
           <CardText>
-          <ul className="list-group list-group flex">
-          <li className="list-group-item"><strong>How I Should Take My Medication:</strong> {props.drug.directions}</li>
-          <li className="list-group-item"><strong>Why am I taking this?:</strong> {props.drug.indication}</li>
+          <ListGroup className="list-group-group list-group flex">
+          <ListGroupItem className="list-group-item-entry"><strong>How I Should Take My Medication:</strong> {props.drug.directions}</ListGroupItem>
+          <ListGroupItem className="list-group-item-entry"><strong>Why am I taking this? </strong> {props.drug.indication}</ListGroupItem>
           
           {props.drug.notes === "" ? null : 
-          <li className="list-group-item"><strong>Notes for me:</strong> {props.drug.notes}</li>     
+          <ListGroupItem className="list-group-item-notes"><strong>Notes for me:</strong> {props.drug.notes}</ListGroupItem>     
           }
-          </ul>
-          </CardText>
-          <hr/>
-          <div className="btn-all">
-          <Button className="btn-edit" 
+          </ListGroup>
+          <div className="checkbox-alignment">
+          <span>
+          <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
+          /> 
+          <Label htmlFor="checkbox">Save to Medication History</Label>
+         </span>
+         </div>
+         <hr/>
+          <div className="btn-all-medicationCard">
+          <Button className="btn-edit-medList" 
             id={props.drug.id}
             type="button"
             onClick={props.getIdOfDrug}
@@ -76,52 +124,64 @@ const MedicationCard = (props) => {
         </Button>
       
           <Link to={`/medication/detail/${props.drug.id}`}>
-          <Button className="btn-expand">Expand</Button>
+          <Button className="btn-expand-medList">Expand</Button>
           </Link> 
-          <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
+          <Button className="btn-delete-medList" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
          
         </div>
+          </CardText>
+         
         
         </CardBody>
-
+          <div className="btn-rxDetails-container">
         {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? 
         <Button 
           disabled
-          className="btn-rx-details"
+          className="btn-rx-details-medList"
           color="secondary" 
-          id={`drug${props.drug.id}`} 
+          type="button"
+          id="PopoverLegacy"
           >
           Rx Details
         </Button> :
         <Button
-          className="btn-rx-details"
-          color="primary" 
+          className="btn-rx-details-medList" 
+          type="button"
           id={`drug${props.drug.id}`} 
           >
           Rx Details
         </Button>
+        
       }
-       
-       </Card>
+     
+      </div>
+      {/* </Col>
+      </Row> */}
+      </Card>
+     
+    
       
+      
+
       {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" ? null : 
-      <>
-     
-     
-      <UncontrolledCollapse toggler={`#drug${props.drug.id}`} >
+    
       
-      <Card className="card-toggle-style">
-        <CardBody> 
-          <CardTitle><strong>Prescription Details</strong></CardTitle>
-              <CardText>
-              <ul className="list-group list-group">
-              <li className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</li>
-              <li className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</li>     
-              <li className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</li>     
-              <li className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</li>     
-              </ul> 
-              </CardText>
-              <hr/>
+      <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.id}`}  >
+      <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
+      <PopoverBody>
+        <Card> 
+            <CardText>
+              <ListGroup className="list-group list-group">
+              <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {props.drug.rxNumber}</ListGroupItem>
+              {props.drug.refills === null ? 
+              <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+              <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>}
+              <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
+              <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
+              <ListGroupItem className={sevenDaysUntilRefill && 'background-red'}><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
+              </ListGroup> 
+            </CardText>
+             
               <div className="btn-all">
               <Button 
                 className="btn-edit" 
@@ -136,29 +196,19 @@ const MedicationCard = (props) => {
               <Button className="btn-expand">Expand</Button>
               </Link>
               </div>
-        </CardBody>
-    
-      </Card>
-      
-      
-      </UncontrolledCollapse>
+        </Card>
+        </PopoverBody>
+      </UncontrolledPopover>
      
-      
-     
-      </>
-
-      }
-      </Row>
-      </Col>
-    </CardDeck> 
+    } 
    
+    </Col> 
     
-   
-  }
   
+  
+  </>
     
-   
-    </Container> 
+
      
     )
 }

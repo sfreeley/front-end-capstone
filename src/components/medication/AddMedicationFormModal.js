@@ -1,15 +1,23 @@
 import React from "react";
-import { Form, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import {Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-
-const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
-    
+const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
+    const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
             <ModalHeader toggle={toggle}><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
+                
+                <Input type="file"
+                        name="file"
+                        placeholder="Upload an image"
+                        onChange={uploadImage}/>
+                        {isLoading ? (
+                        <h3> Loading ... </h3>
+                        ): <div> <img src={drugImage}/> </div>}
+                    
                         <Label htmlFor="name"><strong>Medication Name</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.name}
@@ -73,7 +81,7 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                         <Input className="p-2 bd-highlight"
                             value={newDrug.notes}
                             onChange={handleFieldChange}
-                            type="text"
+                            type="textarea"
                             name="notes"
                             id="notes"
                             placeholder="Questions? Side effects?"
@@ -95,6 +103,19 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                             id="rxNumber"
                             required=""
                         />
+
+                        <Label htmlFor="refills"><strong>Number of Refills Left</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.refills}
+                            onChange={handleFieldChange}
+                            type="select"
+                            name="refills"
+                            id="refills"
+                            >
+                            {numberRefillArray.map(refill => {
+                                return <option value={newDrug.refill}>{refill}</option>
+                            })}
+                            </Input>
                    
                     
                         <Label htmlFor="dateFilled"><strong>Last Date Filled</strong></Label>
@@ -119,8 +140,6 @@ const AddMedicationFormModal = ({isLoading, handleFieldChange, handleAddNewDrug,
                             placeholder="How many days will this medication last you?"
                         />
                    
-                
-
             </ModalBody>
             <ModalFooter>
               <Button className="btn-rxDetails-done" color="primary" onClick={toggleNested}>Done</Button>

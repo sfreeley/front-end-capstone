@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Label, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
-import ApplicationManager from "../modules/ApplicationManager";
 import "./styles/EditMedicationFormModal.css";
 
 
-const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
-    
+const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
+    const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
     return (
         <>
-        {drug &&
+        
         <Modal isOpen={editModal} toggleEdit={toggleEdit}>
-            <ModalHeader toggleEdit={toggleEdit}><strong>What does your medication bottle tell you?</strong></ModalHeader>
+            <ModalHeader closeButton><strong>What does your medication bottle tell you?</strong></ModalHeader>
                 <ModalBody>
+                        <Input type="file"
+                                name="file"
+                                placeholder="Upload an image"
+                                onChange={uploadImage}/>
+                                {isLoading ? (
+                                <h3> Loading ...</h3>
+                                ): "" }
+                                
                         <Label htmlFor="name">Medication Name</Label>
                         <Input className="p-2 bd-highlight"
                             onChange={handleEditFieldChange}
@@ -74,7 +82,7 @@ const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handle
                         <Input className="p-2 bd-highlight"
                             value={drug.notes}
                             onChange={handleEditFieldChange}
-                            type="text"
+                            type="textarea"
                             name="notes"
                             id="notes"
                             placeholder="Questions? Side effects?"
@@ -94,8 +102,20 @@ const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handle
                             type="text"
                             name="rxNumber"
                             id="rxNumber"
-                            required=""
+                           
                         />
+
+                        <Label htmlFor="refills">Number of Refills Left</Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            onChange={handleEditFieldChange}
+                            value={drug.refills}
+                            type="select"
+                            name="refills"
+                            id="refills">
+                            {numberRefillArray.map(refill => {
+                                return <option key={drug.id} value={refill}>{refill}</option>
+                            })}
+                            </Input>
                    
                         <Label htmlFor="dateFilled">Last Date Filled</Label>
                         <Input className="p-2 bd-highlight justify-content-center"
@@ -138,7 +158,7 @@ const EditMedicationFormModal = ({drug, handleEditFieldChange, isLoading, handle
                             
                     </ModalFooter>
                 </Modal>
-            }
+            
     </>
     )
 

@@ -5,6 +5,8 @@ import NavBar from "../nav/NavBar";
 import SearchBar from "../search/SearchBar";
 import { calculateNextRefill } from "../modules/helperFunctions";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
+import { Container, Row, CardDeck } from "reactstrap";
+import "./styles/MedicationHistoryList.css";
 
 const MedicationHistoryList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -70,6 +72,7 @@ const MedicationHistoryList = (props) => {
     daysSupply: "", 
     nextRefillDate: "", 
     dateInput: "",
+    refills: "",
     taking: true
 })
 console.log(drug)
@@ -97,6 +100,7 @@ const editingDrug = {
     daysSupply: drug.daysSupply,
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
+    refills: parseInt(drug.refills),
     taking: drug.taking
 
 }
@@ -143,13 +147,16 @@ const handleEditChange = () => {
     return (
         <>
          <NavBar {...props} />
-         <h3>Medication History</h3>
-         <span> <SearchBar {...props} handleChange={handleChange} /> </span>
-        <section className="">
+        
         <EditMedicationFormModal drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
-            <div className="">
-                 <div className="">
+           
+                 <h3>Medication History</h3>
+                 <SearchBar {...props} handleChange={handleChange} /> 
+
+                 <Container className="section-historicalMedicationList--container">
+                 <CardDeck xs="4">
+                 {/* <Row xs="4" > */}
                     {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard 
                     key={drug.id}
                     drug={drug}
@@ -161,9 +168,12 @@ const handleEditChange = () => {
                     {...props} 
                     />  
                     )}
-                 </div>
-            </div>
-        </section> 
+                    
+                    {/* </Row> */}
+                    </CardDeck>
+                
+                    </Container> 
+       
     </>
         
     )
