@@ -96,20 +96,10 @@ const MedicationList = (props) => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
         setDrugs(sortDrugsByDate)
-        drugs.filter(drug => {
-            if (calculateTimeLeft(new Date(drug.nextRefillDate), Date.now()) <= 7) {
-                console.log("hahahahahahahah")
-                alert("hahaha")
-                setTimeLeftUntilDate()
-            }
-        })
      
-         
     })
     
 }
-
-
 
     useEffect(() => {
     getDrugs()
@@ -117,42 +107,9 @@ const MedicationList = (props) => {
     }, []);
 
 
-    // const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateBetweenDates());  
+    const [timeLeftUntilRefillDate, setTimeLeftUntilRefillDate] = useState(calculateBetweenDates());  
      
-const calculateTimeLeft = (date1, today) => {
- let dt1 = new Date(date1);
- let dt2 = new Date(today);
- let dt2Date = Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate())
- let dt1Date = Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())
-
-
- let differenceInDates = Math.floor((dt1Date - dt2Date) / (1000 * 60 * 60 * 24));
- if (differenceInDates <= 7) {
-     alert(`This medication has a refill or renewal date ${Math.abs(differenceInDates)} day(s) from today`)
- }
-
- return differenceInDates
-    }
-
-    const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeft()); 
-    //every time timeLeftUntilDate is updated in state, useEffect will fire
-useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeftUntilDate(calculateTimeLeft());
-    }, 1000);
-    // runs every time useEffect runs except first run and will clear the timer if component is not mounted
-    return () => clearTimeout(timer);
-  });
-
-    // adding new drug 
-    const handleAddNewDrug = (event) => {
-        event.preventDefault();
-        if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
-        || newDrug.directions === "" || newDrug.indication === "") {
-            alert("Please fill out required fields")
-        } else {
-            setIsLoading(true);
-            const timestamp = Date.now()
+    const timestamp = Date.now()
             const newMed = {
                 userId: sessionUser.id,
                 name: newDrug.name,
@@ -170,6 +127,17 @@ useEffect(() => {
                 dateInput: currentDateTime(timestamp),
                 image: drugImage
             } 
+
+
+    // adding new drug 
+    const handleAddNewDrug = (event) => {
+        event.preventDefault();
+        if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
+        || newDrug.directions === "" || newDrug.indication === "") {
+            alert("Please fill out required fields")
+        } else {
+            setIsLoading(true);
+            
             // newDrug.dateInput = currentDateTime(timestamp)
             // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
             ApplicationManager.postNewDrug(newMed).then(() => {
@@ -177,10 +145,10 @@ useEffect(() => {
                     const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate) 
                     toggle()
-                    const timestamp = Date.now()
-                    calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp)
-                    console.log(calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp))
-                    // setTimeLeftUntilDate( calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
+                    // const timestamp = Date.now()
+                    // calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp)
+                    // console.log(calculateTimeLeft(new Date(newMed.nextRefillDate), timestamp))
+                    setTimeLeftUntilRefillDate( calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
                     // console.log(newMed.nextRefillDate)
                     // console.log(calculateBetweenDates(new Date(newMed.nextRefillDate), timestamp))
                     
@@ -188,12 +156,13 @@ useEffect(() => {
                     
                 })      
             })
-        }  
+           
+        }
+       
     }
-
    
-
-
+   
+         
 
     //handling input field for posting new drug
     const handleFieldChange = (event) => {
@@ -271,6 +240,48 @@ const editingDrug = {
 
 
 }
+const calculateTimeLeftUntilRefill = () => {
+    let dt1 = new Date(editingDrug.nextRefillDate);
+    let dt2 = Date.now();
+    
+    let difference = +dt1 - +dt2
+    let timeLeftUntilDate = {}
+
+    if (difference > 0) {
+        timeLeftUntilDate= {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            // minutes: Math.floor((difference / 1000 / 60) % 60),
+            // seconds: Math.floor((difference / 1000) % 60)  
+        }
+    }
+    return timeLeftUntilDate
+   
+  } 
+ 
+const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
+       //every time timeLeftUntilDate is updated in state, useEffect will fire
+      useEffect(() => {
+      const timer = setTimeout(() => {
+         setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
+       }, 86400000);
+       // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+       return () => clearTimeout(timer);
+     });
+
+  const timerInDays = [];
+
+  Object.keys(timeLeftUntilDate).forEach((interval) => {
+      if(!timeLeftUntilDate[interval]) {
+          return
+      }
+
+      timerInDays.push(
+          <span>
+              {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`}
+          </span>
+      )
+  })
 
 
 
@@ -285,9 +296,6 @@ const getIdOfDrug = (event) => {
 
 }
 
-
-        
- 
 //editing in modal
 const handleEditChange = () => {
     setIsLoading(true)
@@ -297,11 +305,8 @@ const handleEditChange = () => {
         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
             const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate) 
-                    const timestamp = Date.now()
-                    setTimeLeftUntilDate( calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
-
-                    
-           
+                    // setTimeLeftUntilRefillDate(calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
+                    setTimeLeftUntilDate(timeLeftUntilDate)
         })
 
      }) 
@@ -347,6 +352,7 @@ const handleEditChange = () => {
          <h2>Current Medication List</h2>
          </div>
         
+           
             
             <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />

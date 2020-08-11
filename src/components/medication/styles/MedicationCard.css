@@ -7,6 +7,10 @@
     justify-content: center;  
 }
 
+.background-red {
+    background-color: tomato;
+}
+
 .medicationCard  {
     background-color: #acbea370;
     box-shadow: 1px 1px 1px inset;
@@ -51,7 +55,3 @@
     max-width: 10%;
 }
 
- /* .list-group-item-notes {
-    overflow: hidden;
-   
-} */
