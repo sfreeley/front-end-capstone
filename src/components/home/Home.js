@@ -236,7 +236,8 @@ const getIdOfDrug = (event) => {
         .then(() => {
             ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
                 
-                return setDrugs(drugsFromAPI)
+                setDrugs(drugsFromAPI)
+                props.history.push("/medication/list")
             });
         });
     };

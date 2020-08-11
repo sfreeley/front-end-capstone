@@ -97,7 +97,7 @@ const editingDrug = {
     notes: drug.notes,
     rxNumber: drug.rxNumber,
     dateFilled: drug.dateFilled,
-    daysSupply: drug.daysSupply,
+    daysSupply: parseInt(drug.daysSupply),
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
     refills: parseInt(drug.refills),
@@ -139,7 +139,7 @@ const handleEditChange = () => {
         ApplicationManager.deleteDrug(id)
         .then(() => {
             ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                return setDrugs(drugsFromAPI)
+                setDrugs(drugsFromAPI)
             });
         });
     };
@@ -152,7 +152,7 @@ const handleEditChange = () => {
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
            
                  <h3>Medication History</h3>
-                 <SearchBar {...props} handleChange={handleChange} /> 
+                 <SearchBar {...props} handleChange={handleChange} handleEditChange={handleEditChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} /> 
 
                  <Container className="section-historicalMedicationList--container">
                  <CardDeck xs="4">
