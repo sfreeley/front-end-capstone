@@ -52,7 +52,7 @@ const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUnti
       useEffect(() => {
       const timer = setTimeout(() => {
          setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
-       }, 86400000);
+       }, 1000);
        // runs every time useEffect runs except first run and will clear the timer if component is not mounted
        return () => clearTimeout(timer);
      });

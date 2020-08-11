@@ -237,62 +237,20 @@ const editingDrug = {
     taking: drug.taking,
     refills: parseInt(drug.refills),
     image: drugImage
-
-
 }
-const calculateTimeLeftUntilRefill = () => {
-    let dt1 = new Date(editingDrug.nextRefillDate);
-    let dt2 = Date.now();
-    
-    let difference = +dt1 - +dt2
-    let timeLeftUntilDate = {}
-
-    if (difference > 0) {
-        timeLeftUntilDate= {
-            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-            // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-            // minutes: Math.floor((difference / 1000 / 60) % 60),
-            // seconds: Math.floor((difference / 1000) % 60)  
-        }
-    }
-    return timeLeftUntilDate
-   
-  } 
- 
-const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
-       //every time timeLeftUntilDate is updated in state, useEffect will fire
-      useEffect(() => {
-      const timer = setTimeout(() => {
-         setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
-       }, 86400000);
-       // runs every time useEffect runs except first run and will clear the timer if component is not mounted
-       return () => clearTimeout(timer);
-     });
-
-  const timerInDays = [];
-
-  Object.keys(timeLeftUntilDate).forEach((interval) => {
-      if(!timeLeftUntilDate[interval]) {
-          return
-      }
-
-      timerInDays.push(
-          <span>
-              {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`}
-          </span>
-      )
-  })
-
 
 
 //getting the drug object by id of drug that will be edited in modal
 const getIdOfDrug = (event) => {
+    
     ApplicationManager.getDrugById(event.target.id)
         .then( (result) => {
             setDrug(result)
             setIsLoading(false)
+           
         })
     toggleEdit()
+   
 
 }
 
@@ -304,9 +262,14 @@ const handleEditChange = () => {
     .then(() => {
         ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {  
             const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-                    setDrugs(sortDrugsByDate) 
-                    // setTimeLeftUntilRefillDate(calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
-                    setTimeLeftUntilDate(timeLeftUntilDate)
+            
+            setDrugs(sortDrugsByDate) 
+           
+                    setTimeLeftUntilRefillDate(calculateBetweenDates(new Date(editingDrug.nextRefillDate), timestamp))
+                  
+                    
+                    
+                    
         })
 
      }) 
@@ -371,7 +334,8 @@ const handleEditChange = () => {
                 isLoading={isLoading}
                 removeDrug={removeDrug}
                 handleChange={handleChange}
-                {...props} 
+                // timeLeftUntilDate={timeLeftUntilDate}
+                // timerInDays={timerInDays}
             /> )} 
            
               
