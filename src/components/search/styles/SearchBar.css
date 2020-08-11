@@ -5,19 +5,18 @@
 
 .searchBar-position {
     max-width: 75%;
-    border: 2px solid #40476d;
+    border: 2px solid #40476d49;
+    box-shadow: 1px 1px 1px inset;
    
 }
 
 .div-medicationCard-searchResult {
     display: flex;
-    justify-content: center;
-   
+    justify-content: center; 
 }
 
 .div-medicationHxCard-searchResult {
     display: flex;
     justify-content: center;
    
-
 }

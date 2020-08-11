@@ -3,31 +3,61 @@
     flex-direction: column;
 }
 
-.dropdown-selector {
+.dropdown-selector { 
+    max-width: 60%;
+    margin-bottom: 1em;
+    border: 2px solid #40476d49;
+    box-shadow: 1px 1px 1px inset;
+}
+
+.div-dropdown-selector--container {
     display: flex;
     justify-content: center;
-  
-
 }
+
+/* .div-health-link {
+    max-width: 90%;
+} */
 
 .health-link-container {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-
+    overflow-x: auto;
 
 }
 
 .health-link, .tab-idMed {
-    background-color: #40476d49;
+    border: #40476d49 2px solid;
+    box-shadow: 1px 1px 1px;
     display: flex;
+    margin: 1em;
+    background-color: hsla(102, 16%, 69%, 0.164);
     flex-direction: row;
+    color: #40476d;
     justify-content: center;
-    
-   
+    /* margin-top: 1em; */
+
 }
+
+/* .info-icon {
+    display: flex;
+    justify-content: center;
+} */
+
+.toastBody-link {
+   text-align: center;
+   color: #40476d;  
+}
+
 
 .btn-info {
     background-color: hsla(100, 17%, 69%, 0.561);
-    border: none
+    border: none;
+    color: black;
+}
+
+.card {
+    width: 100%;
+    box-shadow: 1px 1px 1px;
+    margin-top: 1em;
 }

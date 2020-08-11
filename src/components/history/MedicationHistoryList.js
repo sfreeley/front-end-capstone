@@ -5,7 +5,7 @@ import NavBar from "../nav/NavBar";
 import SearchBar from "../search/SearchBar";
 import { calculateNextRefill } from "../modules/helperFunctions";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
-import { Container, Row, CardDeck } from "reactstrap";
+import { Container, CardDeck } from "reactstrap";
 import "./styles/MedicationHistoryList.css";
 
 const MedicationHistoryList = (props) => {

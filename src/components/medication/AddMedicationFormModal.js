@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import {FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
 const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
@@ -26,9 +26,9 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                             name="name"
                             id="name"
                             required=""
+                           
                         />
-                    
-                    
+                        
                         <Label htmlFor="strength"><strong>Medication Strength</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.strength}
@@ -78,6 +78,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                    
                     
                         <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
+                        <FormText>Not Required</FormText>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.notes}
                             onChange={handleFieldChange}
@@ -86,25 +87,29 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                             id="notes"
                             placeholder="Questions? Side effects?"
                         />
+                        
                    
                 
                 <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
-            <ModalHeader>Prescription Details (not required)</ModalHeader>
+            <ModalHeader>Prescription Details</ModalHeader>
             <ModalBody>
             {/* start of nested form */}
                    
                         <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
+                        <FormText>Not Required if OTC</FormText>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.rxNumber}
                             onChange={handleFieldChange}
                             type="text"
                             name="rxNumber"
                             id="rxNumber"
-                            required=""
+    
                         />
+                       
 
                         <Label htmlFor="refills"><strong>Number of Refills Left</strong></Label>
+                        <FormText>Not Required if OTC</FormText>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.refills}
                             onChange={handleFieldChange}

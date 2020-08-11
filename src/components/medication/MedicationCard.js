@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {
-    Card, Button, CardImg, CardTitle, CardText, CardBody, UncontrolledPopover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem, Input, Label
+    Card, Button, CardImg, CardTitle, CardText, CardBody, UncontrolledPopover, PopoverHeader, PopoverBody, Col, ListGroup, ListGroupItem, Input, Label
   } from 'reactstrap';
   import "./styles/MedicationCard.css"
 
@@ -29,7 +29,7 @@ const MedicationCard = (props) => {
 
   const calculateTimeLeftUntilRefill = () => {
     let dt1 = new Date(props.drug.nextRefillDate);
-    let dt2 = Date.now();
+    let dt2 = new Date();
     
     let difference = +dt1 - +dt2
     let timeLeftUntilDate = {}
@@ -47,7 +47,8 @@ const MedicationCard = (props) => {
   } 
  
 const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
-const sevenDaysUntilRefill = (timeLeftUntilDate.days <= 7)
+const sevenDaysUntilRefill = timeLeftUntilDate.days <= 7 ? true : false
+const dayOfRefill = timeLeftUntilDate.days === undefined
 const timerInDays = [];
   //every time timeLeftUntilDate is updated in state, useEffect will fire
   useEffect(() => {
@@ -179,7 +180,7 @@ const timerInDays = [];
               <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>} </> }
               <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>     
               <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>     
-              <ListGroupItem className={sevenDaysUntilRefill && 'background-red'}><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
+              <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>     
               </ListGroup> 
             </CardText>
              

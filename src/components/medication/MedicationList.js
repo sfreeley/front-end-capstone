@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Label } from "reactstrap";
+import { Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
@@ -133,7 +133,8 @@ const MedicationList = (props) => {
     const handleAddNewDrug = (event) => {
         event.preventDefault();
         if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
-        || newDrug.directions === "" || newDrug.indication === "") {
+        || newDrug.directions === "" || newDrug.indication === "" || newDrug.dateFilled === "" ||
+        newDrug.daysSupply === "") {
             alert("Please fill out required fields")
         } else {
             setIsLoading(true);
@@ -307,9 +308,7 @@ const handleEditChange = () => {
             />
              <Container className="section-currentMedicationList--container">
              <CardDeck xs="4" >
-            {/* <Row xs="4"> */}
            
-        
             {drugs && drugs.map(drug => drug.taking &&
                 <MedicationCard 
                 key={drug.id}
@@ -323,7 +322,7 @@ const handleEditChange = () => {
             /> )} 
            
               
-      {/* </Row> */}
+     
       </CardDeck> 
         </Container> 
        
