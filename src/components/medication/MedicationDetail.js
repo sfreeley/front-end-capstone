@@ -161,7 +161,51 @@ const handleEditChange = () => {
       })
 
    }) 
-}    
+} 
+
+const calculateTimeLeftUntilRefill = () => {
+  let dt1 = new Date(drug.nextRefillDate);
+  let dt2 = new Date();
+  
+  let difference = +dt1 - +dt2
+  let timeLeftUntilDate = {}
+
+  if (difference > 0) {
+      timeLeftUntilDate= {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          // minutes: Math.floor((difference / 1000 / 60) % 60),
+          // seconds: Math.floor((difference / 1000) % 60)  
+      }
+  }
+  return timeLeftUntilDate
+ 
+} 
+
+const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
+const sevenDaysUntilRefill = timeLeftUntilDate.days <= 7 ? true : false
+const dayOfRefill = timeLeftUntilDate.days === undefined
+const timerInDays = [];
+//every time timeLeftUntilDate is updated in state, useEffect will fire
+useEffect(() => {
+const timer = setTimeout(() => {
+    setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
+  }, 1000);
+  // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+  return () => clearTimeout(timer);
+});
+
+Object.keys(timeLeftUntilDate).forEach((interval) => {
+    if(!timeLeftUntilDate[interval]) {
+        return
+    }
+
+    timerInDays.push(
+        <span>
+           <h5 className={sevenDaysUntilRefill && 'background-yellow'}> {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`} </h5> 
+        </span>
+    )
+})
 
 
     return (
@@ -177,10 +221,13 @@ const handleEditChange = () => {
     <Row xs="2">
       <Col>
       <Card className="shadow-lg medicationDetails">
-    
-        
         <CardImg className="img-thumbnail-details" src={drug.image} />
         <CardBody>
+        {drug.dateFilled === "" ? null :
+        <div className="div-countdownToRefill">
+        {timerInDays.length ? timerInDays : <h4 className="dueForRefill"> <span> Due for Refill </span> </h4>} 
+        </div>
+        }
           <CardTitle>
           <span className="span-date">
           <strong>Date Entered:</strong> {drug.dateInput}
@@ -226,7 +273,6 @@ const handleEditChange = () => {
             onClick={getIdOfDrug}
             >
             Edit
-            {/* <img src="https://img.icons8.com/ios-glyphs/30/000000/edit.png" alt="b/w pencil-icon"/> */}
         </Button>
           <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>
           Permanently Remove
@@ -256,7 +302,7 @@ const handleEditChange = () => {
           <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
           <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
           <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
-          <ListGroupItem className="list-group-item"><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
+          <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
           </ListGroup> 
           </CardText>
         
@@ -267,17 +313,13 @@ const handleEditChange = () => {
             onClick={getIdOfDrug}
             >
             Edit
-            {/* <img src="https://img.icons8.com/ios-glyphs/30/000000/edit.png" alt="b/w pencil-icon"/> */}
+           
         </Button>
         </div>
-          {/* <Button onClick={() => removeDrug(drug.id)}>Permanently Remove</Button> */}
           </CardBody>
          
       </Card>
       </Col>
-       
-     
-      
       </Row>
      
       </Container>

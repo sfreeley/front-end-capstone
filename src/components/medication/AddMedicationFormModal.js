@@ -1,5 +1,5 @@
 import React from "react";
-import {FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import {FormText, FormFeedback, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
 const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {
@@ -28,6 +28,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                             required=""
                            
                         />
+                        
                         
                         <Label htmlFor="strength"><strong>Medication Strength</strong></Label>
                         <Input className="p-2 bd-highlight"

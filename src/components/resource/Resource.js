@@ -83,11 +83,12 @@ const Resource = (props) => {
       <Nav tabs className="tab-idMed">
         <NavItem >
           <NavLink
+          
             className={classnames({ active: activeTab === '1' })}
             onClick={() => { toggle('1'); }}> <strong> ID Your Medication </strong>
           </NavLink>
         </NavItem>
-        <NavItem>
+        <NavItem> 
           <NavLink
             className={classnames({ active: activeTab === '2' })}
             onClick={() => { toggle('2'); }}

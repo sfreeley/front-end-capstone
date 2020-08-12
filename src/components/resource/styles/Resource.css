@@ -35,6 +35,7 @@
     flex-direction: row;
     color: #40476d;
     justify-content: center;
+    
     /* margin-top: 1em; */
 
 }
@@ -46,7 +47,8 @@
 
 .toastBody-link {
    text-align: center;
-   color: #40476d;  
+   color: #40476d; 
+   text-overflow: ellipsis 
 }
 
 

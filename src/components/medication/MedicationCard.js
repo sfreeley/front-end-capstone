@@ -76,8 +76,6 @@ const timerInDays = [];
     <> 
      <Col xs="6">
       <Card className="shadow-lg medicationCard h-100" >
-      {/* <Row>
-      <Col> */}
         <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
         
         <CardBody>
@@ -154,17 +152,9 @@ const timerInDays = [];
       }
      
       </div>
-      {/* </Col>
-      </Row> */}
       </Card>
      
     
-      
-      
-
-      {props.drug.rxNumber === "" && props.drug.dateFilled === "" && props.drug.daysSupply === "" && props.drug.nextRefillDate ==="undefined NaN, NaN" && props.drug.refills === null ? null : 
-    
-      
       <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.id}`}  >
       <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
       <PopoverBody>
@@ -201,9 +191,6 @@ const timerInDays = [];
         </Card>
         </PopoverBody>
       </UncontrolledPopover>
-     
-    } 
-   
     </Col> 
     
   
