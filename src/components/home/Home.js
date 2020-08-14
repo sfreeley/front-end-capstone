@@ -31,7 +31,7 @@ const Home = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
 
-       //start Cloudinary code
+    //start Cloudinary code
     const [drugImage, setDrugImage] = useState("")
 
     const uploadImage = async event => {
@@ -53,7 +53,7 @@ const Home = (props) => {
         console.log(drugImage)
       }
 
-    //add 
+    //add new drug
     const [newDrug, setNewDrug] = useState({
         id: "",
         userId: sessionUser.id,
@@ -79,8 +79,7 @@ const Home = (props) => {
   const getDrugs = () => {
     return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-        setDrugs(sortDrugsByDate) 
-        // setIsNextRefill(true) 
+        setDrugs(sortDrugsByDate)  
         
     })
     
@@ -132,7 +131,7 @@ const editingDrug = {
 
 }
 
-    //editing in modal
+//editing in modal
 const handleEditChange = () => {
     setIsLoading(true)
     toggleEdit()

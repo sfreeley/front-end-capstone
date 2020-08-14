@@ -7,7 +7,8 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
     return (
         <>
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}><strong>What does your medication bottle tell you?</strong></ModalHeader>
+            <ModalHeader toggle={toggle}><strong>What does your medication bottle tell you?</strong>
+            <FormText>*required</FormText></ModalHeader>
                 <ModalBody>
                 
                 <Input type="file"
@@ -18,7 +19,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         <h3> Loading ... </h3>
                         ): <div> <img src={drugImage}/> </div>}
                     
-                        <Label htmlFor="name"><strong>Medication Name</strong></Label>
+                        <Label htmlFor="name"><strong>Medication Name*</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.name}
                             onChange={handleFieldChange}
@@ -30,7 +31,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         />
                         
                         
-                        <Label htmlFor="strength"><strong>Medication Strength</strong></Label>
+                        <Label htmlFor="strength"><strong>Medication Strength*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.strength}
                             onChange={handleFieldChange}
@@ -42,7 +43,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         />
                     
                    
-                        <Label htmlFor="dosageForm"><strong>Medication Type</strong></Label>
+                        <Label htmlFor="dosageForm"><strong>Medication Type*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.dosageForm}
                             onChange={handleFieldChange}
@@ -54,7 +55,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         />
                    
                    
-                        <Label htmlFor="directions"><strong>Medication Directions</strong></Label>
+                        <Label htmlFor="directions"><strong>Medication Directions*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.directions}
                             onChange={handleFieldChange}
@@ -66,7 +67,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         />
                     
                     
-                        <Label htmlFor="indication"><strong>Purpose of Medication</strong></Label>
+                        <Label htmlFor="indication"><strong>Purpose of Medication*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.indication}
                             onChange={handleFieldChange}
@@ -79,7 +80,6 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                    
                     
                         <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
-                        <FormText>Not Required</FormText>
                         <Input className="p-2 bd-highlight"
                             value={newDrug.notes}
                             onChange={handleFieldChange}
@@ -93,12 +93,12 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                 
                 <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
-            <ModalHeader>Prescription Details</ModalHeader>
+            <ModalHeader className="modal-header-prescriptionDetails">Prescription Details
+            <FormText>*required</FormText></ModalHeader>
             <ModalBody>
             {/* start of nested form */}
                    
                         <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
-                        <FormText>Not Required if OTC</FormText>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.rxNumber}
                             onChange={handleFieldChange}
@@ -110,7 +110,6 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                        
 
                         <Label htmlFor="refills"><strong>Number of Refills Left</strong></Label>
-                        <FormText>Not Required if OTC</FormText>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.refills}
                             onChange={handleFieldChange}
@@ -124,7 +123,7 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                             </Input>
                    
                     
-                        <Label htmlFor="dateFilled"><strong>Last Date Filled</strong></Label>
+                        <Label htmlFor="dateFilled"><strong>Last Date Filled*</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.dateFilled}
                             onChange={handleFieldChange}
@@ -135,7 +134,8 @@ const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldC
                         />
                     
                     
-                        <Label htmlFor="daysSupply"><strong>Days Supply</strong></Label>
+                        <Label htmlFor="daysSupply"><strong>Days Supply*</strong></Label>
+                        <FormText>Can be an approximate number if OTC</FormText>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={newDrug.daysSupply}
                             onChange={handleFieldChange}

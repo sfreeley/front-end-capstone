@@ -40,16 +40,21 @@
 
 }
 
+ .active:link {
+   transform: scale(1.1)
+}
+
 /* .info-icon {
     display: flex;
     justify-content: center;
 } */
 
-.toastBody-link {
+/* .toastBody-link {
    text-align: center;
    color: #40476d; 
-   text-overflow: ellipsis 
-}
+   overflow: hidden;
+   text-overflow: ellipsis;
+} */
 
 
 .btn-info {

@@ -67,7 +67,7 @@ const Resource = (props) => {
           <ToastHeader className="info-icon"> 
           <img src="https://img.icons8.com/metro/26/000000/info.png" alt="info-icon"/> 
           </ToastHeader>
-          <ToastBody className="toastBody-link">
+          <ToastBody>
             <a className="toastBody-link" rel="noopener noreferrer" target="_blank" href={result.AccessibleVersion}>{result.Title}</a>
           </ToastBody>
         </Toast>
@@ -81,9 +81,9 @@ const Resource = (props) => {
         </div>
   
       <Nav tabs className="tab-idMed">
-        <NavItem >
+        <NavItem  >
           <NavLink
-          
+            
             className={classnames({ active: activeTab === '1' })}
             onClick={() => { toggle('1'); }}> <strong> ID Your Medication </strong>
           </NavLink>
