@@ -21,6 +21,8 @@
 }
 
 .medicationCard  {
+    /* background-color: darkslategray;
+    background-image: url(https://cdn.pixabay.com/photo/2016/08/01/20/15/green-1562016_1280.png); */
     background-color: #acbea370;
     box-shadow: 1px 1px 1px inset;
     margin: 2em;
@@ -29,7 +31,6 @@
 
 .card {
     width: 100%;
-   
 }
 
 .background-yellow {
@@ -40,6 +41,11 @@
 .checkbox-alignment {
     display: flex;
     justify-content: center;
+}
+
+.checkbox-saveToMedHx {
+    color: white;
+    text-shadow: .5px .5px black; 
 }
 
 

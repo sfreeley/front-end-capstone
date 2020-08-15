@@ -3,7 +3,8 @@
 }
 
 .medicationDetails {
-    background-color: #f1f1f1;
+    background-image: url(https://cdn.pixabay.com/photo/2016/08/01/20/15/green-1562016_1280.png);
+    /* opacity: 0.8; */
 }
 
 .background-red {
@@ -18,7 +19,8 @@
 
 .btn-edit, .btn-delete, .btn-rx-details, .btn-expand {
     margin: 5px;
-    background-color:#acbea370;
+    background-color:#40476dd7;
+    border: none;
     color: black;
     
  }

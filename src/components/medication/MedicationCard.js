@@ -7,7 +7,7 @@ import {
 
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const oneRefillRemaining = (props.drug.refills === 1)
+  const oneRefillRemaining = props.drug.refills === 1 ? true : false
   
   const currentDrugTaking = {
     id: props.drug.id,
@@ -107,7 +107,7 @@ const timerInDays = [];
           <span>
           <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
           /> 
-          <Label htmlFor="checkbox">Save to Medication History</Label>
+          <Label className="checkbox-saveToMedHx" htmlFor="checkbox">Save to Medication History</Label>
          </span>
          </div>
          <hr/>

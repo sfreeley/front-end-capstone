@@ -12,6 +12,7 @@ import {
 
 const MedicationDetail = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+ 
     
     const [drug, setDrug] = useState({
             id: "",
@@ -183,6 +184,7 @@ const calculateTimeLeftUntilRefill = () => {
 } 
 
 const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
+const oneRefillRemaining = drug.refills === 1 ? true : false
 const sevenDaysUntilRefill = timeLeftUntilDate.days <= 7 ? true : false
 const dayOfRefill = timeLeftUntilDate.days === undefined
 const timerInDays = [];
@@ -247,7 +249,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
 
           <CardText>
           <ListGroup className="list-group list-group flex">
-          <ListGroupItem className="list-group-item"><strong>How I Should Take My Medication?</strong> {drug.directions}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>How Should I Take My Medication?</strong> {drug.directions}</ListGroupItem>
           <ListGroupItem className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</ListGroupItem>
           
           {drug.notes === "" ? null : 
@@ -276,7 +278,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
         </Button>
           <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>
           Permanently Remove
-          <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" alt="trash-can-icon"/>
+          {/* <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" alt="trash-can-icon"/> */}
           </Button>
           </div>
 
@@ -299,7 +301,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
           <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
           {drug.refills === null ? 
           <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
-          <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
+          <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
           <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
           <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
           <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     

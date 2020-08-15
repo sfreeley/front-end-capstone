@@ -37,7 +37,7 @@ const MedicationHistoryCard = (props) => {
     <Row>
     <Col>
   
-        <CardImg className="img-thumbnail-medicationHx" src={"https://img.icons8.com/color/48/000000/stop-sign.png"} alt="medicationBottle" />
+        <CardImg className="img-thumbnail-medicationHx" src="https://img.icons8.com/color/48/000000/warning-shield.png" alt="medicationBottle" />
 
         <CardBody>
           <CardTitle>
@@ -77,9 +77,9 @@ const MedicationHistoryCard = (props) => {
             >
             Edit
         </Button>
-          <Link to={`/medication/detail/${props.drug.id}`}>
+          {/* <Link to={`/medication/detail/${props.drug.id}`}>
           <Button className="btn-expand">Expand</Button>
-          </Link>
+          </Link> */}
           <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
           </div>
           </CardText>

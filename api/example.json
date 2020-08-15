@@ -1,0 +1,54 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "username": "",
+        "email": "",
+        "password": ""
+        
+      },
+      {
+        "id": 2,
+        "username": "",
+        "email": "",
+        "password": ""
+        
+      }
+    ],
+    "drugs": [
+      {
+        "id": 1,
+        "userId": 1,
+        "name": "",
+        "strength": "",
+        "dosageForm": "",
+        "directions": "",
+        "indication": "",
+        "notes": "",
+        "rxNumber": "",
+        "dateFilled": "",
+        "daysSupply": "",
+        "nextRefillDate": "",
+        "dateInput": "",
+        "refills": "",
+        "image": "",
+        "taking": true
+      },
+      {
+        "id": 2,
+        "userId": 2,
+        "name": "",
+        "strength": "",
+        "dosageForm": "",
+        "directions": "",
+        "indication": "",
+        "notes": "",
+        "rxNumber": "",
+        "dateFilled": "",
+        "daysSupply": "",
+        "nextRefillDate": "",
+        "dateInput": "",
+        "refills": "",
+        "image": "",
+        "taking": true
+      }

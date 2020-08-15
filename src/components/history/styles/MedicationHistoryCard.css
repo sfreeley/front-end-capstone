@@ -1,7 +1,8 @@
 .span-date-history {
     display: flex;
     justify-content: center;
-    color: #f1f1f1  
+    color: #40476dbc;
+    font-size: 20px; 
 }
 
 .card {
@@ -10,7 +11,10 @@
 }
 
 .medicationHxCard {
-    background-color: #40476d8f;
+    background-color: darkolivegreen;
+    background-image: url(https://cdn.pixabay.com/photo/2016/08/01/20/15/green-1562016_1280.png);
+    /* background-image: url(https://cdn.pixabay.com/photo/2014/09/23/15/03/background-457811_1280.png); */
+    /* background-color: #40476d8f; */
     box-shadow: 1px 1px 1px inset;
     margin: 10px;
 }
