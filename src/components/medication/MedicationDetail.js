@@ -173,10 +173,7 @@ const calculateTimeLeftUntilRefill = () => {
 
   if (difference > 0) {
       timeLeftUntilDate= {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          // minutes: Math.floor((difference / 1000 / 60) % 60),
-          // seconds: Math.floor((difference / 1000) % 60)  
+          days: Math.floor(difference / (1000 * 60 * 60 * 24))  
       }
   }
   return timeLeftUntilDate
@@ -188,6 +185,7 @@ const oneRefillRemaining = drug.refills === 1 ? true : false
 const sevenDaysUntilRefill = timeLeftUntilDate.days <= 7 ? true : false
 const dayOfRefill = timeLeftUntilDate.days === undefined
 const timerInDays = [];
+
 //every time timeLeftUntilDate is updated in state, useEffect will fire
 useEffect(() => {
 const timer = setTimeout(() => {

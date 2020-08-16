@@ -76,7 +76,7 @@ const MedicationHistoryCard = (props) => {
                     >
                       Edit
         </Button>
-                    <Button className="btn-delete" onClick={() => props.removeDrug(props.drug.id)}>Permanently Remove</Button>
+                    <Button className="btn-delete" onClick={() => props.removeDrugFromHxList(props.drug.id)}>Permanently Remove</Button>
                   </div>
                 </CardText>
 
@@ -118,9 +118,9 @@ const MedicationHistoryCard = (props) => {
                     {props.drug.refills === null ?
                       <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
                       <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>}
-                      <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>
-                      <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>
-                      <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>
+                    <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>
+                    <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>
+                    <ListGroupItem className="list-group-item"><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>
                   </ListGroup>
                 </CardText>
 

@@ -9,18 +9,15 @@ import "./styles/SearchBar.css"
 const SearchBar = (props) => {
 
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-    //put searchTerm into state
-    // const [searchTerm, setSearchTerm ] = useState({
-    //     keywordSearch: ""
-    // })
     const [drugsArray, setDrugsArray] = useState([])
     const [filteredDrugsArray, setFilteredDrugsArray] = useState([])
 
+   
     const getMatchingCards = (event) => {
         let searchEvent = event.target.value
         let filteringDrugsArray = drugsArray.filter(drug => {
             let drugValues = Object.values(drug)
-            for (const drugEntry of drugValues) {
+            for (let i = 0; i < drugValues.length; i++) {
                 return drugValues.join().toLowerCase().includes(searchEvent.toLowerCase())
             }
         })
@@ -35,18 +32,15 @@ const SearchBar = (props) => {
             .then(drugsFromAPI => {
                 setDrugsArray(drugsFromAPI)
             })
-    }, [])
+    }, [sessionUser.id])
 
 
     return (
         <>
             <div className="searchBar-container">
-                {/* <form class="form-inline my-2 my-lg-0"> */}
                 <Input className="form-control searchBar-position" name="keywordSearch" id="keywordSearch" onChange={getMatchingCards}
                     type="text" placeholder="Search for keywords"
                     aria-label="Search" />
-
-                {/* </form> */}
             </div>
 
 
@@ -57,13 +51,13 @@ const SearchBar = (props) => {
                         
                         <Row className="div-medicationCard-searchResult">
                             <Col>
-                                <MedicationCard {...drugsArray} drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
+                                <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
                             </Col>
                         </Row> :
 
                         <Row className="div-medicationHxCard-searchResult">
                             <Col>
-                                <MedicationHistoryCard {...drugsArray} drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
+                                <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
                             </Col>
                         </Row>
                         

@@ -35,7 +35,7 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
 ### JSON
 Your database should be populated with the information you enter inside the application (ie drug information and user information). 
 
-If you have any questions regarding what the database structure should look like, please see "example.json" file in the ```api``` directory. Note that every property name needs to be identical to those listed in this example JSON file. Id's should be automatically and uniquely generated for each entry. By default, the taking property will have a value of true upon the user adding a medication (ie the user is creating a new medication entry to input into their ```Current Medication List```)
+If you have any questions regarding what the database structure should look like, please see "example.json" file in the ```api``` directory. Note that every property name needs to be identical to those listed in this example JSON file. Id's should be automatically and uniquely generated for each entry. By default, the ["taking"] property will have a value of true upon the user adding a medication (ie the user is creating a new medication entry to input into their ```Current Medication List```)
 
 > **PLEASE NOTE**: NONE of the information used in the following images are that of real people or patients
 
@@ -66,7 +66,7 @@ If you have any questions regarding what the database structure should look like
         * if medication is due or past due for refill, it will be highlighted red unless user edits the prescription details information 
 
 ### Individual Medication View Page
-![trackRx homepage](src/images/currentMedicationListScreenshot.png) 
+![trackRx homepage](src/images/individualMedicationViewScreenshot.png) 
 
 Once user clicks ```Expand``` from ```Current Medication List``` page, user will be brought to this view, which includes:
 
@@ -91,7 +91,7 @@ Once user clicks ```Save to Medication History``` checkbox they can navigate to 
 * User can see prescription details by clicking ```Rx Details``` button, however nothing will be highlighted according to refills remaining or next refill/renewal date. There will also not be any real-time countdown to their next refill/renewal date
 
 ### Resources Page
-![trackRx homepage](src/images/currentMedicationListScreenshot.png) 
+![trackRx homepage](src/images/resourcesPageScreenshot.png) 
 
 With the unlimited online health information present, it is at times difficult to distinguish between reliable and anectodal information. The ```Resources``` page helps to collect some commonly asked questions regarding pharmacy topics as well as utilize the health.gov external API, which allows users to select various health topics pertaining to their disease state and learn more about them.
 

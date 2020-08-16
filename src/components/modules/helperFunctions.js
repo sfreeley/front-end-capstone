@@ -32,14 +32,7 @@ export function currentDateTime(currentDate) {
 
 export function currentDate(currentDate) {
     let generateCurrentDate;
-    //gets current date and time
-    
-    // //get current time in user location based on locale date format
-    // let currentTime = new Date(currentDate).toLocaleTimeString(undefined, {
-    //     hour: "2-digit",
-    //     minute: "2-digit"
-    // })
-
+   
     //get today's date
     let date = new Date(currentDate).getDate();
     //get current month

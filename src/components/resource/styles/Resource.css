@@ -35,6 +35,9 @@
     box-shadow: 1px 1px 1px;
     display: flex;
     margin: 1em;
+    flex-direction: column;
+    text-shadow: .5px .5px black;  
+    
 }
 
 .health-link  {
@@ -58,4 +61,10 @@
     width: 100%;
     box-shadow: 1px 1px 1px;
     margin-top: 1em;  
+}
+
+.informationCard {
+    display: flex;
+    flex: 1;
+    background-color: #f1f1f1;
 }

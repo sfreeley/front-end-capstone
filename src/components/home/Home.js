@@ -13,6 +13,8 @@ const Home = (props) => {
     const hasUser = props.hasUser
     const clearUser = props.clearUser
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+
+    //modal states
     const [modal, setModal] = useState(false);
     const [editModal, setEditModal] = useState(false)
     const [nestedModal, setNestedModal] = useState(false);
@@ -28,6 +30,7 @@ const Home = (props) => {
     }
 
     const toggleEdit = () => setEditModal(!editModal)
+
     const [isLoading, setIsLoading] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
 
@@ -154,10 +157,9 @@ const handleEditFieldChange = (event) => {
     const stateToChange = {...drug};
     stateToChange[event.target.id] = event.target.value;
     setDrug(stateToChange);  
-    console.log(event.target.value) 
 };
 
- //edit med hx  
+ //edit med hx checkbox 
  const handleChange = (drugToEdit) => {
     setIsChecked(true)
     setIsLoading(true)
@@ -168,7 +170,7 @@ const handleEditFieldChange = (event) => {
                 
                 setDrugs(drugsFromAPI)
                 setIsChecked(false)
-                !drugsFromAPI.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
+                !drugToEdit.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
     
                
             })
@@ -184,6 +186,18 @@ const getIdOfDrug = (event) => {
         })
     toggleEdit()
 }
+
+  //delete drugs from medication list upon search for medication card
+  const removeDrug = (id) => {
+    ApplicationManager.deleteDrug(id)
+    .then(() => {
+        ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+            
+            setDrugs(drugsFromAPI)
+            props.history.push("/medication/list")
+        });
+    });
+};
 
 
     const handleFieldChange = (event) => {
@@ -228,16 +242,17 @@ const getIdOfDrug = (event) => {
         }
     }
 
-    //delete drugs from medication list
-    const removeDrug = (id) => {
+  
+
+     //delete drugs from medication hx list upon search for medication hx card
+     const removeDrugFromHxList = (id) => {
         ApplicationManager.deleteDrug(id)
-        .then(() => {
-            ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                
-                setDrugs(drugsFromAPI)
-                props.history.push("/medication/list")
+            .then(() => {
+                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                    setDrugs(drugsFromAPI)
+                    props.history.push("/medication/history") 
+                });
             });
-        });
     };
 
     return (
@@ -245,21 +260,17 @@ const getIdOfDrug = (event) => {
             <NavBar {...props} hasUser={hasUser} clearUser={clearUser} />
             <div> 
             <span className="span-addDrug-container">
-            <img onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
-            
-            {/* <Button className="btn-addMedication" >
-                {'Add New Medication'}
-            </Button> */}
+            <img role="button" onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug"/>
             </span>
             <div className="addMedication-image--label">
             <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
             </div>
 
-            <SearchBar {...props}  setDrugs={setDrugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} />
+            <SearchBar {...props}  setDrugs={setDrugs} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} isChecked={isChecked} />
             <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                 nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
 
-            <EditMedicationFormModal drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+            <EditMedicationFormModal uploadImage={uploadImage} drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
             </div>
         </>

@@ -4,6 +4,8 @@
 
 .background-red {
     background-color: rgba(255, 0, 0, 0.678);
+    border: 2px solid #40476dd7;
+    border-radius: 5px;
 }
 
 .div-countdownToRefill {

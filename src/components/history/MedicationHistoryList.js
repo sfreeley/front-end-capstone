@@ -128,22 +128,22 @@ const MedicationHistoryList = (props) => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
 
                     setDrugs(drugsFromAPI)
+                    editingDrug.taking && props.history.push("/medication/list")
 
 
                 })
-
             })
     }
 
     //end edit whole drug in modal
 
 
-    //delete drugs from medication list
-    const removeDrug = (id) => {
+    //delete drugs from medication hx list
+    const removeDrugFromHxList = (id) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                    setDrugs(drugsFromAPI)
+                    setDrugs(drugsFromAPI) 
                 });
             });
     };
@@ -156,11 +156,10 @@ const MedicationHistoryList = (props) => {
                 nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
             <h3>Medication History</h3>
-            <SearchBar {...props} handleChange={handleChange} handleEditChange={handleEditChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} />
+            <SearchBar {...props} handleChange={handleChange} handleEditChange={handleEditChange} getIdOfDrug={getIdOfDrug} removeDrugFromHxList={removeDrugFromHxList} editingDrug={editingDrug} drug={drug} getDrugs={getDrugs} />
 
             <Container className="section-historicalMedicationList--container">
                 <CardDeck xs="4">
-                    {/* <Row xs="4" > */}
                     {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard
                         key={drug.id}
                         drug={drug}
@@ -168,14 +167,11 @@ const MedicationHistoryList = (props) => {
                         isLoading={isLoading}
                         isChecked={isChecked}
                         getIdOfDrug={getIdOfDrug}
-                        removeDrug={removeDrug}
+                        removeDrugFromHxList={removeDrugFromHxList}
                         {...props}
                     />
                     )}
-
-                    {/* </Row> */}
                 </CardDeck>
-
             </Container>
 
         </>
