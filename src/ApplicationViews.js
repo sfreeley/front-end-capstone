@@ -23,59 +23,59 @@ import Resource from "./components/resource/Resource";
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
     const setUser = props.setUser
-   
-    
- return(
-     <>
-     <Route path="/login" 
-     render = {props => {
-         return <Login setUser={setUser} {...props} />
-     }}
-     />
-    <Route path="/register"
-    render = {props => {
-        return (<Registration {...props} setUser={setUser} />)
-    }}
-    />
 
-    <Route exact path="/"
-    render={props => {
-        return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} />  : <Redirect to="/login" />)
-    }}
-    />
 
-    <Route exact path="/medication/new"
-    render={props => {
-        return <AddMedicationFormModal {...props} />
-    }}
-    />
+    return (
+        <>
+            <Route path="/login"
+                render={props => {
+                    return <Login setUser={setUser} {...props} />
+                }}
+            />
+            <Route path="/register"
+                render={props => {
+                    return (<Registration {...props} setUser={setUser} />)
+                }}
+            />
 
-    <Route exact path="/medication/list"
-    render={props => {
-        return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login"/>)
-    }}
-    /> 
+            <Route exact path="/"
+                render={props => {
+                    return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+                }}
+            />
 
-    <Route exact path="/medication/history"
-    render={props => {
-        return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
-    }}
-    />
+            <Route exact path="/medication/new"
+                render={props => {
+                    return <AddMedicationFormModal {...props} />
+                }}
+            />
 
-    <Route exact path="/medication/detail/:drugId(\d+)"
-    render={props => {
-        return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
-    }}
-    />
+            <Route exact path="/medication/list"
+                render={props => {
+                    return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login" />)
+                }}
+            />
 
-    <Route path="/medication/resources"
-    render={props => {
-        return (hasUser ? <Resource {...props}  /> : <Redirect to="/login" />)
-    }}
-    />
-</>
- )   
- 
+            <Route exact path="/medication/history"
+                render={props => {
+                    return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+                }}
+            />
+
+            <Route exact path="/medication/detail/:drugId(\d+)"
+                render={props => {
+                    return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+                }}
+            />
+
+            <Route path="/medication/resources"
+                render={props => {
+                    return (hasUser ? <Resource {...props} /> : <Redirect to="/login" />)
+                }}
+            />
+        </>
+    )
+
 
 }
 export default ApplicationViews;

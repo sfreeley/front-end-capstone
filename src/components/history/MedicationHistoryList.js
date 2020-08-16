@@ -143,7 +143,7 @@ const MedicationHistoryList = (props) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                    setDrugs(drugsFromAPI) 
+                    setDrugs(drugsFromAPI)
                 });
             });
     };

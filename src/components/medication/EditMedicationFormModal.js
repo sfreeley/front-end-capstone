@@ -11,7 +11,7 @@ const EditMedicationFormModal = ({movingToHx, uploadImage, drug, handleEditField
         <>
         
         <Modal isOpen={editModal} toggleEdit={toggleEdit}>
-            <ModalHeader><strong>What does your medication bottle tell you?</strong>
+            <ModalHeader className="modal-header-mainPage"><strong>What does your medication bottle tell you?</strong>
             <FormText>*required</FormText></ModalHeader>
                 <ModalBody>
                 

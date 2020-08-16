@@ -36,8 +36,7 @@
     display: flex;
     margin: 1em;
     flex-direction: column;
-    text-shadow: .5px .5px black;  
-    
+    text-shadow: .5px .5px black;    
 }
 
 .health-link  {
@@ -48,7 +47,6 @@
     flex-direction: row;
     justify-content: center;
     background-color:hsla(100, 17%, 69%, 0.561)
-
 }
 
 .btn-info {

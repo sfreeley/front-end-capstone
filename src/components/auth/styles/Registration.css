@@ -20,12 +20,5 @@
 .message-loginAcct {
     display: flex;
     justify-content: center;
-    
-}
-
-.loginAcct__text {
-    display: flex;
-    /* justify-content: center;
-    text-align: center; */
-
+   
 }

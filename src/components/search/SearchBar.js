@@ -12,7 +12,7 @@ const SearchBar = (props) => {
     const [drugsArray, setDrugsArray] = useState([])
     const [filteredDrugsArray, setFilteredDrugsArray] = useState([])
 
-   
+
     const getMatchingCards = (event) => {
         let searchEvent = event.target.value
         let filteringDrugsArray = drugsArray.filter(drug => {
@@ -48,7 +48,7 @@ const SearchBar = (props) => {
                 {filteredDrugsArray && filteredDrugsArray.map(drug => {
                     return drug.taking ?
 
-                        
+
                         <Row className="div-medicationCard-searchResult">
                             <Col>
                                 <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
@@ -60,7 +60,7 @@ const SearchBar = (props) => {
                                 <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
                             </Col>
                         </Row>
-                        
+
 
                 })}
             </div>

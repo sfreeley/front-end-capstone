@@ -89,9 +89,7 @@ const Registration = (props) => {
                         type="username"
                         name="username"
                         id="username"
-                        required=""
-                        
-                        
+                        required="" 
                     />
                     </div>
                
@@ -102,14 +100,10 @@ const Registration = (props) => {
                         type="email"
                         name="email"
                         id="email"
-                        required=""
-                        
+                        required=""   
                     />
                     </div>
-                   
-               
-               
-                    
+                     
                <div className="form-group">
                     <Label htmlFor="password">Password</Label>
                     <Input
@@ -117,8 +111,7 @@ const Registration = (props) => {
                         type="password"
                         name="password"
                         id="password"
-                        required=""
-                        
+                        required=""   
                     />
                 </div>
                 <div className="form-group">
@@ -139,7 +132,6 @@ const Registration = (props) => {
                 Create Account
             </Button>
             </div>
-
                 <div className="message-loginAcct">
                 <span className="loginAcct__text">
                     Already have an account?
@@ -150,23 +142,10 @@ const Registration = (props) => {
                 </span>
                 </div>
             </div>
-            </div>
-            </div>
-        
-            <div>
-            
-                {/* <Modal isOpen={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle}>Alert</ModalHeader>
-                    <ModalBody>
-                    User email and username already exist
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={toggle}>
-                           {'Try again'}
-                        </Button>
-                    </ModalFooter>
-                </Modal>*/}
-            </div> 
+         </div>
+     </div>     
+    <div>
+</div> 
 
 
         </>        

@@ -31,14 +31,10 @@ const MedicationHistoryCard = (props) => {
     <>
 
       <Col xs="6">
-
         <Card className="shadow-lg medicationHxCard h-100">
-
           <Row>
             <Col>
-
               <CardImg className="img-thumbnail-medicationHx" src="https://img.icons8.com/color/48/000000/warning-shield.png" alt="warning-shield-icon" />
-
               <CardBody>
                 <div className="div-date-medicationCard">
                   <span><strong>Date Entered:</strong> {props.drug.dateInput} </span>
@@ -48,13 +44,10 @@ const MedicationHistoryCard = (props) => {
                     <ListGroupItem className="item-medicationHxCard"><strong> {props.drug.name} {props.drug.strength} {props.drug.dosageForm} </strong> </ListGroupItem>
                   </ListGroup>
                 </CardTitle>
-
                 <CardText>
-
                   <ListGroup className="list-group-group list-group flex">
                     <ListGroupItem className="list-group-item-entry"><strong>How I Should Take My Medication:</strong> {props.drug.directions} </ListGroupItem>
                     <ListGroupItem className="list-group-item-entry"><strong>Why am I taking this?</strong> {props.drug.indication}</ListGroupItem>
-
                     {props.drug.notes === "" ? null :
                       <ListGroupItem className="list-group-item-notes"><strong>Notes for me</strong>: {props.drug.notes}</ListGroupItem>
                     }
@@ -66,7 +59,6 @@ const MedicationHistoryCard = (props) => {
                       <Label className="checkbox-saveToMedList" htmlFor="checkbox">Save back into Medication List</Label>
                     </span>
                   </div>
-
                   <hr />
                   <div className="btn-all-medicationHx">
                     <Button className="btn-edit"
@@ -75,7 +67,7 @@ const MedicationHistoryCard = (props) => {
                       onClick={props.getIdOfDrug}
                     >
                       Edit
-        </Button>
+                    </Button>
                     <Button className="btn-delete" onClick={() => props.removeDrugFromHxList(props.drug.id)}>Permanently Remove</Button>
                   </div>
                 </CardText>
@@ -90,14 +82,14 @@ const MedicationHistoryCard = (props) => {
                     id="PopoverLegacy"
                   >
                     Rx Details
-        </Button> :
+                  </Button> :
                   <Button
                     className="btn-rx-details"
                     type="button"
                     id={`drug${props.drug.id}`}
                   >
                     Rx Details
-        </Button>
+                  </Button>
                 }
               </div>
             </Col>
@@ -131,7 +123,7 @@ const MedicationHistoryCard = (props) => {
                     onClick={props.getIdOfDrug}
                   >
                     Edit
-        </Button>
+                  </Button>
                   <Link to={`/medication/detail/${props.drug.id}`}>
                     <Button className="btn-expand">Expand</Button>
                   </Link>

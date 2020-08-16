@@ -36,10 +36,7 @@ const MedicationCard = (props, disableDelete) => {
 
     if (difference > 0) {
       timeLeftUntilDate = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        // hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        // minutes: Math.floor((difference / 1000 / 60) % 60),
-        // seconds: Math.floor((difference / 1000) % 60)  
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)), 
       }
     }
     return timeLeftUntilDate
@@ -143,7 +140,7 @@ const MedicationCard = (props, disableDelete) => {
                   id="PopoverLegacy"
                 >
                   Rx Details
-        </Button> :
+              </Button> :
                 <Button
                   className="btn-rx-details-medList"
                   type="button"
@@ -151,7 +148,7 @@ const MedicationCard = (props, disableDelete) => {
                   id={`drug${props.drug.id}`}
                 >
                   Rx Details
-        </Button>
+              </Button>
 
               }
 

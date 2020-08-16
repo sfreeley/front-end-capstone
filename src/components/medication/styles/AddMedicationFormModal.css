@@ -1,3 +1,8 @@
+.modal-header-mainPage {
+    display: flex;
+    justify-content: center;
+}
+
 .modal-header-prescriptionDetails {
     display: flex;
     justify-content: center;
@@ -7,7 +12,6 @@
     margin: 10px;
     padding: 5px;
     background-color: #40476d;
-
 }
 
 .btn-addMedication {

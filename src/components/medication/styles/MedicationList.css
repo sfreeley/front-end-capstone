@@ -10,15 +10,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .section-currentMedicationList--container {
     margin-top: 2em;
-    margin-bottom: 1em;
-    
-      
+    margin-bottom: 1em;   
 }
 
 .card-deck { 
     width: 100%;
 }
-
 
 .span-addDrug-container {
     display:flex;

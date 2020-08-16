@@ -5,8 +5,6 @@ import classnames from "classnames";
 import ApplicationManager from "../modules/ApplicationManager";
 import "./styles/Resource.css"
 
-
-
 const Resource = (props) => {
 
   const [activeTab, setActiveTab] = useState("1");
@@ -116,33 +114,23 @@ const Resource = (props) => {
                       topic.id !== resource.topicId ? null :
                         <TabContent activeTab={activeTab}>
                           <TabPane tabId={topic.id}>
-                            {/* <Row xs="4">
-                              <Col sm="6"> */}
-                                <Card body className="informationCard">
-                                  <CardTitle>{resource.title} <img src="https://img.icons8.com/metro/26/000000/info.png" alt="info-icon" /> </CardTitle>
-                                  <CardText> {resource.description} </CardText>
-                                  <Button onClick={() => window.open(resource.url, "_blank")} type="button" className="btn btn-info">Learn More</Button>
-                                </Card>
-                              {/* </Col>
-                            </Row> */}
+                            <Card body className="informationCard">
+                              <CardTitle>{resource.title} <img src="https://img.icons8.com/metro/26/000000/info.png" alt="info-icon" /> </CardTitle>
+                              <CardText> {resource.description} </CardText>
+                              <Button onClick={() => window.open(resource.url, "_blank")} type="button" className="btn btn-info">Learn More</Button>
+                            </Card>
                           </TabPane>
                         </TabContent>
-
-                    )
-                  })
-
-                  }
+                        )
+                      })
+                    }
                 </>
               )
-
             })
-
-            }
+          }
           </NavItem>
         </Nav>
-
       </div>
-
     </>
 
   )
