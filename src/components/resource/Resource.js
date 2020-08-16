@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, Toast, ToastHeader, ToastBody, Input } from 'reactstrap';
+import { Label, TabContent, TabPane, Nav, NavItem, NavLink, Card, CardBody, Button, CardTitle, CardText, Row, Col, Toast, ToastHeader, ToastBody, Input } from 'reactstrap';
 import classnames from "classnames";
 import ApplicationManager from "../modules/ApplicationManager";
 import "./styles/Resource.css"
@@ -31,8 +31,8 @@ const Resource = (props) => {
       ApplicationManager.getCategorySelectionResults(target).then(response => {
         console.log(response.Result.Resources.Resource, "result")
         setResults(response.Result.Resources.Resource)
+        setIsLoading(false)
       })
-    
        
     }
 
@@ -45,6 +45,9 @@ const Resource = (props) => {
         <NavBar {...props} />
         <h3>Helpful Resources</h3>
         <div className="div-resourceSelector">
+          <div className="label-healthTopics">
+            <Label>Select any health topic from the dropdown</Label>
+         </div>
           <span className="div-dropdown-selector--container">
         <Input
           type="select"
@@ -63,14 +66,16 @@ const Resource = (props) => {
           return  <div className="p-3 my-2 rounded bg-docs-transparent-grid div-health-link">
           
          <Row>
-        <Toast className="health-link">
-          <ToastHeader className="info-icon"> 
+         <Col>
+        <Card className="health-link">
+          <CardTitle className="info-icon"> 
           <img src="https://img.icons8.com/metro/26/000000/info.png" alt="info-icon"/> 
-          </ToastHeader>
-          <ToastBody>
-            <a className="toastBody-link" rel="noopener noreferrer" target="_blank" href={result.AccessibleVersion}>{result.Title}</a>
-          </ToastBody>
-        </Toast>
+          </CardTitle>
+          <CardBody>
+            <a className="cardBody-link" rel="noopener noreferrer" target="_blank" href={result.AccessibleVersion}>{result.Title}</a>
+          </CardBody>
+        </Card>
+        </Col>
         </Row>
         
       </div>
@@ -83,13 +88,14 @@ const Resource = (props) => {
       <Nav tabs className="tab-idMed">
         <NavItem  >
           <NavLink
-            
+            role="button"
             className={classnames({ active: activeTab === '1' })}
             onClick={() => { toggle('1'); }}> <strong> ID Your Medication </strong>
           </NavLink>
         </NavItem>
         <NavItem> 
           <NavLink
+            role="button"
             className={classnames({ active: activeTab === '2' })}
             onClick={() => { toggle('2'); }}
           > <strong> Drug Information for Consumers </strong>
@@ -97,6 +103,7 @@ const Resource = (props) => {
         </NavItem>
         <NavItem>
           <NavLink
+            role="button"
             className={classnames({ active: activeTab === '3' })}
             onClick={() => { toggle('3'); }}
           > <strong> Over the Counter Medication Info </strong>
@@ -104,6 +111,7 @@ const Resource = (props) => {
         </NavItem>
         <NavItem>
           <NavLink
+            role="button"
             className={classnames({ active: activeTab === '4' })}
             onClick={() => { toggle('4'); }}
           > <strong> Proper Medication Disposal </strong>

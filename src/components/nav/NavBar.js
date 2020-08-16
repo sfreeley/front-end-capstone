@@ -20,21 +20,12 @@ const NavBar = (props) => {
     setHasUser(isAuthenticated())
 }
 
-
-//   const handleLogout = () => {
-//     //call clearUser function from Kennel.js to clear session and local storage; update state of user
-//     props.clearUser();
-//     //send user back to home page
-//     props.history.push('/login')
-// }
-
-
   return (
     <>
       <div className="nav-bar">
       <span className="nav-bar-logo">
       
-        <Navbar light bg-white className="nav-bar-container"  >
+        <Navbar light className="nav-bar-container"  >
         <NavbarBrand href="/" className="nav-bar-logo"><img src={require("../../images/circle-logo.png")} alt="trackRx-logo" /></NavbarBrand>
           <NavbarBrand href="/" className="nav-bar-title"><h1>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h1></NavbarBrand>
           <NavbarToggler onClick={toggleNavbar} className="mr-2" />

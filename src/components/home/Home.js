@@ -123,7 +123,7 @@ const editingDrug = {
     notes: drug.notes,
     rxNumber: drug.rxNumber,
     dateFilled: drug.dateFilled,
-    daysSupply: drug.daysSupply,
+    daysSupply: parseInt(drug.daysSupply),
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
     refills: parseInt(drug.refills),
@@ -212,7 +212,7 @@ const getIdOfDrug = (event) => {
                 notes: newDrug.notes,
                 rxNumber: newDrug.rxNumber,
                 dateFilled: newDrug.dateFilled,
-                daysSupply: newDrug.daysSupply,
+                daysSupply: parseInt(newDrug.daysSupply),
                 nextRefillDate: calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply)),
                 taking: true,
                 dateInput: currentDateTime(timestamp),
@@ -220,8 +220,7 @@ const getIdOfDrug = (event) => {
                 image: drugImage
             } 
             
-            // newDrug.dateInput = currentDateTime(timestamp)
-            // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
+           
             ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getAllDrugs();
                 props.history.push("/medication/list")

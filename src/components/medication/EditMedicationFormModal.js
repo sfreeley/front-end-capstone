@@ -1,26 +1,31 @@
 import React from "react";
-import { Label, Input, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import { Label, Input, FormText, Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/EditMedicationFormModal.css";
+import { Route } from "react-router-dom";
 
 
-const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
+const EditMedicationFormModal = ({movingToHx, uploadImage, drug, handleEditFieldChange, isLoading, handleEditChange, toggleEdit, editModal, toggleNested, toggleAll, nestedModal, closeAll,  props }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
     return (
         <>
         
         <Modal isOpen={editModal} toggleEdit={toggleEdit}>
-            <ModalHeader closeButton><strong>What does your medication bottle tell you?</strong></ModalHeader>
+            <ModalHeader><strong>What does your medication bottle tell you?</strong>
+            <FormText>*required</FormText></ModalHeader>
                 <ModalBody>
+                
                         <Input type="file"
                                 name="file"
                                 placeholder="Upload an image"
+                                disabled={movingToHx}
                                 onChange={uploadImage}/>
                                 {isLoading ? (
                                 <h3> Loading ...</h3>
-                                ): "" }
+                                ): ""}
                                 
-                        <Label htmlFor="name">Medication Name</Label>
+                                          
+                        <Label htmlFor="name"><strong>Medication Name*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             onChange={handleEditFieldChange}
                             value={drug.name}
@@ -31,7 +36,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                         />
                    
                    
-                        <Label htmlFor="strength">Medication Strength</Label>
+                        <Label htmlFor="strength"><strong>Medication Strength*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={drug.strength}
                             onChange={handleEditFieldChange}
@@ -43,7 +48,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                         />
                    
                     
-                        <Label htmlFor="dosageForm">Medication Type</Label>
+                        <Label htmlFor="dosageForm"><strong>Medication Type*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={drug.dosageForm}
                             onChange={handleEditFieldChange}
@@ -55,7 +60,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                         />
                    
                     
-                        <Label htmlFor="directions">Medication Directions</Label>
+                        <Label htmlFor="directions"><strong>Medication Directions*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={drug.directions}
                             onChange={handleEditFieldChange}
@@ -67,7 +72,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                         />
                     
                    
-                        <Label htmlFor="indication">Purpose of Medication</Label>
+                        <Label htmlFor="indication"><strong>Purpose of Medication*</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={drug.indication}
                             onChange={handleEditFieldChange}
@@ -78,7 +83,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                             placeholder="What did your doctor or pharmacist say this drug is for?"
                         />
                    
-                        <Label htmlFor="notes">Medication Notes</Label>
+                        <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
                         <Input className="p-2 bd-highlight"
                             value={drug.notes}
                             onChange={handleEditFieldChange}
@@ -90,12 +95,14 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                     
                 <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggleEdit : undefined}>
-            <ModalHeader>Prescription Details (not required)</ModalHeader>
+            <ModalHeader
+            className="modal-header-prescriptionDetails">Prescription Details</ModalHeader>
+            <FormText>*required</FormText>
             <ModalBody>
 
             {/* start of nested form modal */}
             
-                        <Label htmlFor="rxNumber">Prescription Number</Label>
+                        <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={drug.rxNumber}
                             onChange={handleEditFieldChange}
@@ -105,7 +112,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                            
                         />
 
-                        <Label htmlFor="refills">Number of Refills Left</Label>
+                        <Label htmlFor="refills"><strong>Number of Refills Left</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             onChange={handleEditFieldChange}
                             value={drug.refills}
@@ -117,7 +124,7 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                             })}
                             </Input>
                    
-                        <Label htmlFor="dateFilled">Last Date Filled</Label>
+                        <Label htmlFor="dateFilled"><strong>Last Date Filled*</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={drug.dateFilled}
                             onChange={handleEditFieldChange}
@@ -128,7 +135,8 @@ const EditMedicationFormModal = ({uploadImage, drug, handleEditFieldChange, isLo
                         />
                     
                    
-                        <Label htmlFor="daysSupply">Days Supply</Label>
+                        <Label htmlFor="daysSupply"><strong>Days Supply*</strong></Label>
+                        <FormText>Can be an approximate number if OTC</FormText>
                         <Input className="p-2 bd-highlight justify-content-center"
                             value={drug.daysSupply}
                             onChange={handleEditFieldChange}

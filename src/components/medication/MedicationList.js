@@ -17,6 +17,7 @@ const MedicationList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     const timestamp = Date.now()
     
+    
     //modal states
     const [modal, setModal] = useState(false);
 
@@ -139,8 +140,6 @@ const MedicationList = (props) => {
         } else {
             setIsLoading(true);
             
-            // newDrug.dateInput = currentDateTime(timestamp)
-            // newDrug.nextRefillDate = calculateNextRefill(newDrug.dateFilled, parseInt(newDrug.daysSupply))
             ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
                     const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
@@ -209,8 +208,7 @@ const MedicationList = (props) => {
 const handleEditFieldChange = (event) => {
     const stateToChange = {...drug};
     stateToChange[event.target.id] = event.target.value;
-    setDrug(stateToChange);  
-    console.log(event.target.value) 
+    setDrug(stateToChange);   
 };
 
 //this is the whole drug entry that will be edited
@@ -272,7 +270,7 @@ const handleEditChange = () => {
         .then(() => {
             ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
                 const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-                return setDrugs(sortDrugsByDate)
+                setDrugs(sortDrugsByDate)
             });
         });
     };
@@ -304,7 +302,7 @@ const handleEditChange = () => {
         
            
             
-            <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
+            <SearchBar className="searchBar-medicationList" {...props} removeDrug={removeDrug} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleEditChange={handleEditChange} editingDrug={editingDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
              <Container className="section-currentMedicationList--container">
              <CardDeck xs="4" >

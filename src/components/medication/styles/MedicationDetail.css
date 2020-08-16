@@ -3,12 +3,26 @@
 }
 
 .medicationDetails {
-    background-image: url(https://cdn.pixabay.com/photo/2016/08/01/20/15/green-1562016_1280.png);
-    /* opacity: 0.8; */
+    background-color: #acbea370;
+    box-shadow: 1px 1px 1px inset;
+    margin: 2em;
+    /* background-image: url(https://cdn.pixabay.com/photo/2016/08/01/20/15/green-1562016_1280.png); */
+}
+
+.div-date-medicationDetails {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.title-prescriptionDetails {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
 }
 
 .background-red {
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.445);
   }
 
 
@@ -21,7 +35,7 @@
     margin: 5px;
     background-color:#40476dd7;
     border: none;
-    color: black;
+    color: #f1f1f1
     
  }
 

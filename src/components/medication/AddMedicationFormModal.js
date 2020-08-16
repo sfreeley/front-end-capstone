@@ -1,5 +1,5 @@
 import React from "react";
-import {FormText, FormFeedback, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+import {FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
 const AddMedicationFormModal = ({drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll}) => {

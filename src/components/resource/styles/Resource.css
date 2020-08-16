@@ -3,6 +3,11 @@
     flex-direction: column;
 }
 
+.label-healthTopics {
+    display: flex;
+    justify-content: center;
+}
+
 .dropdown-selector { 
     max-width: 60%;
     margin-bottom: 1em;
@@ -15,47 +20,33 @@
     justify-content: center;
 }
 
-/* .div-health-link {
-    max-width: 90%;
-} */
+.cardBody-link {
+    color: #40476d;
+    text-shadow: .5px .5px black;
+}
 
 .health-link-container {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-
 }
 
-.health-link, .tab-idMed {
+.tab-idMed {
+    box-shadow: 1px 1px 1px;
+    display: flex;
+    margin: 1em;
+}
+
+.health-link  {
     border: #40476d49 2px solid;
     box-shadow: 1px 1px 1px;
     display: flex;
     margin: 1em;
-    background-color: hsla(102, 16%, 69%, 0.164);
     flex-direction: row;
-    color: #40476d;
     justify-content: center;
-    
-    /* margin-top: 1em; */
+    background-color:hsla(100, 17%, 69%, 0.561)
 
 }
-
- .active:link {
-   transform: scale(1.1)
-}
-
-/* .info-icon {
-    display: flex;
-    justify-content: center;
-} */
-
-/* .toastBody-link {
-   text-align: center;
-   color: #40476d; 
-   overflow: hidden;
-   text-overflow: ellipsis;
-} */
-
 
 .btn-info {
     background-color: hsla(100, 17%, 69%, 0.561);
@@ -66,5 +57,5 @@
 .card {
     width: 100%;
     box-shadow: 1px 1px 1px;
-    margin-top: 1em;
+    margin-top: 1em;  
 }

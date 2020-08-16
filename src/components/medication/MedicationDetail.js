@@ -231,9 +231,9 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
         </div>
         }
           <CardTitle>
-          <span className="span-date">
-          <strong>Date Entered:</strong> {drug.dateInput}
-          </span>
+          <div className="div-date-medicationDetails">
+          <span><strong>Date Entered: </strong> {drug.dateInput}</span>
+          </div>
           <ListGroup className="list-group list-group flex">
           <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {drug.name}</ListGroupItem>
           <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</ListGroupItem>
@@ -294,7 +294,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
           <Col>
       <Card className="shadow-lg medicationDetails">
         <CardBody> 
-          <CardTitle><strong>Prescription Details</strong></CardTitle>
+          <CardTitle className="title-prescriptionDetails"><strong>Prescription Details</strong></CardTitle>
         
           <CardText>
           <ListGroup className="list-group list-group">
