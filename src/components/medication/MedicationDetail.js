@@ -214,7 +214,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
      <EditMedicationFormModal uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
     <NavBar {...props} />
-   <h3>Individual Medication View</h3>
+    <h3>Individual Medication View</h3>
       <SearchBar {...props} handleChange={handleChange} drugId={drug.id} /> 
       <Container fluid className="medicationDetails--container">
     
@@ -276,53 +276,47 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
         </Button>
           <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>
           Permanently Remove
-          {/* <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" alt="trash-can-icon"/> */}
           </Button>
           </div>
 
         </CardBody>
-        
-      
-      
       </Card>
       </Col>
-     
-   
-   
-          <Col>
-      <Card className="shadow-lg medicationDetails">
-        <CardBody> 
-          <CardTitle className="title-prescriptionDetails"><strong>Prescription Details</strong></CardTitle>
-        
-          <CardText>
-          <ListGroup className="list-group list-group">
-          <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
-          {drug.refills === null ? 
-          <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
-          <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
-          <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
-          <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
-          <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
-          </ListGroup> 
-          </CardText>
-        
-        <div className="btn-all">
-        <Button className="btn-edit" 
-            id={drug.id}
-            type="button"
-            onClick={getIdOfDrug}
-            >
-            Edit
-           
-        </Button>
-        </div>
-          </CardBody>
-         
-      </Card>
+ 
+      <Col>
+        <Card className="shadow-lg medicationDetails">
+          <CardBody> 
+            <CardTitle className="title-prescriptionDetails"><strong>Prescription Details</strong></CardTitle>
+          
+            <CardText>
+            <ListGroup className="list-group list-group">
+            <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
+            {drug.refills === null ? 
+            <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+            <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
+            <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
+            <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
+            <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
+            </ListGroup> 
+            </CardText>
+          
+          <div className="btn-all">
+          <Button className="btn-edit" 
+              id={drug.id}
+              type="button"
+              onClick={getIdOfDrug}
+              >
+              Edit
+            
+          </Button>
+          </div>
+            </CardBody>
+          
+        </Card>
       </Col>
-      </Row>
+    </Row>
      
-      </Container>
+  </Container>
     
      
  

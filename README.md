@@ -48,6 +48,7 @@ If you have any questions regarding what the database structure should look like
 5. User should click 'Refill Details' button, which will bring up another modal window to fill out all required fields
 6. Using the search bar, user can search for any keywords regarding their medications and with every character typed into input field, the search function will narrow down the results (ie by dosage, name, indication, notes)
     * if user searches for drug that is in the medication history list (ie not currently taking this medication), the corresponding medication history card will display (vice versa if the drug they are searching for is in their current medication list)
+    * user will have full CRUD functionality available on the individual medication entry cards from the results of the search bar
 
 ### Current Medication List Page
 ![trackRx homepage](src/images/currentMedicationListScreenshot.png)
