@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
-import { Link } from "react-router-dom"
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
@@ -12,9 +11,7 @@ import {
 
 const MedicationDetail = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
- 
-    
-    const [drug, setDrug] = useState({
+  const [drug, setDrug] = useState({
             id: "",
             name: "",
             userId: "", 
@@ -30,9 +27,7 @@ const MedicationDetail = (props) => {
             dateInput: "",
             refills: "",
             taking: true
-        
     })
-    
 
     const [isLoading, setIsLoading] = useState(true)
     const [isChecked, setIsChecked] = useState(false)
@@ -52,7 +47,6 @@ const MedicationDetail = (props) => {
 
   //start Cloudinary code
  const [drugImage, setDrugImage] = useState("")
-
 
  const uploadImage = async event => {
    const files = event.target.files
