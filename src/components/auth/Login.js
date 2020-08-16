@@ -18,7 +18,6 @@ const Login = (props) => {
     const handleFieldChange = (event) => {
         const stateToChange = { ...credentials };
         stateToChange[event.target.id] = event.target.value;
-        console.log(event.target.value)
         setCredentials(stateToChange);
 
     };

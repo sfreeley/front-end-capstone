@@ -37,9 +37,7 @@ const Resource = (props) => {
 
     let target = event.target.value
     ApplicationManager.getCategorySelectionResults(target).then(response => {
-      console.log(response.Result.Resources.Resource, "result")
       setResults(response.Result.Resources.Resource)
-
     })
 
   }

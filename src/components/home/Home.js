@@ -51,8 +51,6 @@ const Home = (props) => {
         const file = await res.json()
         setDrugImage(file.secure_url)
         setIsLoading(false)
-        console.log(newDrug.image)
-        console.log(drugImage)
     }
 
     //add new drug
@@ -109,7 +107,6 @@ const Home = (props) => {
         refills: "",
         taking: true
     })
-    console.log(drug)
 
     //this is the whole drug entry that will be edited
     const editingDrug = {
@@ -200,7 +197,6 @@ const Home = (props) => {
     const handleFieldChange = (event) => {
         const stateToChange = { ...newDrug };
         stateToChange[event.target.id] = event.target.value;
-        console.log(event.target.value)
         setNewDrug(stateToChange);
 
     };

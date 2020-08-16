@@ -146,7 +146,6 @@ const getIdOfDrug = (event) => {
   const stateToChange = {...drug};
   stateToChange[event.target.id] = event.target.value;
   setDrug(stateToChange);  
-  console.log(event.target.value) 
 };
 
 //editing in modal

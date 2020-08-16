@@ -77,7 +77,6 @@ const MedicationHistoryList = (props) => {
         refills: "",
         taking: true
     })
-    console.log(drug)
 
     //handle field changes for whole drug entry edit functionality
     const handleEditFieldChange = (event) => {
