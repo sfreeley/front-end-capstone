@@ -149,7 +149,6 @@ const handleEditChange = () => {
   ApplicationManager.editDrug(editingDrug)
   .then(() => {
       ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {  
-                 
                   setDrug(drugFromAPI) 
          
       })
@@ -195,7 +194,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
 
     timerInDays.push(
         <span>
-           <h5 className={sevenDaysUntilRefill && 'background-yellow'}> {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`} </h5> 
+           <h5 className={sevenDaysUntilRefill && 'background-yellow'}> <strong>{timeLeftUntilDate[interval]}</strong> {interval} {`until refill or renewal`} </h5> 
         </span>
     )
 })
@@ -232,7 +231,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
           </ListGroup>
 
           <div className="btn-rxID-container">
-          <img onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} className="btn-rxID" src="https://img.icons8.com/cotton/64/000000/checkmark.png" alt="checkmark-icon"/>
+          <img role="button" onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} className="btn-rxID" src="https://img.icons8.com/cotton/64/000000/checkmark.png" alt="checkmark-icon"/>
           <Label htmlFor="checkmark-rxID-label"><strong>Pill Identifier</strong></Label>
           </div>
           
@@ -244,7 +243,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
           <ListGroupItem className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</ListGroupItem>
           
           {drug.notes === "" ? null : 
-          <ListGroupItem className="list-group-item"><strong>Notes for me:</strong>: {drug.notes} </ListGroupItem>     
+          <ListGroupItem className="list-group-item"><strong>Notes:</strong> {drug.notes} </ListGroupItem>     
           }
           </ListGroup>
 
@@ -263,11 +262,12 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
           <Button className="btn-edit" 
             id={drug.id}
             type="button"
+            color="success"
             onClick={getIdOfDrug}
             >
             Edit
         </Button>
-          <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>
+          <Button className="btn-delete" onClick={() => removeDrug(drug.id)} color="danger">
           Permanently Remove
           </Button>
           </div>
@@ -280,7 +280,6 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
         <Card className="shadow-lg medicationDetails">
           <CardBody> 
             <CardTitle className="title-prescriptionDetails"><strong>Prescription Details</strong></CardTitle>
-          
             <CardText>
             <ListGroup className="list-group list-group">
             <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
@@ -288,7 +287,7 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
             <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
             <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
             <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
-            <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
+            <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {drug.daysSupply} days</ListGroupItem>     
             <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
             </ListGroup> 
             </CardText>

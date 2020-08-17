@@ -52,6 +52,8 @@
     color: #f1f1f1;
     display: flex;
     justify-content: center;
+    border: 2px solid #ad5c4eaf;
+    box-shadow: 1px 1px 1px inset;
 }
 
 .background-yellow {

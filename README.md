@@ -4,7 +4,7 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
 ## Application Overview
 * What are the features of the application? 
 
-    * Users can document the drug name, dosage, dosage form, their patient specific directions, indication, and patient specific notes all in one place (ie doctor notes/comments or any questions they may have for their provider and/or pharmacist). CRUD functionality will be present for each inidivudal medication.
+    * Users can document the drug name, dosage, dosage form, their patient specific directions, indication, and patient specific notes all in one place (ie doctor notes/comments or any questions they may have for their provider and/or pharmacist). CRUD functionality will be present for each inidivudal medication entry.
 
     * Users are also able to input prescription numbers and refills (if applicable) as well as last fill date and days supply, which will then automatically calculate their next refill date. 
     
@@ -35,7 +35,7 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
 ### JSON
 Your database should be populated with the information you enter inside the application (ie drug information and user information). 
 
-If you have any questions regarding what the database structure should look like, please see "example.json" file in the ```api``` directory. Note that every property name needs to be identical to those listed in this example JSON file. Id's should be automatically and uniquely generated for each entry. By default, the ["taking"] property will have a value of true upon the user adding a medication (ie the user is creating a new medication entry to input into their ```Current Medication List```)
+If you have any questions regarding what the database structure should look like, please see "example.json" file in the ```api``` directory. Note that every property name needs to be identical to those listed in this example JSON file. Id's should be automatically and uniquely generated for each entry. By default, the ["taking"] property will have a value of ```true``` upon the user adding a medication (ie the user is creating a new medication entry to input into their ```Current Medication List```)
 
 > **PLEASE NOTE**: NONE of the information used in the following images are that of real people or patients
 
@@ -43,11 +43,11 @@ If you have any questions regarding what the database structure should look like
 ![trackRx Homepage](./src/images/homepageScreenshot.png)
 1. User can click folder icon to add new medication entry
 2. Upon clicking, a modal should appear
-3. User can choose to add whatever image they would like or decide to add it later
+3. User can choose to add whatever image they would like or decide to add it later (able to add and edit image in ```Current Medication List``` and ```Individual Medication View```)
 4. All required fields are marked with '*' 
 5. User should click 'Refill Details' button, which will bring up another modal window to fill out all required fields
 6. Using the search bar, user can search for any keywords regarding their medications and with every character typed into input field, the search function will narrow down the results (ie by dosage, name, indication, notes)
-    * if user searches for drug that is in the medication history list (ie not currently taking this medication), the corresponding medication history card will display (vice versa if the drug they are searching for is in their current medication list)
+    * if user searches for drug that is in the ```Medication History List``` (ie not currently taking this medication), the corresponding medication history card will display (vice versa if the drug they are searching for is in their ```Current Medication List```)
     * user will have full CRUD functionality available on the individual medication entry cards from the results of the search bar
 
 ### Current Medication List Page
@@ -55,11 +55,12 @@ If you have any questions regarding what the database structure should look like
 1. User can click folder icon to add new medication entry (please follow same instructions from homepage)
 2. User should see a list of their current medications including the following functionality:
     * date they entered the medication entry
-    * ```Save to Medication History``` checkbox: once clicked will allow user to send their medication card to the medication history list (please see below for more details), which signifies they should stop taking the medication, but does not completely remove the medication from the database (changes property of taking to false)
+    * ```Save to Medication History``` checkbox: once clicked will allow user to send their medication card to the ```Medication History List``` (please see below for more details), which signifies they should stop taking the medication, but does not completely remove the entry from the database (changes property of ["taking"] to ```false```)
     * a real-time countdown of how many days remain until they are due for a refill
        * if the time left until refill is less than or equal to 7 days, the number displayed will be highlighted to remind user
        * if they are within 1 day or the due date for refill, 'Due for Refill' will display on designated medication card
-    * ```Edit``` button: brings up edit form similar to 'add medication' form where they can edit any field (changes should appear after user clicks 'save') including the image (image will only appear in individual medication view)
+    * ```Edit``` button: brings up edit form similar to 'add medication' form where they can edit any field (changes should appear after user clicks ```Save Edited Medication```) 
+        * Image can also be edited, however the image will only appear in ```Individual Medication View```
     * ```Expand``` button: brings user to individual medication details view (please see below)
     * ```Permanently Remove``` button: once clicked will completely delete medication entry from database
     * ```Rx Details``` button: once clicked will show a pop-up of their prescription number, refills remaining, last fill date, days supply, and next refill/renewal date 
@@ -79,15 +80,15 @@ Once user clicks ```Expand``` from ```Current Medication List``` page, user will
 ### Medication History List Page
 ![trackRx Medication History List Page](./src/images/medicationHistoryListScreenshot.png)
 
-Once user clicks ```Save to Medication History``` checkbox they can navigate to this list, which will list all their past medications.
+Once user clicks ```Save to Medication History``` checkbox they will be brought to this list, which will list all their past medications.
 
  This list becomes practical in certain scenarios when:
 
-1. provider notifies user they should not be taking a specific medication, but user would like a history of their past medications and/or
-2. provider notifies user they would like to pause a medication, but may resume said medication at a later date
+1. user should not be taking a specific medication, but user would like a history of their past medications and/or
+2. user is to pause a medication, but may resume said medication at a later date
 
 * User is able to click ```Save back to Medication List``` checkbox, which will send the medication card back to their ```Current Medication List``` 
-* User can edit any fields upon clicking ```Edit``` button
+* User can edit any fields upon clicking ```Edit``` button, except for the image
 * User can permanently remove the medication entry by clicking ```Permanently Remove``` 
 * User can see prescription details by clicking ```Rx Details``` button, however nothing will be highlighted according to refills remaining or next refill/renewal date. There will also not be any real-time countdown to their next refill/renewal date
 
@@ -100,6 +101,15 @@ With the unlimited online health information present, it is at times difficult t
 * User can click on these links and be brought to an external website regarding the specific health topic they chose 
 * Below the dropdown menu should be a list of helpful pharmacy resources, which are clickable and will bring user to an external website with trustworthy information
 
+## Technologies Used
+ * Visual Studio Code
+ * React library
+ * Reactstrap
+ * Cloudinary
+ * [health.gov external API](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/how-use-api)
+ * dbDiagram
+ * Sketchboard
+ 
 ## Acknowledgments
 Thank you to the entire Cohort 41 team. You guys are amazing and such a talented group of individuals. Thank you for all your help and support through our capstone projects. You are all very much appreciated. Special thank you to Brenda Long, Sage Klein, and Rose Wisotzky for all their help, time, encouragement, and humor throughout this whole process. 
 

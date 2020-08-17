@@ -16,7 +16,6 @@ const MedicationList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     const timestamp = Date.now()
 
-
     //modal states
     const [modal, setModal] = useState(false);
 
@@ -45,12 +44,8 @@ const MedicationList = (props) => {
 
     //display medication cards state
     const [drugs, setDrugs] = useState([])
-
-  
-
     //start Cloudinary code
     const [drugImage, setDrugImage] = useState("")
-
 
     const uploadImage = async event => {
         const files = event.target.files
@@ -88,8 +83,8 @@ const MedicationList = (props) => {
         dateInput: "",
         refills: "",
         image: drugImage
+        
     })
-
 
 
     //get drugs based on user to display in medication list and sort by earliest upcoming refill date
@@ -105,7 +100,6 @@ const MedicationList = (props) => {
     useEffect(() => {
         getDrugs()
     }, []);
-
 
     const newMed = {
         userId: sessionUser.id,
@@ -161,16 +155,13 @@ const MedicationList = (props) => {
     const handleChange = (drugToEdit) => {
         setIsChecked(true)
         setIsLoading(true)
-
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
                     setIsLoading(false)
                     props.history.push("/medication/history")
-
                 })
             })
     }
@@ -191,9 +182,10 @@ const MedicationList = (props) => {
         nextRefillDate: "",
         dateInput: "",
         refills: "",
-        taking: true
-    })
+        taking: true,
+        image: drugImage,
 
+    })
 
     //handle field changes for whole drug entry edit functionality
     const handleEditFieldChange = (event) => {
@@ -222,7 +214,6 @@ const MedicationList = (props) => {
         image: drugImage
     }
 
-
     //getting the drug object by id of drug that will be edited in modal
     const getIdOfDrug = (event) => {
 
@@ -230,11 +221,8 @@ const MedicationList = (props) => {
             .then((result) => {
                 setDrug(result)
                 setIsLoading(false)
-
             })
         toggleEdit()
-
-
     }
 
     //editing in modal
@@ -248,10 +236,8 @@ const MedicationList = (props) => {
                     setDrugs(sortDrugsByDate);
                     !editingDrug.taking && props.history.push("/medication/history");
                 })
-
             })
     }
-
 
     //delete drugs from medication list
     const removeDrug = (id) => {
@@ -276,19 +262,12 @@ const MedicationList = (props) => {
             });
     };
 
-
-
-
-
     return (
         <>
             <NavBar {...props} />
-
-
             <div className="headingContainer-medicationList">
                 <span className="span-addDrug-container">
                     <img role="button" onClick={toggle} className="img-addDrug" src="https://img.icons8.com/dotty/80/000000/doctors-folder.png" alt="addDrug" />
-
                 </span>
                 <div className="addMedication-image--label">
                     <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
@@ -317,6 +296,7 @@ const MedicationList = (props) => {
                             isLoading={isLoading}
                             removeDrug={removeDrug}
                             handleChange={handleChange}
+                            
                         />)}
 
                 </CardDeck>

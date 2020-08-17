@@ -32,8 +32,9 @@ const MedicationHistoryList = (props) => {
 
     //get drugs based on user
     const getDrugs = () => {
+        
         return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-            const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+            const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
             setDrugs(sortHistoryDrugs)
         })
     }
@@ -51,11 +52,9 @@ const MedicationHistoryList = (props) => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
                     setDrugs(drugsFromAPI)
                     props.history.push("/medication/list")
-
                 })
-
-            })
-    }
+             })
+        }
 
     //  start of edit whole drug with modal
 
@@ -125,10 +124,9 @@ const MedicationHistoryList = (props) => {
         ApplicationManager.editDrug(editingDrug)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-
-                    setDrugs(drugsFromAPI)
+                    const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
+                    setDrugs(sortHistoryDrugs)
                     editingDrug.taking && props.history.push("/medication/list")
-
 
                 })
             })
@@ -142,7 +140,8 @@ const MedicationHistoryList = (props) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-                    setDrugs(drugsFromAPI)
+                    const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
+                    setDrugs(sortHistoryDrugs)
                 });
             });
     };
@@ -150,7 +149,6 @@ const MedicationHistoryList = (props) => {
     return (
         <>
             <NavBar {...props} />
-
             <EditMedicationFormModal movingToHx={movingToHx} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                 nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
@@ -172,7 +170,6 @@ const MedicationHistoryList = (props) => {
                     )}
                 </CardDeck>
             </Container>
-
         </>
 
     )
