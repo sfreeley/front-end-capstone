@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import "./styles/MedicationCard.css"
 
-const MedicationCard = (props, disableDelete) => {
+const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
   const oneRefillRemaining = props.drug.refills === 1 ? true : false
 
@@ -36,7 +36,7 @@ const MedicationCard = (props, disableDelete) => {
 
     if (difference > 0) {
       timeLeftUntilDate = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)), 
+        days: Math.ceil(difference / (1000 * 60 * 60 * 24)), 
       }
     }
     return timeLeftUntilDate

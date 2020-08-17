@@ -66,6 +66,7 @@ If you have any questions regarding what the database structure should look like
     * ```Rx Details``` button: once clicked will show a pop-up of their prescription number, refills remaining, last fill date, days supply, and next refill/renewal date 
         * if one refill remains, refills will be highlighted yellow; if no refills remain, it will be highlighted red
         * if medication is due or past due for refill, it will be highlighted red unless user edits the prescription details information 
+3. Search functionality is available on this page as well, with CRUD functionality available for each medication entry result
 
 ### Individual Medication View Page
 ![trackRx Individual Medication View Page](./src/images/individualMedicationViewScreenshot.png) 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
-import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
     Card, Button, CardImg, CardTitle, CardText, CardBody, Container, Row, Col, ListGroup,
@@ -149,7 +148,8 @@ const handleEditChange = () => {
   ApplicationManager.editDrug(editingDrug)
   .then(() => {
       ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {  
-                  setDrug(drugFromAPI) 
+        setDrug(drugFromAPI)
+        // editingDrug.taking ? props.history.push("/medication/list") : props.history.push("/medication/history") 
          
       })
 
@@ -165,7 +165,7 @@ const calculateTimeLeftUntilRefill = () => {
 
   if (difference > 0) {
       timeLeftUntilDate= {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24))  
+          days: Math.ceil(difference / (1000 * 60 * 60 * 24))  
       }
   }
   return timeLeftUntilDate
@@ -206,108 +206,103 @@ Object.keys(timeLeftUntilDate).forEach((interval) => {
      <EditMedicationFormModal uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
     <NavBar {...props} />
-    <h3>Individual Medication View</h3>
-      <SearchBar {...props} handleChange={handleChange} drugId={drug.id} /> 
+    <h3>Individual Medication View</h3> 
       <Container fluid className="medicationDetails--container">
-    
-    <Row xs="2">
-      <Col>
-      <Card className="shadow-lg medicationDetails">
-        <CardImg className="img-thumbnail-details" src={drug.image} />
-        <CardBody>
-        {drug.dateFilled === "" ? null :
-        <div className="div-countdownToRefill">
-        {timerInDays.length ? timerInDays : <h4 className="dueForRefill"> <span> Due for Refill </span> </h4>} 
-        </div>
-        }
-          <CardTitle>
-          <div className="div-date-medicationDetails">
-          <span><strong>Date Entered: </strong> {drug.dateInput}</span>
-          </div>
-          <ListGroup className="list-group list-group flex">
-          <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {drug.name}</ListGroupItem>
-          <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</ListGroupItem>
-          <ListGroupItem className="list-group-item"><strong>Medication Type:</strong> {drug.dosageForm}</ListGroupItem>
-          </ListGroup>
+        <Row xs="2">
+          <Col>
+            <Card className="shadow-lg medicationDetails">
+              <CardImg className="img-thumbnail-details" src={drug.image} />
+              <CardBody>
+              {drug.dateFilled === "" ? null :
+              <div className="div-countdownToRefill">
+              {timerInDays.length ? timerInDays : <h4 className="dueForRefill"> <span> Due for Refill </span> </h4>} 
+              </div>
+              }
+                <CardTitle>
+                <div className="div-date-medicationDetails">
+                <span><strong>Date Entered: </strong> {drug.dateInput}</span>
+                </div>
+                <ListGroup className="list-group list-group flex">
+                <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {drug.name}</ListGroupItem>
+                <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</ListGroupItem>
+                <ListGroupItem className="list-group-item"><strong>Medication Type:</strong> {drug.dosageForm}</ListGroupItem>
+                </ListGroup>
 
-          <div className="btn-rxID-container">
-          <img role="button" onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} className="btn-rxID" src="https://img.icons8.com/cotton/64/000000/checkmark.png" alt="checkmark-icon"/>
-          <Label htmlFor="checkmark-rxID-label"><strong>Pill Identifier</strong></Label>
-          </div>
-          
-          </CardTitle>
+                <div className="btn-rxID-container">
+                <img role="button" onClick={() => window.open("https://www.drugs.com/imprints.php/", "_blank")} className="btn-rxID" src="https://img.icons8.com/cotton/64/000000/checkmark.png" alt="checkmark-icon"/>
+                <Label htmlFor="checkmark-rxID-label"><strong>Pill Identifier</strong></Label>
+                </div>
+                
+                </CardTitle>
 
-          <CardText>
-          <ListGroup className="list-group list-group flex">
-          <ListGroupItem className="list-group-item"><strong>How Should I Take My Medication?</strong> {drug.directions}</ListGroupItem>
-          <ListGroupItem className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</ListGroupItem>
-          
-          {drug.notes === "" ? null : 
-          <ListGroupItem className="list-group-item"><strong>Notes:</strong> {drug.notes} </ListGroupItem>     
-          }
-          </ListGroup>
+                <CardText>
+                <ListGroup className="list-group list-group flex">
+                <ListGroupItem className="list-group-item"><strong>How Should I Take My Medication?</strong> {drug.directions}</ListGroupItem>
+                <ListGroupItem className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</ListGroupItem>
+                
+                {drug.notes === "" ? null : 
+                <ListGroupItem className="list-group-item"><strong>Notes:</strong> {drug.notes} </ListGroupItem>     
+                }
+                </ListGroup>
 
-          <div className="checkbox-alignment">
-          <span className="span-checkbox-medicationDetail">
-          <Input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
-          /> 
-          <Label for="checkbox">Save to Medication History</Label>
-         </span>
-         </div>
+                <div className="checkbox-alignment">
+                <span className="span-checkbox-medicationDetail">
+                <Input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrugDetail)}
+                /> 
+                <Label for="checkbox">Save to Medication History</Label>
+              </span>
+              </div>
 
-          </CardText>
-          <hr/>
+                </CardText>
+                <hr/>
 
-          <div className="btn-all">
-          <Button className="btn-edit" 
-            id={drug.id}
-            type="button"
-            color="success"
-            onClick={getIdOfDrug}
-            >
-            Edit
-        </Button>
-          <Button className="btn-delete" onClick={() => removeDrug(drug.id)} color="danger">
-          Permanently Remove
-          </Button>
-          </div>
+                <div className="btn-all">
+                <Button className="btn-edit" 
+                  id={drug.id}
+                  type="button"
+                  color="success"
+                  onClick={getIdOfDrug}
+                  >
+                  Edit
+              </Button>
+                <Button className="btn-delete" onClick={() => removeDrug(drug.id)} color="danger">
+                Permanently Remove
+                </Button>
+                </div>
 
-        </CardBody>
-      </Card>
+              </CardBody>
+          </Card>
       </Col>
  
       <Col>
         <Card className="shadow-lg medicationDetails">
           <CardBody> 
-            <CardTitle className="title-prescriptionDetails"><strong>Prescription Details</strong></CardTitle>
+            <CardTitle className="title-prescriptionDetails"> <strong>Prescription Details</strong> </CardTitle>
             <CardText>
             <ListGroup className="list-group list-group">
-            <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
+            <ListGroupItem className="list-group-item"> <strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
             {drug.refills === null ? 
-            <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
-            <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
-            <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
-            <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {drug.daysSupply} days</ListGroupItem>     
-            <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
+            <ListGroupItem className={'background-red'}> <strong> Refills Remaining: </strong> No refills </ListGroupItem> :
+            <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills} </ListGroupItem>}
+            <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled} </ListGroupItem>     
+            <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {drug.daysSupply} days </ListGroupItem>     
+            <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}> <strong> When should I fill or renew next? </strong> {drug.nextRefillDate}</ListGroupItem>     
             </ListGroup> 
             </CardText>
           
           <div className="btn-all">
-          <Button className="btn-edit" 
-              id={drug.id}
-              type="button"
-              onClick={getIdOfDrug}
-              >
-              Edit
-            
-          </Button>
+            <Button className="btn-edit" 
+                id={drug.id}
+                type="button"
+                onClick={getIdOfDrug}
+                >
+                Edit
+            </Button>
           </div>
             </CardBody>
-          
         </Card>
       </Col>
     </Row>
-     
   </Container>
     
      

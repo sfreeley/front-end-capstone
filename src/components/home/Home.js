@@ -161,15 +161,12 @@ const Home = (props) => {
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
-                    !drugToEdit.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
-
-
+                    drugToEdit.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
                 })
             })
-    }
+         }
 
     //getting the drug object by id of drug that will be edited in modal
     const getIdOfDrug = (event) => {
@@ -186,7 +183,6 @@ const Home = (props) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
-
                     setDrugs(drugsFromAPI)
                     props.history.push("/medication/list")
                 });
@@ -259,7 +255,6 @@ const Home = (props) => {
                 <SearchBar {...props} setDrugs={setDrugs} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} isChecked={isChecked} />
                 <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
-
                 <EditMedicationFormModal uploadImage={uploadImage} drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                     nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
             </div>
