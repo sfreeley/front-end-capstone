@@ -96,8 +96,10 @@ const EditMedicationFormModal = ({movingToHx, uploadImage, drug, handleEditField
                 <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                 <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggleEdit : undefined}>
             <ModalHeader
-            className="modal-header-prescriptionDetails">Prescription Details</ModalHeader>
+            className="modal-header-prescriptionDetails">Prescription Details
             <FormText>*required</FormText>
+            </ModalHeader>
+            
             <ModalBody>
 
             {/* start of nested form modal */}

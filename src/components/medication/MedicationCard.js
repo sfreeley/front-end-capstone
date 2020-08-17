@@ -67,7 +67,7 @@ const MedicationCard = (props, disableDelete) => {
 
     timerInDays.push(
       <span>
-        <h5 className={sevenDaysUntilRefill ? 'background-yellow' : 'background-neutral'}> {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`} </h5>
+        <h5 className={sevenDaysUntilRefill ? 'background-yellow' : 'background-neutral'}> <strong>{timeLeftUntilDate[interval]}</strong> {interval} {`until refill or renewal`} </h5>
       </span>
     )
   })
