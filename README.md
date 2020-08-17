@@ -40,7 +40,7 @@ If you have any questions regarding what the database structure should look like
 > **PLEASE NOTE**: NONE of the information used in the following images are that of real people or patients
 
 ### Homepage
-![trackRx homepage](src/images/homepageScreenshot.png)
+![trackRx Homepage](./src/images/homepageScreenshot.png)
 1. User can click folder icon to add new medication entry
 2. Upon clicking, a modal should appear
 3. User can choose to add whatever image they would like or decide to add it later
@@ -51,7 +51,7 @@ If you have any questions regarding what the database structure should look like
     * user will have full CRUD functionality available on the individual medication entry cards from the results of the search bar
 
 ### Current Medication List Page
-![trackRx homepage](src/images/currentMedicationListScreenshot.png)
+![trackRx Current Medication List Page](./src/images/currentMedicationListScreenshot.png)
 1. User can click folder icon to add new medication entry (please follow same instructions from homepage)
 2. User should see a list of their current medications including the following functionality:
     * date they entered the medication entry
@@ -67,7 +67,7 @@ If you have any questions regarding what the database structure should look like
         * if medication is due or past due for refill, it will be highlighted red unless user edits the prescription details information 
 
 ### Individual Medication View Page
-![trackRx homepage](src/images/individualMedicationViewScreenshot.png) 
+![trackRx Individual Medication View Page](./src/images/individualMedicationViewScreenshot.png) 
 
 Once user clicks ```Expand``` from ```Current Medication List``` page, user will be brought to this view, which includes:
 
@@ -77,7 +77,7 @@ Once user clicks ```Expand``` from ```Current Medication List``` page, user will
 * user will be able to click ```Save to Medication History``` checkbox and send medication card to the ```Medication History List``` 
 
 ### Medication History List Page
-![trackRx homepage](src/images/medicationHistoryListScreenshot.png)
+![trackRx Medication History List Page](./src/images/medicationHistoryListScreenshot.png)
 
 Once user clicks ```Save to Medication History``` checkbox they can navigate to this list, which will list all their past medications.
 
@@ -92,7 +92,7 @@ Once user clicks ```Save to Medication History``` checkbox they can navigate to 
 * User can see prescription details by clicking ```Rx Details``` button, however nothing will be highlighted according to refills remaining or next refill/renewal date. There will also not be any real-time countdown to their next refill/renewal date
 
 ### Resources Page
-![trackRx homepage](src/images/resourcesPageScreenshot.png) 
+![trackRx Resources Page](./src/images/resourcesPageScreenshot.png) 
 
 With the unlimited online health information present, it is at times difficult to distinguish between reliable and anectodal information. The ```Resources``` page helps to collect some commonly asked questions regarding pharmacy topics as well as utilize the health.gov external API, which allows users to select various health topics pertaining to their disease state and learn more about them.
 
