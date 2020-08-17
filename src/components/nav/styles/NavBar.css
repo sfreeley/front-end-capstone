@@ -1,19 +1,10 @@
 .nav-bar {
     display: flex;
     justify-content: center;
-     /* position: fixed;
-    z-index: 999;
-    background-color: #f1f1f1;
-    width: 100%;
-    top: 0; */
-
-   
-
 }
 
 .nav-bar-logo {
     display: relative;
-
 }
 
 .nav-bar-container {

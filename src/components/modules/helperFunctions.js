@@ -32,14 +32,7 @@ export function currentDateTime(currentDate) {
 
 export function currentDate(currentDate) {
     let generateCurrentDate;
-    //gets current date and time
-    
-    // //get current time in user location based on locale date format
-    // let currentTime = new Date(currentDate).toLocaleTimeString(undefined, {
-    //     hour: "2-digit",
-    //     minute: "2-digit"
-    // })
-
+   
     //get today's date
     let date = new Date(currentDate).getDate();
     //get current month
@@ -66,7 +59,7 @@ export function calculateNextRefill(date, days) {
 
 export function calculateBetweenDates(date1, today) {
  let dt1 = new Date(date1);
- let dt2 = new Date(today);
+ let dt2 = today;
  let dt2Date = Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate())
  let dt1Date = Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())
 
@@ -77,3 +70,4 @@ export function calculateBetweenDates(date1, today) {
 
  return differenceInDates
 }
+

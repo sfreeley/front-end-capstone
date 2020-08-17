@@ -2,30 +2,69 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
-.span-date {
-    display: flex;
-    justify-content: center;  
-}
-
 .background-red {
-    background-color: tomato;
+    background-color: rgba(255, 0, 0, 0.678);
+    border: 2px solid #40476dd7;
+    border-radius: 5px;
 }
 
-.medicationCard  {
-    background-color: #acbea370;
+.div-countdownToRefill {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.dueForRefill {
+    color: rgba(255, 0, 0, 0.678);
+    animation:blinkingText 2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: rgba(255, 0, 0, 0.678);    }
+    49%{    color: rgba(255, 0, 0, 0.678); }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #000;    }
+}
+
+.div-date-medicationCard {
+    font-size: 1.1em;
+    color: #40476dd7;
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    padding: 0.5em;
+}
+
+.medicationCard {
+    background-color: #acbea380;
     box-shadow: 1px 1px 1px inset;
-    margin: 2em;
+    margin: 1.5em;
     
 }
 
 .card {
-    /* height: 100%; */
     width: 100%;
-   
+}
+
+.item-medicationCard {
+    background-color: #40476dd7;
+    font-size: 1.2em;
+    color: #f1f1f1;
+    display: flex;
+    justify-content: center;
 }
 
 .background-yellow {
-    background-color: yellow;
+    padding: 0.5em;
+    background-color: #ad5c4eaf;
+    border: 2px solid #40476dd7;
+    border-radius: 5px;
+}
+
+.background-neutral {
+    padding: 0.5em;
+    border: 2px solid #40476dd7;
+    border-radius: 5px;
 }
 
 .checkbox-alignment {
@@ -33,6 +72,11 @@
     justify-content: center;
 }
 
+.checkbox-saveToMedHx {
+    color: black;
+    font-size: 1.1em;
+    text-shadow: .5px .5px black;
+}
 
 .btn-all-medicationCard {
     display: flex;
@@ -47,9 +91,9 @@
 .btn-edit-medList, .btn-expand-medList, .btn-delete-medList, .btn-rx-details-medList {
    margin: 5px;
    border: none;
-   background-color: #40476dd7;
+   color: #f1f1f1;
+   background-color: #444f8fb9;
 }
-
 
 .img-thumbnail-medicationCard {
     max-width: 10%;

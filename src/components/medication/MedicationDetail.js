@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "../nav/NavBar";
-import { Link } from "react-router-dom"
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import {
@@ -12,8 +11,7 @@ import {
 
 const MedicationDetail = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-    
-    const [drug, setDrug] = useState({
+  const [drug, setDrug] = useState({
             id: "",
             name: "",
             userId: "", 
@@ -29,9 +27,7 @@ const MedicationDetail = (props) => {
             dateInput: "",
             refills: "",
             taking: true
-        
     })
-    
 
     const [isLoading, setIsLoading] = useState(true)
     const [isChecked, setIsChecked] = useState(false)
@@ -51,7 +47,6 @@ const MedicationDetail = (props) => {
 
   //start Cloudinary code
  const [drugImage, setDrugImage] = useState("")
-
 
  const uploadImage = async event => {
    const files = event.target.files
@@ -145,7 +140,6 @@ const getIdOfDrug = (event) => {
   const stateToChange = {...drug};
   stateToChange[event.target.id] = event.target.value;
   setDrug(stateToChange);  
-  console.log(event.target.value) 
 };
 
 //editing in modal
@@ -161,7 +155,50 @@ const handleEditChange = () => {
       })
 
    }) 
-}    
+} 
+
+const calculateTimeLeftUntilRefill = () => {
+  let dt1 = new Date(drug.nextRefillDate);
+  let dt2 = new Date();
+  
+  let difference = +dt1 - +dt2
+  let timeLeftUntilDate = {}
+
+  if (difference > 0) {
+      timeLeftUntilDate= {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24))  
+      }
+  }
+  return timeLeftUntilDate
+ 
+} 
+
+const [timeLeftUntilDate, setTimeLeftUntilDate] = useState(calculateTimeLeftUntilRefill()); 
+const oneRefillRemaining = drug.refills === 1 ? true : false
+const sevenDaysUntilRefill = timeLeftUntilDate.days <= 7 ? true : false
+const dayOfRefill = timeLeftUntilDate.days === undefined
+const timerInDays = [];
+
+//every time timeLeftUntilDate is updated in state, useEffect will fire
+useEffect(() => {
+const timer = setTimeout(() => {
+    setTimeLeftUntilDate(calculateTimeLeftUntilRefill());
+  }, 1000);
+  // runs every time useEffect runs except first run and will clear the timer if component is not mounted
+  return () => clearTimeout(timer);
+});
+
+Object.keys(timeLeftUntilDate).forEach((interval) => {
+    if(!timeLeftUntilDate[interval]) {
+        return
+    }
+
+    timerInDays.push(
+        <span>
+           <h5 className={sevenDaysUntilRefill && 'background-yellow'}> {timeLeftUntilDate[interval]} {interval} {`until refill or renewal`} </h5> 
+        </span>
+    )
+})
 
 
     return (
@@ -170,21 +207,24 @@ const handleEditChange = () => {
      <EditMedicationFormModal uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
             nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} /> 
     <NavBar {...props} />
-   <h3>Individual Medication View</h3>
+    <h3>Individual Medication View</h3>
       <SearchBar {...props} handleChange={handleChange} drugId={drug.id} /> 
       <Container fluid className="medicationDetails--container">
     
     <Row xs="2">
       <Col>
       <Card className="shadow-lg medicationDetails">
-    
-        
         <CardImg className="img-thumbnail-details" src={drug.image} />
         <CardBody>
+        {drug.dateFilled === "" ? null :
+        <div className="div-countdownToRefill">
+        {timerInDays.length ? timerInDays : <h4 className="dueForRefill"> <span> Due for Refill </span> </h4>} 
+        </div>
+        }
           <CardTitle>
-          <span className="span-date">
-          <strong>Date Entered:</strong> {drug.dateInput}
-          </span>
+          <div className="div-date-medicationDetails">
+          <span><strong>Date Entered: </strong> {drug.dateInput}</span>
+          </div>
           <ListGroup className="list-group list-group flex">
           <ListGroupItem className="list-group-item"><strong>Medication Name:</strong> {drug.name}</ListGroupItem>
           <ListGroupItem className="list-group-item"><strong>Medication Strength:</strong> {drug.strength}</ListGroupItem>
@@ -200,7 +240,7 @@ const handleEditChange = () => {
 
           <CardText>
           <ListGroup className="list-group list-group flex">
-          <ListGroupItem className="list-group-item"><strong>How I Should Take My Medication?</strong> {drug.directions}</ListGroupItem>
+          <ListGroupItem className="list-group-item"><strong>How Should I Take My Medication?</strong> {drug.directions}</ListGroupItem>
           <ListGroupItem className="list-group-item"><strong>Why am I taking this?</strong> {drug.indication}</ListGroupItem>
           
           {drug.notes === "" ? null : 
@@ -226,61 +266,50 @@ const handleEditChange = () => {
             onClick={getIdOfDrug}
             >
             Edit
-            {/* <img src="https://img.icons8.com/ios-glyphs/30/000000/edit.png" alt="b/w pencil-icon"/> */}
         </Button>
           <Button className="btn-delete" onClick={() => removeDrug(drug.id)}>
           Permanently Remove
-          <img src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" alt="trash-can-icon"/>
           </Button>
           </div>
 
         </CardBody>
-        
-      
-      
       </Card>
       </Col>
-     
-   
-   
-          <Col>
-      <Card className="shadow-lg medicationDetails">
-        <CardBody> 
-          <CardTitle><strong>Prescription Details</strong></CardTitle>
-        
-          <CardText>
-          <ListGroup className="list-group list-group">
-          <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
-          {drug.refills === null ? 
-          <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
-          <ListGroupItem className="list-group-item"><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
-          <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
-          <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
-          <ListGroupItem className="list-group-item"><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
-          </ListGroup> 
-          </CardText>
-        
-        <div className="btn-all">
-        <Button className="btn-edit" 
-            id={drug.id}
-            type="button"
-            onClick={getIdOfDrug}
-            >
-            Edit
-            {/* <img src="https://img.icons8.com/ios-glyphs/30/000000/edit.png" alt="b/w pencil-icon"/> */}
-        </Button>
-        </div>
-          {/* <Button onClick={() => removeDrug(drug.id)}>Permanently Remove</Button> */}
-          </CardBody>
-         
-      </Card>
+ 
+      <Col>
+        <Card className="shadow-lg medicationDetails">
+          <CardBody> 
+            <CardTitle className="title-prescriptionDetails"><strong>Prescription Details</strong></CardTitle>
+          
+            <CardText>
+            <ListGroup className="list-group list-group">
+            <ListGroupItem className="list-group-item"><strong>RxNumber:</strong> {drug.rxNumber}</ListGroupItem>
+            {drug.refills === null ? 
+            <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+            <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {drug.refills}</ListGroupItem>}
+            <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {drug.dateFilled}</ListGroupItem>     
+            <ListGroupItem className="list-group-item"><strong>How long is this going to last me?:</strong> {drug.daysSupply} days</ListGroupItem>     
+            <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When should I fill or renew next?</strong> {drug.nextRefillDate}</ListGroupItem>     
+            </ListGroup> 
+            </CardText>
+          
+          <div className="btn-all">
+          <Button className="btn-edit" 
+              id={drug.id}
+              type="button"
+              onClick={getIdOfDrug}
+              >
+              Edit
+            
+          </Button>
+          </div>
+            </CardBody>
+          
+        </Card>
       </Col>
-       
+    </Row>
      
-      
-      </Row>
-     
-      </Container>
+  </Container>
     
      
  

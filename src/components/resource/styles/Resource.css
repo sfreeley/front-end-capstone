@@ -3,31 +3,66 @@
     flex-direction: column;
 }
 
-.dropdown-selector {
+.label-healthTopics {
     display: flex;
     justify-content: center;
-  
+}
 
+.dropdown-selector { 
+    max-width: 60%;
+    margin-bottom: 1em;
+    border: 2px solid #40476d49;
+    box-shadow: 1px 1px 1px inset;
+}
+
+.div-dropdown-selector--container {
+    display: flex;
+    justify-content: center;
+}
+
+.cardBody-link {
+    color: #40476d;
+    text-shadow: .5px .5px black;
 }
 
 .health-link-container {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-
-
+    overflow-x: auto;
 }
 
-.health-link, .tab-idMed {
-    background-color: #40476d49;
+.tab-idMed {
+    box-shadow: 1px 1px 1px;
     display: flex;
+    margin: 1em;
+    flex-direction: column;
+    text-shadow: .5px .5px black;    
+}
+
+.health-link  {
+    border: #40476d49 2px solid;
+    box-shadow: 1px 1px 1px;
+    display: flex;
+    margin: 1em;
     flex-direction: row;
     justify-content: center;
-    
-   
+    background-color:hsla(100, 17%, 69%, 0.561)
 }
 
 .btn-info {
     background-color: hsla(100, 17%, 69%, 0.561);
-    border: none
+    border: none;
+    color: black;
+}
+
+.card {
+    width: 100%;
+    box-shadow: 1px 1px 1px;
+    margin-top: 1em;  
+}
+
+.informationCard {
+    display: flex;
+    flex: 1;
+    background-color: #f1f1f1;
 }

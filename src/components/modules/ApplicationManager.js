@@ -26,10 +26,6 @@ export default {
     return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&_expand=user`).then(data => data.json())
   },
 
-  getDrugsOneUser(id) {
-    return fetch(`${remoteURL}/users/${id}?_embed=drugs`).then(data => data.json())
-  },
-
   //get all the drugs in list regardless of user
   getAllDrugs() {
     return fetch(`${remoteURL}/drugs`).then(data => data.json())
@@ -82,6 +78,8 @@ export default {
     }).then(data => data.json())
 },
 
+//resource page calls
+
 //get categories from health.gov API
 getCategories() {
   return fetch("https://health.gov/myhealthfinder/api/v3/itemlist.json?lang=en&type=category").then(data => data.json())
@@ -92,8 +90,14 @@ getCategorySelectionResults(categoryId) {
   return fetch(`https://health.gov/myhealthfinder/api/v3/topicsearch.json?lang=en&categoryId=${categoryId}`).then(data => data.json())
 },
 
-getAllResources() {
-  return fetch(`${remoteURL}/resources`).then(data => data.json())
+//get all topics for resource page
+getTopics() {
+  return fetch(`${remoteURL}/topics`).then(data => data.json())
+},
+
+//get topics with all resource details
+getTopicsWithResources() {
+  return fetch(`${remoteURL}/resources/?_expand=topic`).then(data => data.json())
 }
 
 }

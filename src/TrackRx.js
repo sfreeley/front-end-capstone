@@ -3,9 +3,6 @@ import ApplicationViews from "./ApplicationViews";
 import './App.css';
 
 const TrackRx = () => {
-  
-
-
   const isAuthenticated = () => sessionStorage.getItem("user") !== null;
 
   const [hasUser, setHasUser] = useState(isAuthenticated());
@@ -15,20 +12,11 @@ const TrackRx = () => {
     setHasUser(isAuthenticated());
   };
 
- 
-  // const clearUser = () => {
-  //     sessionStorage.clear();
-  //     setHasUser(isAuthenticated())
-  // }
-
   return (
    
-    
     <div className="applicationViews">
     <ApplicationViews hasUser={hasUser} setUser={setUser} />
     </div>
-
- 
     
   )
 

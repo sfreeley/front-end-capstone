@@ -1,23 +1,11 @@
 .searchBar-container {
     display: flex;
     justify-content: center;
+    margin-top: 1em;
 }
 
 .searchBar-position {
     max-width: 75%;
-    border: 2px solid #40476d;
-   
-}
-
-.div-medicationCard-searchResult {
-    display: flex;
-    justify-content: center;
-   
-}
-
-.div-medicationHxCard-searchResult {
-    display: flex;
-    justify-content: center;
-   
-
+    border: 2px solid #40476d49;
+    box-shadow: 1px 1px 1px inset;  
 }

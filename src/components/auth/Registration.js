@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from "reactstrap";
+import { Button, Input, Label } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
 
 const Registration = (props) => {
+    let findUsername
     const setUser = props.setUser;
     const [newUser, setNewUser] = useState({username: "", email: "", password: ""})
     const [allUsers, setAllUsers] = useState([])
     const [isLoading, setIsLoading] = useState(false);
-    const [modal, setModal] = useState(false);
     
 
     const handleFieldChange = event => {
@@ -23,7 +23,6 @@ const Registration = (props) => {
         })
     }
 
-   
     
     useEffect(() => {
         getUsers();
@@ -31,14 +30,13 @@ const Registration = (props) => {
     },[]);
 
     
-    
     const registerNewUser = event => {
         event.preventDefault();
         let confirmPassword = document.querySelector("#confirmPassword").value;
             let findUserEmail = allUsers.find(userObj => {
                 return userObj.email === newUser.email 
              })
-            let findUsername = allUsers.find(userObj => {
+            findUsername = allUsers.find(userObj => {
                return userObj.username === newUser.username  
             })
             if (findUsername && findUserEmail ) {
@@ -52,7 +50,7 @@ const Registration = (props) => {
             } else if (newUser.password !== confirmPassword) {
                 alert("Your passwords do not match. Please try again")
             } else {
-                // user.image = 
+                
                 setIsLoading(true)
                 ApplicationManager.postNewUser(newUser).then(() => {
                     ApplicationManager.getUsers().then(result => {
@@ -91,8 +89,7 @@ const Registration = (props) => {
                         type="username"
                         name="username"
                         id="username"
-                        required=""
-                        
+                        required="" 
                     />
                     </div>
                
@@ -103,14 +100,10 @@ const Registration = (props) => {
                         type="email"
                         name="email"
                         id="email"
-                        required=""
-                        
+                        required=""   
                     />
                     </div>
-                   
-               
-               
-                    
+                     
                <div className="form-group">
                     <Label htmlFor="password">Password</Label>
                     <Input
@@ -118,8 +111,7 @@ const Registration = (props) => {
                         type="password"
                         name="password"
                         id="password"
-                        required=""
-                        
+                        required=""   
                     />
                 </div>
                 <div className="form-group">
@@ -140,7 +132,6 @@ const Registration = (props) => {
                 Create Account
             </Button>
             </div>
-
                 <div className="message-loginAcct">
                 <span className="loginAcct__text">
                     Already have an account?
@@ -151,23 +142,10 @@ const Registration = (props) => {
                 </span>
                 </div>
             </div>
-            </div>
-            </div>
-        
-            <div>
-            
-                {/* <Modal isOpen={modal} toggle={toggle}>
-                    <ModalHeader toggle={toggle}>Alert</ModalHeader>
-                    <ModalBody>
-                    User email and username already exist
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={toggle}>
-                           {'Try again'}
-                        </Button>
-                    </ModalFooter>
-                </Modal>*/}
-            </div> 
+         </div>
+     </div>     
+    <div>
+</div> 
 
 
         </>        
