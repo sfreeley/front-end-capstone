@@ -16,7 +16,7 @@
 
 .dueForRefill {
     color: rgba(255, 0, 0, 0.678);
-    animation:blinkingText 2s infinite;
+    animation:blinkingText 1s infinite;
 }
 @keyframes blinkingText{
     0%{     color: rgba(255, 0, 0, 0.678);    }

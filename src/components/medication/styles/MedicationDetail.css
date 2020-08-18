@@ -41,7 +41,7 @@
     margin: 5px;
     background-color:#40476dd7;
     border: none;
-    color: #f1f1f1
+    color: #f1f1f1;
     
  }
 
@@ -57,5 +57,5 @@
  
  .img-thumbnail-details {
      max-width: 50%;
-     align-self:center;
+     align-self: center;
  }

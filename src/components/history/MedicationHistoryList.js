@@ -146,6 +146,19 @@ const MedicationHistoryList = (props) => {
             });
     };
 
+     //delete drugs from medication list from search result
+     const removeDrug = (id) => {
+        ApplicationManager.deleteDrug(id)
+            .then(() => {
+                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                    const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+                    setDrugs(sortDrugsByDate)
+                    props.history.push("/medication/list")
+                    
+                });
+            });
+    };
+
     return (
         <>
             <NavBar {...props} />
@@ -153,7 +166,7 @@ const MedicationHistoryList = (props) => {
                 nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
             <h3>Medication History</h3>
-            <SearchBar {...props} handleChange={handleChange} handleEditChange={handleEditChange} getIdOfDrug={getIdOfDrug} removeDrugFromHxList={removeDrugFromHxList} editingDrug={editingDrug} drug={drug} getDrugs={getDrugs} />
+            <SearchBar {...props} handleChange={handleChange} handleEditChange={handleEditChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} editingDrug={editingDrug} drug={drug} getDrugs={getDrugs} />
 
             <Container className="section-historicalMedicationList--container">
                 <CardDeck xs="4">

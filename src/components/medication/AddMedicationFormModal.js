@@ -2,7 +2,7 @@ import React from "react";
 import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const AddMedicationFormModal = ({ drugImage, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
@@ -27,9 +27,7 @@ const AddMedicationFormModal = ({ drugImage, uploadImage, isLoading, handleField
                         name="name"
                         id="name"
                         required=""
-
                     />
-
 
                     <Label htmlFor="strength"><strong>Medication Strength*</strong></Label>
                     <Input className="p-2 bd-highlight"
@@ -41,8 +39,6 @@ const AddMedicationFormModal = ({ drugImage, uploadImage, isLoading, handleField
                         required=""
                         placeholder="ie 5 mg, 100 mcg, 1 g, 5mL, etc"
                     />
-
-
                     <Label htmlFor="dosageForm"><strong>Medication Type*</strong></Label>
                     <Input className="p-2 bd-highlight"
                         value={newDrug.dosageForm}
@@ -53,7 +49,6 @@ const AddMedicationFormModal = ({ drugImage, uploadImage, isLoading, handleField
                         required=""
                         placeholder="ie tablet, capsule, solution, etc"
                     />
-
 
                     <Label htmlFor="directions"><strong>Medication Directions*</strong></Label>
                     <Input className="p-2 bd-highlight"
