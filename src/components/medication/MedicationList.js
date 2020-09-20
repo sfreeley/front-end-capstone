@@ -25,12 +25,15 @@ const MedicationList = (props) => {
 
     const [closeAll, setCloseAll] = useState(false);
 
-    const toggle = () => setModal(!modal);
+    const toggle = () => {
+        setModal(!modal);
+    }
 
     const toggleEdit = () => setEditModal(!editModal)
     const toggleNested = () => {
         setNestedModal(!nestedModal);
         setCloseAll(false);
+
     }
     const toggleAll = () => {
         setNestedModal(!nestedModal);
@@ -44,6 +47,7 @@ const MedicationList = (props) => {
 
     //display medication cards state
     const [drugs, setDrugs] = useState([])
+
     //start Cloudinary code
     const [drugImage, setDrugImage] = useState("")
 
@@ -83,7 +87,7 @@ const MedicationList = (props) => {
         dateInput: "",
         refills: "",
         image: drugImage
-        
+
     })
 
 
@@ -96,10 +100,6 @@ const MedicationList = (props) => {
         })
 
     }
-
-    useEffect(() => {
-        getDrugs()
-    }, []);
 
     const newMed = {
         userId: sessionUser.id,
@@ -119,9 +119,9 @@ const MedicationList = (props) => {
         image: drugImage
     }
 
-
     // adding new drug 
     const handleAddNewDrug = (event) => {
+
         event.preventDefault();
         if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
             || newDrug.directions === "" || newDrug.indication === "" || newDrug.dateFilled === "" ||
@@ -134,7 +134,8 @@ const MedicationList = (props) => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
                     const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate)
-                    toggle()
+                    setIsLoading(false);
+                    toggle();
 
                 })
             })
@@ -142,6 +143,11 @@ const MedicationList = (props) => {
         }
 
     }
+
+    useEffect(() => {
+        getDrugs();
+        alert("reloading")
+    }, []);
 
     //handling input field for posting new drug
     const handleFieldChange = (event) => {
@@ -246,18 +252,18 @@ const MedicationList = (props) => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
                     const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate)
-                    
+
                 });
             });
     };
 
-      //delete drug from medication hx list when searching
-      const removeDrugFromHxList = (id) => {
+    //delete drug from medication hx list when searching
+    const removeDrugFromHxList = (id) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
                     setDrugs(drugsFromAPI)
-                    props.history.push("/medication/history") 
+                    props.history.push("/medication/history")
                 });
             });
     };
@@ -296,7 +302,7 @@ const MedicationList = (props) => {
                             isLoading={isLoading}
                             removeDrug={removeDrug}
                             handleChange={handleChange}
-                            
+
                         />)}
 
                 </CardDeck>

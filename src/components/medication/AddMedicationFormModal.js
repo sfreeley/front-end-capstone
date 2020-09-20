@@ -1,90 +1,92 @@
 import React from "react";
-import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form } from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const AddMedicationFormModal = ({ uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
-        <>
-            <Modal isOpen={modal} toggle={toggle}>
+        <> {modal &&
+            <Modal id="add-modal" isOpen={modal} toggle={toggle} >
                 <ModalHeader className="modal-header-mainPage" toggle={toggle}><strong>What does your medication bottle tell you?</strong>
-                <FormText>*required</FormText></ModalHeader>
+                    <FormText>*required</FormText></ModalHeader>
                 <ModalBody>
-
-                    <Input type="file"
-                        name="file"
-                        placeholder="Upload an image"
-                        onChange={uploadImage} />
-                    {isLoading ? (
-                        <h3> Loading ... </h3>
-                    ) : ""}
-
-                    <Label htmlFor="name"><strong>Medication Name*</strong></Label>
-                    <Input className="p-2 bd-highlight justify-content-center"
-                        value={newDrug.name}
-                        onChange={handleFieldChange}
-                        type="text"
-                        name="name"
-                        id="name"
-                        required=""
-                    />
-
-                    <Label htmlFor="strength"><strong>Medication Strength*</strong></Label>
-                    <Input className="p-2 bd-highlight"
-                        value={newDrug.strength}
-                        onChange={handleFieldChange}
-                        type="text"
-                        name="strength"
-                        id="strength"
-                        required=""
-                        placeholder="ie 5 mg, 100 mcg, 1 g, 5mL, etc"
-                    />
-                    <Label htmlFor="dosageForm"><strong>Medication Type*</strong></Label>
-                    <Input className="p-2 bd-highlight"
-                        value={newDrug.dosageForm}
-                        onChange={handleFieldChange}
-                        type="text"
-                        name="dosageForm"
-                        id="dosageForm"
-                        required=""
-                        placeholder="ie tablet, capsule, solution, etc"
-                    />
-
-                    <Label htmlFor="directions"><strong>Medication Directions*</strong></Label>
-                    <Input className="p-2 bd-highlight"
-                        value={newDrug.directions}
-                        onChange={handleFieldChange}
-                        type="text"
-                        name="directions"
-                        id="directions"
-                        required=""
-                        placeholder="ie 'take 1 tablet by mouth...'"
-                    />
+                    <Form>
+                        <Input type="file"
+                            name="file"
+                            placeholder="Upload an image"
+                            onChange={uploadImage} />
+                        {isLoading ? (
+                            <h3> Loading ... </h3>
+                        ) : ""}
 
 
-                    <Label htmlFor="indication"><strong>Purpose of Medication*</strong></Label>
-                    <Input className="p-2 bd-highlight"
-                        value={newDrug.indication}
-                        onChange={handleFieldChange}
-                        type="text"
-                        name="indication"
-                        id="indication"
-                        required=""
-                        placeholder="What did your doctor or pharmacist say this drug is for?"
-                    />
+                        <Label htmlFor="name"><strong>Medication Name*</strong></Label>
+                        <Input className="p-2 bd-highlight justify-content-center"
+                            value={newDrug.name}
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="name"
+                            defaultValue=""
+                            id="name"
+                            required=""
+                        />
+
+                        <Label htmlFor="strength"><strong>Medication Strength*</strong></Label>
+                        <Input className="p-2 bd-highlight"
+                            value={newDrug.strength}
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="strength"
+                            id="strength"
+                            required=""
+                            placeholder="ie 5 mg, 100 mcg, 1 g, 5mL, etc"
+                        />
+                        <Label htmlFor="dosageForm"><strong>Medication Type*</strong></Label>
+                        <Input className="p-2 bd-highlight"
+                            value={newDrug.dosageForm}
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="dosageForm"
+                            id="dosageForm"
+                            required=""
+                            placeholder="ie tablet, capsule, solution, etc"
+                        />
+
+                        <Label htmlFor="directions"><strong>Medication Directions*</strong></Label>
+                        <Input className="p-2 bd-highlight"
+                            value={newDrug.directions}
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="directions"
+                            id="directions"
+                            required=""
+                            placeholder="ie 'take 1 tablet by mouth...'"
+                        />
 
 
-                    <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
-                    <Input className="p-2 bd-highlight"
-                        value={newDrug.notes}
-                        onChange={handleFieldChange}
-                        type="textarea"
-                        name="notes"
-                        id="notes"
-                        placeholder="Questions? Side effects?"
-                    />
+                        <Label htmlFor="indication"><strong>Purpose of Medication*</strong></Label>
+                        <Input className="p-2 bd-highlight"
+                            value={newDrug.indication}
+                            onChange={handleFieldChange}
+                            type="text"
+                            name="indication"
+                            id="indication"
+                            required=""
+                            placeholder="What did your doctor or pharmacist say this drug is for?"
+                        />
 
 
+                        <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
+                        <Input className="p-2 bd-highlight"
+                            value={newDrug.notes}
+                            onChange={handleFieldChange}
+                            type="textarea"
+                            name="notes"
+                            id="notes"
+                            placeholder="Questions? Side effects?"
+                        />
+
+                    </Form>
 
                     <Button className="btn-rxDetails" color="success" onClick={toggleNested}>Refill Details</Button>
                     <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined}>
@@ -142,6 +144,7 @@ const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, hand
                             />
 
                         </ModalBody>
+
                         <ModalFooter>
                             <Button className="btn-rxDetails-done" color="primary" onClick={toggleNested}>Done</Button>
                             <Button className="btn-rxDetails-cancel" color="warning" onClick={toggleNested}>Cancel</Button>
@@ -159,7 +162,9 @@ const AddMedicationFormModal = ({uploadImage, isLoading, handleFieldChange, hand
                     </Button>
 
                 </ModalFooter>
+
             </Modal>
+        }
         </>
     )
 }
