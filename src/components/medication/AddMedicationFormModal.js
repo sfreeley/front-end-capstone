@@ -5,8 +5,8 @@ import "./styles/AddMedicationFormModal.css"
 const AddMedicationFormModal = ({ uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
-        <> {modal &&
-            <Modal id="add-modal" isOpen={modal} toggle={toggle} >
+        <>
+            <Modal isOpen={modal} toggle={toggle} >
                 <ModalHeader className="modal-header-mainPage" toggle={toggle}><strong>What does your medication bottle tell you?</strong>
                     <FormText>*required</FormText></ModalHeader>
                 <ModalBody>
@@ -164,7 +164,7 @@ const AddMedicationFormModal = ({ uploadImage, isLoading, handleFieldChange, han
                 </ModalFooter>
 
             </Modal>
-        }
+
         </>
     )
 }

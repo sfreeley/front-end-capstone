@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";
@@ -27,6 +27,7 @@ const MedicationList = (props) => {
 
     const toggle = () => {
         setModal(!modal);
+
     }
 
     const toggleEdit = () => setEditModal(!editModal)
@@ -37,7 +38,7 @@ const MedicationList = (props) => {
     }
     const toggleAll = () => {
         setNestedModal(!nestedModal);
-        setCloseAll(true);
+
     }
 
 
@@ -134,19 +135,19 @@ const MedicationList = (props) => {
                 ApplicationManager.getDrugsForUser(sessionUser.id).then(drugs => {
                     const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
                     setDrugs(sortDrugsByDate)
-                    setIsLoading(false);
+
                     toggle();
 
                 })
             })
 
-        }
 
+        }
+        setIsLoading(false);
     }
 
     useEffect(() => {
         getDrugs();
-        alert("reloading")
     }, []);
 
     //handling input field for posting new drug
