@@ -39,6 +39,8 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
 
 Your database should be populated with the information you enter inside the application (ie drug information and user information).
 
+Please copy and paste "resources" and "topics" data into your database.json from example.json; this will be the data that will populate a portion of the resources page.
+
 If you have any questions regarding what the database structure should look like, please see "example.json" file in the `api` directory. Note that every property name needs to be identical to those listed in this example JSON file. Id's should be automatically and uniquely generated for each entry. By default, the ["taking"] property will have a value of `true` upon the user adding a medication (ie the user is creating a new medication entry to input into their `Current Medication List`)
 
 > **PLEASE NOTE**: NONE of the information used in the following images are that of real people or patients
