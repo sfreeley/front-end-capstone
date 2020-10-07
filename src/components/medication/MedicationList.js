@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";

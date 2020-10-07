@@ -1,54 +1,148 @@
 {
-    "users": [
-      {
-        "id": 1,
-        "username": "",
-        "email": "",
-        "password": ""
-        
-      },
-      {
-        "id": 2,
-        "username": "",
-        "email": "",
-        "password": ""
-        
-      }
-    ],
-    "drugs": [
-      {
-        "id": 1,
-        "userId": 1,
-        "name": "",
-        "strength": "",
-        "dosageForm": "",
-        "directions": "",
-        "indication": "",
-        "notes": "",
-        "rxNumber": "",
-        "dateFilled": "",
-        "daysSupply": "",
-        "nextRefillDate": "",
-        "dateInput": "",
-        "refills": "",
-        "image": "",
-        "taking": true
-      },
-      {
-        "id": 2,
-        "userId": 2,
-        "name": "",
-        "strength": "",
-        "dosageForm": "",
-        "directions": "",
-        "indication": "",
-        "notes": "",
-        "rxNumber": "",
-        "dateFilled": "",
-        "daysSupply": "",
-        "nextRefillDate": "",
-        "dateInput": "",
-        "refills": "",
-        "image": "",
-        "taking": true
-      }
+  "users": [
+    {
+      "id": 1,
+      "username": "",
+      "email": "",
+      "password": ""
+    },
+    {
+      "id": 2,
+      "username": "",
+      "email": "",
+      "password": ""
+    }
+  ],
+  "drugs": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "",
+      "strength": "",
+      "dosageForm": "",
+      "directions": "",
+      "indication": "",
+      "notes": "",
+      "rxNumber": "",
+      "dateFilled": "",
+      "daysSupply": "",
+      "nextRefillDate": "",
+      "dateInput": "",
+      "refills": "",
+      "image": "",
+      "taking": true
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "name": "",
+      "strength": "",
+      "dosageForm": "",
+      "directions": "",
+      "indication": "",
+      "notes": "",
+      "rxNumber": "",
+      "dateFilled": "",
+      "daysSupply": "",
+      "nextRefillDate": "",
+      "dateInput": "",
+      "refills": "",
+      "image": "",
+      "taking": true
+    }
+  ],
+  "resources": [
+    {
+      "id": 1,
+      "topicId": 1,
+      "title": "Drug Identifier",
+      "description": "Have questions about what your medication looks like? Did you get a different manufacturer? Check to make sure!",
+      "url": "https://www.drugs.com/imprints.php/"
+    },
+    {
+      "id": 2,
+      "topicId": 1,
+      "title": "What if I miss a dose of my medication?",
+      "description": "Should I take it now? Learn the basics, but always ask your doctor or pharmacist if you have any questions!",
+      "url": "https://pharmacy.ca.gov/publications/miss_dose.pdf"
+    },
+    {
+      "id": 3,
+      "topicId": 2,
+      "title": "Latest Information on Drug Approvals and Safety",
+      "description": "Questions about medications just coming to market or other drug-related topics? See patient friendly information regarding drug approvals",
+      "url": "https://www.fda.gov/drugs/resources-you-drugs/drug-information-consumers"
+    },
+    {
+      "id": 4,
+      "topicId": 2,
+      "title": "Popular Drug Topics and Cost Saving Resources for Medications",
+      "description": "Get trusted and reliable answers to cost savings and various health and wellness questions",
+      "url": "https://www.bemedwise.org/news-you-can-use-health-drug-safety-updates/"
+    },
+    {
+      "id": 5,
+      "topicId": 3,
+      "title": "Know Your OTC Meds",
+      "description": "Downloadable, multilingual information for families regarding how to take OTC medications safely and how to safely give them to your little ones",
+      "url": "https://www.getreliefresponsibly.com/otc-resources/medication-resources"
+    },
+    {
+      "id": 6,
+      "topicId": 3,
+      "title": "Medications, Herbs, and Supplements",
+      "description": "Questions about how herbs and supplements are affecting your prescription medications?",
+      "url": "https://medlineplus.gov/druginformation.html"
+    },
+    {
+      "id": 7,
+      "topicId": 4,
+      "title": "Proper Disposal of Medications",
+      "description": "Information regarding proper and safe disposal of medications",
+      "url": "https://www.bemedwise.org/your-medicines-self-care/drug-storage-and-disposal/"
+    },
+    {
+      "id": 8,
+      "topicId": 4,
+      "title": "FDA Info on Proper Disposal of Medications",
+      "description": "Information on National Drug Take Back Day",
+      "url": "https://www.deadiversion.usdoj.gov/drug_disposal/takeback/index.html"
+    },
+    {
+      "id": 9,
+      "topicId": 5,
+      "title": "Aging and Medications",
+      "description": "How medications affect our bodies change as we age. Find out more.",
+      "url": "https://www.fda.gov/drugs/drug-information-consumers/you-age-you-and-your-medicines"
+    },
+    {
+      "id": 10,
+      "topicId": 5,
+      "title": "How to Safely Take Medications As We Age",
+      "description": "Information on how to maximize benefits and reduce risks of meidcations",
+      "url": "https://www.merckmanuals.com/home/older-people%E2%80%99s-health-issues/aging-and-drugs/aging-and-drugs#v41278178"
+    }
+  ],
+  "topics": [
+    {
+      "id": 1,
+      "topic": "ID Your Medication"
+    },
+    {
+      "id": 2,
+      "topic": "Drug Information for Consumers"
+    },
+    {
+      "id": 3,
+      "topic": "Over the Counter Medication Info"
+    },
+    {
+      "id": 4,
+      "topic": "Proper Medication Disposal"
+    },
+    {
+      "id": 5,
+      "topic": "Side Effects and Aging"
+    }
+  ]
+}
