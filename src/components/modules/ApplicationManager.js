@@ -98,6 +98,11 @@ export default {
   //get topics with all resource details
   getTopicsWithResources() {
     return fetch(`${remoteURL}/resources/?_expand=topic`).then(data => data.json())
+  },
+
+  //get pharmacies and user with drugs
+  getPharmaciesForDrugs(sessionUserId) {
+    return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&_expand=user&_expand=pharmacy`).then(data => data.json())
   }
 
 

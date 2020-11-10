@@ -19,6 +19,9 @@ import MedicationHistoryList from "./components/history/MedicationHistoryList";
 //resources
 import Resource from "./components/resource/Resource";
 
+//pharmacy
+import PharmacyList from "./components/pharmacy/PharmacyList";
+
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
@@ -71,6 +74,12 @@ const ApplicationViews = (props) => {
             <Route path="/medication/resources"
                 render={props => {
                     return (hasUser ? <Resource {...props} /> : <Redirect to="/login" />)
+                }}
+            />
+
+            <Route path="/medication/pharmacies"
+                render={props => {
+                    return (hasUser ? <PharmacyList {...props} /> : <Redirect to="/login" />)
                 }}
             />
         </>
