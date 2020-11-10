@@ -3,42 +3,31 @@ import ApplicationManager from "../modules/ApplicationManager";
 
 const PharmacyList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-
-    const [pharmacies, setPharmacies] = useState([])
+    const [pharmacies, setPharmacies] = useState([]);
     console.log(pharmacies)
 
-    const getPharmaciesForDrugs = () => {
-        const uniquePharmacies = []
-        return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsWithPharmacyFromAPI => {
-            drugsWithPharmacyFromAPI.forEach((drug) => {
-                if (!uniquePharmacies.includes(drug.pharmacy)) {
-                    uniquePharmacies.push(drug.pharmacy)
-                }
+    const getPharmacies = () => {
 
-            })
-            setPharmacies(uniquePharmacies)
-
-
-
-
-        })
-
+        ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(data => setPharmacies(data))
     }
 
-    useEffect(() => {
 
-        getPharmaciesForDrugs()
+    useEffect(() => {
+        getPharmacies();
+
     }, [])
+
 
 
     return (
         <div>{
-            pharmacies.map(pharmacy => {
+            pharmacies && pharmacies.map(pharmacy => {
 
-                return <p key={pharmacy.id} pharmacy={pharmacy}>{pharmacy.name}</p>
+                return <p key={pharmacy.id} pharmacy={pharmacy}>{pharmacy.name} </p>
             }
 
-            )}</div>
+            )}
+        </div>
     )
 
 }

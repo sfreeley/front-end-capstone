@@ -109,6 +109,8 @@ const MedicationList = (props) => {
 
     })
 
+    const [pharmaciesWithDrugs, setPharmacies] = useState([])
+
 
     //get drugs based on user to display in medication list and sort by earliest upcoming refill date
     const getDrugs = () => {
@@ -287,6 +289,24 @@ const MedicationList = (props) => {
             });
     };
 
+    const getPharmacies = () => {
+        const uniquePharmacies = [];
+        ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(dataFromAPI => {
+
+            setPharmacies([...new Set(dataFromAPI)])
+            // if (!uniquePharmacies.includes(data.pharmacyId)) {
+            //     uniquePharmacies.push([...new Set(data.pharmacy)])
+            // }
+
+            // setPharmacies(uniquePharmacies);
+        })
+
+    }
+
+    useEffect(() => {
+        getPharmacies();
+    }, [])
+
     return (
         <>
             <NavBar {...props} />
@@ -311,7 +331,7 @@ const MedicationList = (props) => {
             <Container className="section-currentMedicationList--container">
                 <CardDeck xs="4" >
 
-                    {drugs && drugs.map(drug => drug.taking &&
+                    {pharmaciesWithDrugs && pharmaciesWithDrugs.map(drug => drug.taking &&
                         <MedicationCard
                             key={drug.id}
                             drug={drug}

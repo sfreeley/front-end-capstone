@@ -36,7 +36,7 @@ const MedicationCard = (props) => {
 
     if (difference > 0) {
       timeLeftUntilDate = {
-        days: Math.ceil(difference / (1000 * 60 * 60 * 24)), 
+        days: Math.ceil(difference / (1000 * 60 * 60 * 24)),
       }
     }
     return timeLeftUntilDate
@@ -77,8 +77,16 @@ const MedicationCard = (props) => {
     <>
       <Col xs="6">
         <Card className="shadow-lg medicationCard h-100" >
-          <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
 
+          <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
+          <Button
+
+            className="btn-pharmacy-details-medList"
+            type="button"
+            id={`drug${props.drug.pharmacyId}`}
+          >
+            Pharmacy Details
+          </Button>
           <CardBody>
             <div className="div-date-medicationCard">
               <span><strong>Date Entered:</strong> {props.drug.dateInput} </span>
@@ -170,11 +178,47 @@ const MedicationCard = (props) => {
                   {props.drug.rxNumber === "" ? null :
                     <>
                       {props.drug.refills === null ?
-                      <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
-                      <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>} </>}
-                      <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>
-                      <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>
-                      <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>
+                        <ListGroupItem className={'background-red'}><strong>Refills Remaining:</strong> No refills </ListGroupItem> :
+                        <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Refills Remaining:</strong> {props.drug.refills}</ListGroupItem>} </>}
+                  <ListGroupItem className="list-group-item"><strong>Last time this was filled:</strong> {props.drug.dateFilled}</ListGroupItem>
+                  <ListGroupItem className="list-group-item"><strong>How long is this going to last me?</strong> {props.drug.daysSupply} days</ListGroupItem>
+                  <ListGroupItem className={sevenDaysUntilRefill || dayOfRefill ? 'background-red' : null}><strong>When is my next renewal or refill date?</strong> {props.drug.nextRefillDate}</ListGroupItem>
+                </ListGroup>
+              </CardText>
+
+              <div className="btn-all">
+                <Button
+                  className="btn-edit"
+                  id={props.drug.id}
+                  type="button"
+                  onClick={props.getIdOfDrug}
+                >
+                  Edit
+              </Button>
+
+                <Link to={`/medication/detail/${props.drug.id}`}>
+                  <Button className="btn-expand">Expand</Button>
+                </Link>
+              </div>
+            </Card>
+          </PopoverBody>
+        </UncontrolledPopover>
+
+
+        <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.pharmacy.id}`}  >
+          <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
+          <PopoverBody>
+            <Card>
+              <CardText>
+                <ListGroup className="list-group list-group">
+
+                  <ListGroupItem className="list-group-item"><strong>Pharmacy Name:</strong> {props.drug.pharmacy.name}</ListGroupItem>
+
+
+                  <ListGroupItem className={'background-red'}><strong>Pharmacy Address:</strong> {props.drug.pharmacy.address} </ListGroupItem>
+
+                  <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {props.drug.pharmacy.phone}</ListGroupItem>
+
                 </ListGroup>
               </CardText>
 
