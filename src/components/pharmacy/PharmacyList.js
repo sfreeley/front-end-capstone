@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ApplicationManager from "../modules/ApplicationManager";
+import { Button } from "reactstrap";
+import Pharmacy from "../pharmacy/Pharmacy";
 
 const PharmacyList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -11,22 +13,21 @@ const PharmacyList = (props) => {
         ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(data => setPharmacies(data))
     }
 
-
     useEffect(() => {
         getPharmacies();
 
     }, [])
 
-
-
     return (
-        <div>{
-            pharmacies && pharmacies.map(pharmacy => {
+        <div>
+            <Button onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
 
-                return <p key={pharmacy.id} pharmacy={pharmacy}>{pharmacy.name} </p>
+            {
+                pharmacies && pharmacies.map(pharmacy => {
+
+                    return <Pharmacy key={pharmacy.id} pharmacy={pharmacy} props={props} />
+                })
             }
-
-            )}
         </div>
     )
 
