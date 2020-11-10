@@ -26,7 +26,25 @@ const MedicationList = (props) => {
     const [closeAll, setCloseAll] = useState(false);
 
     const toggle = () => {
+        setNewDrug({
+            userId: sessionUser.id,
+            name: "",
+            strength: "",
+            dosageForm: "",
+            directions: "",
+            indication: "",
+            notes: "",
+            rxNumber: "",
+            dateFilled: "",
+            daysSupply: "",
+            nextRefillDate: "",
+            taking: true,
+            dateInput: "",
+            refills: "",
+            image: drugImage
+        })
         setModal(!modal);
+
 
     }
 

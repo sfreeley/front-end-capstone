@@ -18,7 +18,27 @@ const Home = (props) => {
     const [editModal, setEditModal] = useState(false)
     const [nestedModal, setNestedModal] = useState(false);
     const [closeAll, setCloseAll] = useState(false);
-    const toggle = () => setModal(!modal);
+    const toggle = () => {
+        setNewDrug({
+            userId: sessionUser.id,
+            name: "",
+            strength: "",
+            dosageForm: "",
+            directions: "",
+            indication: "",
+            notes: "",
+            rxNumber: "",
+            dateFilled: "",
+            daysSupply: "",
+            nextRefillDate: "",
+            taking: true,
+            dateInput: "",
+            refills: "",
+            image: drugImage
+        })
+        setModal(!modal);
+
+    }
     const toggleNested = () => {
         setNestedModal(!nestedModal);
         setCloseAll(false);
@@ -166,7 +186,7 @@ const Home = (props) => {
                     drugToEdit.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
                 })
             })
-         }
+    }
 
     //getting the drug object by id of drug that will be edited in modal
     const getIdOfDrug = (event) => {
