@@ -100,7 +100,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, uploadIm
                                 value={parseInt(newDrug.pharmacyId)}
                                 onChange={handlePharmacyDropdown}
                                 type="select"
-                                name="pharmacy"
+                                name="pharmacyId"
                                 id="pharmacyId"
 
                             >
