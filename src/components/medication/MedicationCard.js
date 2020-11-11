@@ -222,7 +222,7 @@ const MedicationCard = (props) => {
                 </ListGroup>
               </CardText>
 
-              <div className="btn-all">
+              {/* <div className="btn-all">
                 <Button
                   className="btn-edit"
                   id={props.drug.id}
@@ -235,7 +235,7 @@ const MedicationCard = (props) => {
                 <Link to={`/medication/detail/${props.drug.id}`}>
                   <Button className="btn-expand">Expand</Button>
                 </Link>
-              </div>
+              </div> */}
             </Card>
           </PopoverBody>
         </UncontrolledPopover>

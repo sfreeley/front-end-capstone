@@ -2,7 +2,7 @@ import React from "react";
 import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form } from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
@@ -95,7 +95,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, uploadIm
                         <ModalBody>
                             {/* start of nested form */}
 
-                            <Label htmlFor="pharmacy"><strong>Pharmacy*</strong></Label>
+                            <Label htmlFor="pharmacyId"><strong>Pharmacy*</strong></Label>
                             <Input className="p-2 bd-highlight justify-content-center"
                                 value={parseInt(newDrug.pharmacyId)}
                                 onChange={handlePharmacyDropdown}
@@ -105,13 +105,14 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, uploadIm
 
                             >
                                 <option>Please Choose an Option</option>
+                                {
 
-                                {pharmacyList.map(pharmacy => {
-                                    return <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
+                                    pharmacyList.map(pharmacy => {
+                                        return <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
 
-                                }
+                                    }
 
-                                )}
+                                    )}
 
                             </Input>
 

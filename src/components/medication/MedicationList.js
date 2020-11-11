@@ -28,6 +28,7 @@ const MedicationList = (props) => {
     const toggle = () => {
         setNewDrug({
             userId: sessionUser.id,
+            pharmacyId: null,
             name: "",
             strength: "",
             dosageForm: "",
@@ -92,6 +93,7 @@ const MedicationList = (props) => {
     //put new drug that will be added into state
     const [newDrug, setNewDrug] = useState({
         userId: sessionUser.id,
+        pharmacyId: null,
         name: "",
         strength: "",
         dosageForm: "",
@@ -125,6 +127,7 @@ const MedicationList = (props) => {
 
     const newMed = {
         userId: sessionUser.id,
+        pharmacyId: parseInt(newDrug.pharmacyId),
         name: newDrug.name,
         strength: newDrug.strength,
         dosageForm: newDrug.dosageForm,
@@ -169,8 +172,9 @@ const MedicationList = (props) => {
 
     useEffect(() => {
         getDrugs();
-        getPharmacies();
         getPharmaciesForForm();
+        getPharmaciesWithDrugs();
+
     }, []);
 
     //handling input field for posting new drug
@@ -209,6 +213,7 @@ const MedicationList = (props) => {
         id: "",
         name: "",
         userId: sessionUser.id,
+        pharmacyId: null,
         strength: "",
         dosageForm: "",
         directions: "",
@@ -237,6 +242,7 @@ const MedicationList = (props) => {
         id: drug.id,
         name: drug.name,
         userId: sessionUser.id,
+        pharmacyId: parseInt(drug.pharmacyId),
         strength: drug.strength,
         dosageForm: drug.dosageForm,
         directions: drug.directions,
@@ -300,9 +306,12 @@ const MedicationList = (props) => {
             });
     };
 
-    const getPharmacies = () => {
+    //pharmacy section
+
+    const getPharmaciesWithDrugs = () => {
         ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(dataFromAPI => {
-            setPharmacies([...new Set(dataFromAPI)])
+            const sortDrugsByDate = dataFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+            setPharmacies([...new Set(sortDrugsByDate)])
         })
     }
 
