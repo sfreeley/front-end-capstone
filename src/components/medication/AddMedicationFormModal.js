@@ -2,7 +2,7 @@ import React from "react";
 import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form } from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const AddMedicationFormModal = ({ uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
@@ -94,6 +94,26 @@ const AddMedicationFormModal = ({ uploadImage, isLoading, handleFieldChange, han
                         <FormText>*required</FormText></ModalHeader>
                         <ModalBody>
                             {/* start of nested form */}
+
+                            <Label htmlFor="pharmacyId"><strong>Pharmacy*</strong></Label>
+                            <Input className="p-2 bd-highlight justify-content-center"
+                                value={parseInt(newDrug.pharmacyId)}
+                                onChange={handlePharmacyDropdown}
+                                type="select"
+                                name="pharmacyId"
+                                id="pharmacyId"
+
+                            >
+                                <option>Please Choose an Option</option>
+                                {
+                                    pharmacyList.map(pharmacy =>
+                                        pharmacy.id === 0 ? null : !pharmacy.hidden &&
+                                            <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
+
+                                    )}
+
+                            </Input>
+
 
                             <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
                             <Input className="p-2 bd-highlight justify-content-center"

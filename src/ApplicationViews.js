@@ -19,6 +19,11 @@ import MedicationHistoryList from "./components/history/MedicationHistoryList";
 //resources
 import Resource from "./components/resource/Resource";
 
+//pharmacy
+import PharmacyList from "./components/pharmacy/PharmacyList";
+import AddPharmacyForm from "./components/pharmacy/AddPharmacyForm";
+import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
+
 
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
@@ -71,6 +76,23 @@ const ApplicationViews = (props) => {
             <Route path="/medication/resources"
                 render={props => {
                     return (hasUser ? <Resource {...props} /> : <Redirect to="/login" />)
+                }}
+            />
+
+            <Route path="/medication/pharmacies"
+                render={props => {
+                    return (hasUser ? <PharmacyList {...props} /> : <Redirect to="/login" />)
+                }}
+            />
+
+            <Route path="/medication/pharmacy/add"
+                render={props => {
+                    return (hasUser ? <AddPharmacyForm {...props} /> : <Redirect to="/login" />)
+                }}
+            />
+            <Route path="/medication/pharmacy/edit/:pharmacyId(\d+)"
+                render={props => {
+                    return (hasUser ? <EditPharmacyForm {...props} /> : <Redirect to="/login" />)
                 }}
             />
         </>

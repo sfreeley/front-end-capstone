@@ -8,7 +8,7 @@ import AddMedicationFormModal from "../medication/AddMedicationFormModal";
 import EditMedicationFormModal from "../medication/EditMedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
-import { Container, CardDeck } from "reactstrap"
+import { Container, CardDeck, Button } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
@@ -26,7 +26,26 @@ const MedicationList = (props) => {
     const [closeAll, setCloseAll] = useState(false);
 
     const toggle = () => {
+        setNewDrug({
+            userId: sessionUser.id,
+            pharmacyId: null,
+            name: "",
+            strength: "",
+            dosageForm: "",
+            directions: "",
+            indication: "",
+            notes: "",
+            rxNumber: "",
+            dateFilled: "",
+            daysSupply: "",
+            nextRefillDate: "",
+            taking: true,
+            dateInput: "",
+            refills: "",
+            image: drugImage
+        })
         setModal(!modal);
+
 
     }
 
@@ -74,6 +93,7 @@ const MedicationList = (props) => {
     //put new drug that will be added into state
     const [newDrug, setNewDrug] = useState({
         userId: sessionUser.id,
+        pharmacyId: null,
         name: "",
         strength: "",
         dosageForm: "",
@@ -91,6 +111,9 @@ const MedicationList = (props) => {
 
     })
 
+    const [pharmaciesWithDrugs, setPharmacies] = useState([]);
+    const [pharmacyList, setPharmacyList] = useState([]);
+
 
     //get drugs based on user to display in medication list and sort by earliest upcoming refill date
     const getDrugs = () => {
@@ -104,6 +127,7 @@ const MedicationList = (props) => {
 
     const newMed = {
         userId: sessionUser.id,
+        pharmacyId: parseInt(newDrug.pharmacyId),
         name: newDrug.name,
         strength: newDrug.strength,
         dosageForm: newDrug.dosageForm,
@@ -126,7 +150,7 @@ const MedicationList = (props) => {
         event.preventDefault();
         if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
             || newDrug.directions === "" || newDrug.indication === "" || newDrug.dateFilled === "" ||
-            newDrug.daysSupply === "") {
+            newDrug.daysSupply === "" || newDrug.pharmacyId === null) {
             alert("Please fill out required fields")
         } else {
             setIsLoading(true);
@@ -148,6 +172,9 @@ const MedicationList = (props) => {
 
     useEffect(() => {
         getDrugs();
+        getPharmaciesForForm();
+        getPharmaciesWithDrugs();
+
     }, []);
 
     //handling input field for posting new drug
@@ -157,6 +184,23 @@ const MedicationList = (props) => {
         setNewDrug(stateToChange);
 
     };
+
+    //handling pharmacy dropdown state
+    const handlePharmacyDropdown = (e) => {
+        const stateToChange = { ...newDrug };
+        stateToChange[e.target.id] = e.target.value;
+        setNewDrug(stateToChange);
+        console.log(e.target.value)
+    };
+
+    //handling pharmacy dropdown state
+    const handlePharmacyDropdownEdit = (e) => {
+        const stateToChange = { ...drug };
+        stateToChange[e.target.id] = e.target.value;
+        setDrug(stateToChange);
+        console.log(e.target.value)
+    };
+
 
     //edit taking to false and move card to medication hx  
     const handleChange = (drugToEdit) => {
@@ -178,6 +222,7 @@ const MedicationList = (props) => {
         id: "",
         name: "",
         userId: sessionUser.id,
+        pharmacyId: null,
         strength: "",
         dosageForm: "",
         directions: "",
@@ -206,6 +251,7 @@ const MedicationList = (props) => {
         id: drug.id,
         name: drug.name,
         userId: sessionUser.id,
+        pharmacyId: parseInt(drug.pharmacyId),
         strength: drug.strength,
         dosageForm: drug.dosageForm,
         directions: drug.directions,
@@ -269,6 +315,20 @@ const MedicationList = (props) => {
             });
     };
 
+    //pharmacy section
+
+    const getPharmaciesWithDrugs = () => {
+        ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(dataFromAPI => {
+            const sortDrugsByDate = dataFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+            setPharmacies([...new Set(sortDrugsByDate)])
+        })
+    }
+
+    const getPharmaciesForForm = () => {
+        ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
+    }
+
+
     return (
         <>
             <NavBar {...props} />
@@ -279,10 +339,10 @@ const MedicationList = (props) => {
                 <div className="addMedication-image--label">
                     <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
                 </div>
-                <AddMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+                <AddMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
-                <EditMedicationFormModal drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+                <EditMedicationFormModal handlePharmacyDropdownEdit={handlePharmacyDropdownEdit} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                     nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
                 <h2>Current Medication List</h2>
@@ -290,10 +350,11 @@ const MedicationList = (props) => {
 
             <SearchBar className="searchBar-medicationList" {...props} getDrugs={getDrugs} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleEditChange={handleEditChange} editingDrug={editingDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
+            <Button onClick={() => props.history.push("/medication/pharmacies")}>Pharmacy List</Button>
             <Container className="section-currentMedicationList--container">
                 <CardDeck xs="4" >
 
-                    {drugs && drugs.map(drug => drug.taking &&
+                    {pharmaciesWithDrugs && pharmaciesWithDrugs.map(drug => drug.taking &&
                         <MedicationCard
                             key={drug.id}
                             drug={drug}

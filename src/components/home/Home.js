@@ -18,7 +18,28 @@ const Home = (props) => {
     const [editModal, setEditModal] = useState(false)
     const [nestedModal, setNestedModal] = useState(false);
     const [closeAll, setCloseAll] = useState(false);
-    const toggle = () => setModal(!modal);
+    const toggle = () => {
+        setNewDrug({
+            userId: sessionUser.id,
+            pharmacyId: null,
+            name: "",
+            strength: "",
+            dosageForm: "",
+            directions: "",
+            indication: "",
+            notes: "",
+            rxNumber: "",
+            dateFilled: "",
+            daysSupply: "",
+            nextRefillDate: "",
+            taking: true,
+            dateInput: "",
+            refills: "",
+            image: drugImage
+        })
+        setModal(!modal);
+
+    }
     const toggleNested = () => {
         setNestedModal(!nestedModal);
         setCloseAll(false);
@@ -57,6 +78,7 @@ const Home = (props) => {
     const [newDrug, setNewDrug] = useState({
         id: "",
         userId: sessionUser.id,
+        pharmacyId: null,
         name: "",
         strength: "",
         dosageForm: "",
@@ -87,13 +109,28 @@ const Home = (props) => {
 
     useEffect(() => {
         getDrugs()
+        getPharmaciesForForm()
     }, []);
+
+    const [pharmacyList, setPharmacyList] = useState([]);
+    const getPharmaciesForForm = () => {
+        ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
+    }
+
+    //handling pharmacy dropdown state
+    const handlePharmacyDropdown = (e) => {
+        const stateToChange = { ...newDrug };
+        stateToChange[e.target.id] = e.target.value;
+        setNewDrug(stateToChange);
+        console.log(e.target.value)
+    };
 
     //edit whole drug entry state
     const [drug, setDrug] = useState({
         id: "",
         name: "",
         userId: sessionUser.id,
+        pharmacyId: null,
         strength: "",
         dosageForm: "",
         directions: "",
@@ -113,6 +150,7 @@ const Home = (props) => {
         id: drug.id,
         name: drug.name,
         userId: sessionUser.id,
+        pharmacyId: drug.pharmacyId,
         strength: drug.strength,
         dosageForm: drug.dosageForm,
         directions: drug.directions,
@@ -166,7 +204,7 @@ const Home = (props) => {
                     drugToEdit.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
                 })
             })
-         }
+    }
 
     //getting the drug object by id of drug that will be edited in modal
     const getIdOfDrug = (event) => {
@@ -208,6 +246,7 @@ const Home = (props) => {
             const newMed = {
                 userId: sessionUser.id,
                 name: newDrug.name,
+                pharmacyId: newDrug.pharmacyId,
                 strength: newDrug.strength,
                 dosageForm: newDrug.dosageForm,
                 directions: newDrug.directions,
@@ -253,9 +292,9 @@ const Home = (props) => {
                 </div>
 
                 <SearchBar {...props} setDrugs={setDrugs} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} isChecked={isChecked} />
-                <AddMedicationFormModal uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+                <AddMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
-                <EditMedicationFormModal uploadImage={uploadImage} drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+                <EditMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} uploadImage={uploadImage} drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                     nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
             </div>
         </>

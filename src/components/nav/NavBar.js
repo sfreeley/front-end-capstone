@@ -54,6 +54,10 @@ const NavBar = () => {
                 </NavItem>
 
                 <NavItem>
+                  <NavLink tag={routerNavLink} to="/medication/pharmacies" className="nav-link" activeClassName="nav-link--active">Pharmacy List</NavLink>
+                </NavItem>
+
+                <NavItem>
                   <NavLink tag={routerNavLink} className="nav-link" onClick={clearUser} to="/login">Logout</NavLink>
                 </NavItem>
               </Nav>
