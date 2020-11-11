@@ -97,7 +97,7 @@ const EditMedicationFormModal = ({ handlePharmacyDropdownEdit, pharmacyList, mov
                     <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggleEdit : undefined}>
                         <ModalHeader
                             className="modal-header-prescriptionDetails">Prescription Details
-            <FormText>*required</FormText>
+                        <FormText>*required</FormText>
                         </ModalHeader>
 
                         <ModalBody>
@@ -114,13 +114,12 @@ const EditMedicationFormModal = ({ handlePharmacyDropdownEdit, pharmacyList, mov
                             >
                                 <option>Please Choose an Option</option>
                                 {
-
-                                    pharmacyList && pharmacyList.map(pharmacy => {
-                                        return <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
-
-                                    }
+                                    pharmacyList.map(pharmacy =>
+                                        pharmacy.id === 0 ? null : !pharmacy.hidden &&
+                                            <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
 
                                     )}
+
 
                             </Input>
 

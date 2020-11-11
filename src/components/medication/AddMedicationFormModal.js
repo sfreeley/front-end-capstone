@@ -106,11 +106,9 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
                             >
                                 <option>Please Choose an Option</option>
                                 {
-
-                                    pharmacyList.map(pharmacy => {
-                                        return <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
-
-                                    }
+                                    pharmacyList.map(pharmacy =>
+                                        pharmacy.id === 0 ? null : !pharmacy.hidden &&
+                                            <option key={pharmacy.id} value={pharmacy.id}>{pharmacy.name}: {pharmacy.address}</option>
 
                                     )}
 

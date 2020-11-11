@@ -150,7 +150,7 @@ const MedicationList = (props) => {
         event.preventDefault();
         if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
             || newDrug.directions === "" || newDrug.indication === "" || newDrug.dateFilled === "" ||
-            newDrug.daysSupply === "") {
+            newDrug.daysSupply === "" || newDrug.pharmacyId === null) {
             alert("Please fill out required fields")
         } else {
             setIsLoading(true);
