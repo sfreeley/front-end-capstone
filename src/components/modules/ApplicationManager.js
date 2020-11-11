@@ -105,15 +105,22 @@ export default {
     return fetch(`${remoteURL}/drugs/?userId=${sessionUserId}&_expand=user&_expand=pharmacy`).then(data => data.json())
   },
 
-  //embed
-  getPharmaciesWithDrugs() {
-    return fetch(`${remoteURL}/pharmacies/?_embed=drugs`).then(data => data.json())
-  },
-
   //get all pharmacies
   getAllPharmaciesForUser(sessionUserId) {
     return fetch(`${remoteURL}/pharmacies/?userId=${sessionUserId}`).then(data => data.json())
-  }
+  },
+
+  //POST new pharmacy
+  postNewPharmacy(newPharmacyObject) {
+    return fetch(`${remoteURL}/pharmacies`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPharmacyObject)
+    }).then(data => data.json())
+
+  },
 
 
 }
