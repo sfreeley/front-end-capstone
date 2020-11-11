@@ -122,12 +122,17 @@ export default {
 
   },
 
-  //DELETE pharmacy
-  deletePharmacy(id) {
-    return fetch(`${remoteURL}/pharmacies/${id}`, {
-      method: "DELETE"
-    }).then(data => data.json())
-  },
+  // //DELETE pharmacy
+  // hidePharmacy(pharmacyObject) {
+  //   return fetch(`${remoteURL}/pharmacies/${pharmacyObject.id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(pharmacyObject)
+  //   }).then(data => data.json())
+
+  // },
 
   //PUT pharmacy
   editPharmacy(pharmacyObject) {

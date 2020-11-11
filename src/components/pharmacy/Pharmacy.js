@@ -2,6 +2,16 @@ import React from "react";
 import { Card, CardText, ListGroup, ListGroupItem, Button } from "reactstrap";
 
 const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
+    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+
+    const currentPharmacyEntry = {
+        id: pharmacy.id,
+        userId: sessionUser.id,
+        name: pharmacy.name,
+        phone: pharmacy.phone,
+        hidden: true
+    }
+
     return (
         <Card>
             <CardText>
@@ -16,7 +26,7 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
                 </ListGroup>
             </CardText>
             <Button onClick={() => props.history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>
-            <Button id={pharmacy.id} onClick={() => removePharmacy(pharmacy.id)}>Delete</Button>
+            <Button id={pharmacy.id} onClick={() => removePharmacy(currentPharmacyEntry)}>Delete</Button>
         </Card>
     )
 

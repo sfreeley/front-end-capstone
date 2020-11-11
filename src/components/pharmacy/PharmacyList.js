@@ -26,25 +26,19 @@ const PharmacyList = (props) => {
     }, [])
 
 
-    const removePharmacy = (id) => {
-        debugger;
-        drugsWithPharmacy.includes(drugWithPharmacy => {
+    const removePharmacy = (pharmacyToEdit) => {
+
+        ApplicationManager.editPharmacy(pharmacyToEdit)
+            .then(() => {
+                ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => {
+                    setPharmacies(dataFromAPI)
+                });
+            });
 
 
-            if (drugWithPharmacy.pharmacyId === id) {
-                return alert("You cannot delete this pharmacy because it has been assigned to one or multiple drugs.");
-            } else {
-                ApplicationManager.deletePharmacy(id)
-                    .then(() => {
-                        ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => {
-                            setPharmacies(dataFromAPI)
-                        });
-                    });
-            }
+    }
 
-        })
 
-    };
 
     return (
         <>
@@ -53,10 +47,10 @@ const PharmacyList = (props) => {
                 <Button onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
 
                 {
-                    pharmacies && pharmacies.map(pharmacy => {
+                    pharmacies && pharmacies.map(pharmacy => !pharmacy.hidden &&
 
-                        return <Pharmacy key={pharmacy.id} pharmacy={pharmacy} props={props} removePharmacy={removePharmacy} />
-                    })
+                        <Pharmacy key={pharmacy.id} pharmacy={pharmacy} props={props} removePharmacy={removePharmacy} />
+                    )
                 }
             </div>
         </>
