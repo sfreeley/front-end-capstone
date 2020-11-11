@@ -117,6 +117,14 @@ const Home = (props) => {
         ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
     }
 
+    //handling pharmacy dropdown state
+    const handlePharmacyDropdown = (e) => {
+        const stateToChange = { ...newDrug };
+        stateToChange[e.target.id] = e.target.value;
+        setNewDrug(stateToChange);
+        console.log(e.target.value)
+    };
+
     //edit whole drug entry state
     const [drug, setDrug] = useState({
         id: "",
@@ -284,9 +292,9 @@ const Home = (props) => {
                 </div>
 
                 <SearchBar {...props} setDrugs={setDrugs} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} isChecked={isChecked} />
-                <AddMedicationFormModal pharmacyList={pharmacyList} uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+                <AddMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} uploadImage={uploadImage} isLoading={isLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
-                <EditMedicationFormModal pharmacyList={pharmacyList} uploadImage={uploadImage} drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+                <EditMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} uploadImage={uploadImage} drugs={drugs} drug={drug} editingDrug={editingDrug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                     nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
             </div>
         </>

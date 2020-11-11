@@ -122,5 +122,12 @@ export default {
 
   },
 
+  //delete pharmacy
+  deletePharmacy(id) {
+    return fetch(`${remoteURL}/pharmacies/${id}`, {
+      method: "DELETE"
+    }).then(data => data.json())
+  },
+
 
 }

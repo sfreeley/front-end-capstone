@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardText, ListGroup, ListGroupItem } from "reactstrap";
+import React from "react";
+import { Card, CardText, ListGroup, ListGroupItem, Button } from "reactstrap";
 
-const Pharmacy = ({ pharmacy }) => {
+const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
     return (
         <Card>
             <CardText>
@@ -15,6 +15,8 @@ const Pharmacy = ({ pharmacy }) => {
 
                 </ListGroup>
             </CardText>
+            <Button onClick={() => props.history.push("/medication/pharmacy/edit")}>Edit</Button>
+            <Button id={pharmacy.id} onClick={() => removePharmacy(pharmacy.id)}>Delete</Button>
         </Card>
     )
 

@@ -190,6 +190,15 @@ const MedicationList = (props) => {
         const stateToChange = { ...newDrug };
         stateToChange[e.target.id] = e.target.value;
         setNewDrug(stateToChange);
+        console.log(e.target.value)
+    };
+
+    //handling pharmacy dropdown state
+    const handlePharmacyDropdownEdit = (e) => {
+        const stateToChange = { ...drug };
+        stateToChange[e.target.id] = e.target.value;
+        setDrug(stateToChange);
+        console.log(e.target.value)
     };
 
 
@@ -333,7 +342,7 @@ const MedicationList = (props) => {
                 <AddMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
-                <EditMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+                <EditMedicationFormModal handlePharmacyDropdownEdit={handlePharmacyDropdownEdit} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                     nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
                 <h2>Current Medication List</h2>
