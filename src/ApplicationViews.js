@@ -22,6 +22,7 @@ import Resource from "./components/resource/Resource";
 //pharmacy
 import PharmacyList from "./components/pharmacy/PharmacyList";
 import AddPharmacyForm from "./components/pharmacy/AddPharmacyForm";
+import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
 
 
 const ApplicationViews = (props) => {
@@ -87,6 +88,11 @@ const ApplicationViews = (props) => {
             <Route path="/medication/pharmacy/add"
                 render={props => {
                     return (hasUser ? <AddPharmacyForm {...props} /> : <Redirect to="/login" />)
+                }}
+            />
+            <Route path="/medication/pharmacy/edit/:pharmacyId(\d+)"
+                render={props => {
+                    return (hasUser ? <EditPharmacyForm {...props} /> : <Redirect to="/login" />)
                 }}
             />
         </>

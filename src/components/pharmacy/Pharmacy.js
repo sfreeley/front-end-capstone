@@ -15,7 +15,7 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
 
                 </ListGroup>
             </CardText>
-            <Button onClick={() => props.history.push("/medication/pharmacy/edit")}>Edit</Button>
+            <Button onClick={() => props.history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>
             <Button id={pharmacy.id} onClick={() => removePharmacy(pharmacy.id)}>Delete</Button>
         </Card>
     )
