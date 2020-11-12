@@ -70,8 +70,9 @@ const MedicationDetail = (props) => {
   useEffect(() => {
     getPharmaciesForForm();
   }, [])
+
   useEffect(() => {
-    ApplicationManager.getDrugById(props.drugId)
+    ApplicationManager.getDrugByIdWithPharmacy(props.drugId)
       .then(drug => {
         setDrug({
           ...drug
@@ -113,6 +114,7 @@ const MedicationDetail = (props) => {
     id: drug.id,
     name: drug.name,
     userId: sessionUser.id,
+    pharmacyId: parseInt(drug.pharmacyId),
     strength: drug.strength,
     dosageForm: drug.dosageForm,
     directions: drug.directions,
@@ -216,10 +218,7 @@ const MedicationDetail = (props) => {
     ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
   }
 
-
-
   return (
-
     <>
       <EditMedicationFormModal pharmacyList={pharmacyList} handlePharmacyDropdown={handlePharmacyDropdown} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
         nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
@@ -270,7 +269,6 @@ const MedicationDetail = (props) => {
                       <Label for="checkbox">Save to Medication History</Label>
                     </span>
                   </div>
-
                 </CardText>
                 <hr />
 
@@ -319,6 +317,20 @@ const MedicationDetail = (props) => {
                 </div>
               </CardBody>
             </Card>
+            {drug.pharmacy &&
+              <Card className="shadow-lg medicationDetails">
+                <CardBody>
+                  <CardTitle className="title-prescriptionDetails"> <strong>Pharmacy Details</strong> </CardTitle>
+                  <CardText>
+                    <ListGroup className="list-group list-group">
+                      <ListGroupItem className="list-group-item"> <strong>Name:</strong> {drug.pharmacy.name}</ListGroupItem>
+                      <ListGroupItem className="list-group-item"> <strong> Address: </strong> {drug.pharmacy.address} </ListGroupItem>
+                      <ListGroupItem className={oneRefillRemaining && 'background-yellow'}><strong>Phone Number:</strong> {drug.pharmacy.phone} </ListGroupItem>
+                    </ListGroup>
+                  </CardText>
+                </CardBody>
+              </Card>
+            }
           </Col>
         </Row>
       </Container>

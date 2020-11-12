@@ -1,0 +1,20 @@
+.addPharmacyForm--container {
+  width: 50%;
+  margin-left: 25%;
+}
+
+.addPharmacyFormButtons--container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-addPharmacy {
+  margin-right: 0.5rem;
+  color: #f1f1f1;
+  background-color: #444f8fb9;
+}
+
+.btn-cancelAddPharmacy {
+  margin-left: 0.5rem;
+  background-color: #acbea380;
+}

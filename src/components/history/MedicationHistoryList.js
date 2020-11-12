@@ -29,18 +29,21 @@ const MedicationHistoryList = (props) => {
     const [closeAll, setCloseAll] = useState(false);
     //controls showing of upload image button (will not be able to edit if in med hx list)
     const [movingToHx, setMovingToHx] = useState(false);
+    const [pharmacyList, setPharmacyList] = useState([]);
+    const [pharmaciesWithDrugs, setPharmacies] = useState([]);
 
     //get drugs based on user
     const getDrugs = () => {
-        
-        return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+
+        return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
             const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
-            setDrugs(sortHistoryDrugs)
+            setPharmacies(sortHistoryDrugs)
         })
     }
 
     useEffect(() => {
-        getDrugs()
+        getDrugs();
+        getPharmaciesForForm();
     }, []);
 
     //edit taking to true to bring it back to medication list   
@@ -49,12 +52,12 @@ const MedicationHistoryList = (props) => {
         setIsLoading(true)
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-                    setDrugs(drugsFromAPI)
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then((drugsFromAPI) => {
+                    setPharmacies(drugsFromAPI)
                     props.history.push("/medication/list")
                 })
-             })
-        }
+            })
+    }
 
     //  start of edit whole drug with modal
 
@@ -63,6 +66,7 @@ const MedicationHistoryList = (props) => {
         id: "",
         name: "",
         userId: sessionUser.id,
+        pharmacyId: null,
         strength: "",
         dosageForm: "",
         directions: "",
@@ -90,6 +94,7 @@ const MedicationHistoryList = (props) => {
         id: drug.id,
         name: drug.name,
         userId: sessionUser.id,
+        pharmacyId: parseInt(drug.pharmacyId),
         strength: drug.strength,
         dosageForm: drug.dosageForm,
         directions: drug.directions,
@@ -123,9 +128,9 @@ const MedicationHistoryList = (props) => {
         toggleEdit()
         ApplicationManager.editDrug(editingDrug)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then((drugsFromAPI) => {
                     const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
-                    setDrugs(sortHistoryDrugs)
+                    setPharmacies(sortHistoryDrugs)
                     editingDrug.taking && props.history.push("/medication/list")
 
                 })
@@ -139,30 +144,35 @@ const MedicationHistoryList = (props) => {
     const removeDrugFromHxList = (id) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
                     const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
-                    setDrugs(sortHistoryDrugs)
+                    setPharmacies(sortHistoryDrugs)
                 });
             });
     };
 
-     //delete drugs from medication list from search result
-     const removeDrug = (id) => {
+    //delete drugs from medication list from search result
+    const removeDrug = (id) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
                     const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-                    setDrugs(sortDrugsByDate)
+                    setPharmacies(sortDrugsByDate)
                     props.history.push("/medication/list")
-                    
+
                 });
             });
     };
+
+    //get drug with pharmacy
+    const getPharmaciesForForm = () => {
+        ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
+    }
 
     return (
         <>
             <NavBar {...props} />
-            <EditMedicationFormModal movingToHx={movingToHx} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+            <EditMedicationFormModal pharmacyList={pharmacyList} movingToHx={movingToHx} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                 nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
             <h3>Medication History</h3>
@@ -170,7 +180,7 @@ const MedicationHistoryList = (props) => {
 
             <Container className="section-historicalMedicationList--container">
                 <CardDeck xs="4">
-                    {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard
+                    {pharmaciesWithDrugs && pharmaciesWithDrugs.map(drug => !drug.taking && <MedicationHistoryCard
                         key={drug.id}
                         drug={drug}
                         handleChange={handleChange}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { FormGroup, Button, Label, Input, Form } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
+import NavBar from "../nav/NavBar";
+import "./styles/AddPharmacyForm.css";
 
 const AddPharmacyForm = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -49,8 +51,9 @@ const AddPharmacyForm = (props) => {
 
     return (
         <>
+            <NavBar />
 
-            <Form>
+            <Form className="addPharmacyForm--container">
                 <FormGroup>
                     <Label htmlFor="name"><strong>Pharmacy Name*</strong></Label>
                     <Input className="p-2 bd-highlight justify-content-center"
@@ -64,35 +67,42 @@ const AddPharmacyForm = (props) => {
                     />
                 </FormGroup>
 
-                <Label htmlFor="address"><strong>Pharmacy Address*</strong></Label>
-                <Input className="p-2 bd-highlight"
-                    value={newPharmacy.address}
-                    onChange={handleFieldChange}
-                    type="text"
-                    name="address"
-                    id="address"
-                    required=""
-                    placeholder="ie 123 Main St"
-                />
-                <Label htmlFor="phone"><strong>Pharmacy Contact Information*</strong></Label>
-                <Input className="p-2 bd-highlight"
-                    value={newPharmacy.phone}
-                    onChange={handleFieldChange}
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    required=""
-                    placeholder="ie 123-456-7890"
-                />
+                <FormGroup>
 
+                    <Label htmlFor="address"><strong>Pharmacy Address*</strong></Label>
+                    <Input className="p-2 bd-highlight"
+                        value={newPharmacy.address}
+                        onChange={handleFieldChange}
+                        type="text"
+                        name="address"
+                        id="address"
+                        required=""
+                        placeholder="ie 123 Main St"
+                    />
+                </FormGroup>
 
-                <Button className="btn-addMedication" type="button" color="success" onClick={handleAddNewPharmacy}>
-                    {'Add Pharmacy'}
-                </Button>
+                <FormGroup>
+                    <Label htmlFor="phone"><strong>Pharmacy Contact Information*</strong></Label>
+                    <Input className="p-2 bd-highlight"
+                        value={newPharmacy.phone}
+                        onChange={handleFieldChange}
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        required=""
+                        placeholder="ie 123-456-7890"
+                    />
+                </FormGroup>
 
-                <Button className="btn-cancelAdd" type="button" color="danger" onClick={() => props.history.goBack()}>
-                    {'Cancel'}
-                </Button>
+                <div className="addPharmacyFormButtons--container">
+                    <Button outline className="btn-addPharmacy" type="button" onClick={handleAddNewPharmacy}>
+                        {'Add Pharmacy'}
+                    </Button>
+
+                    <Button outline className="btn-cancelAddPharmacy" type="button" onClick={() => props.history.goBack()}>
+                        {'Cancel'}
+                    </Button>
+                </div>
             </Form>
         </>
     )

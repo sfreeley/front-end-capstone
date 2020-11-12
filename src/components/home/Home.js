@@ -99,7 +99,7 @@ const Home = (props) => {
 
     //get drugs based on user to display in medication list and sort by earliest upcoming refill date
     const getDrugs = () => {
-        return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+        return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
             const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
             setDrugs(sortDrugsByDate)
 
@@ -198,7 +198,7 @@ const Home = (props) => {
 
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then((drugsFromAPI) => {
                     setDrugs(drugsFromAPI)
                     setIsChecked(false)
                     drugToEdit.taking ? props.history.push("/medication/list") : props.history.push("/medication/history")
@@ -220,7 +220,7 @@ const Home = (props) => {
     const removeDrug = (id) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
                     setDrugs(drugsFromAPI)
                     props.history.push("/medication/list")
                 });
@@ -273,7 +273,7 @@ const Home = (props) => {
     const removeDrugFromHxList = (id) => {
         ApplicationManager.deleteDrug(id)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
                     setDrugs(drugsFromAPI)
                     props.history.push("/medication/history")
                 });

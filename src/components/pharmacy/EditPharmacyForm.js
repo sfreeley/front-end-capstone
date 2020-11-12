@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FormGroup, Button, Label, Input, Form } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
+import NavBar from "../nav/NavBar";
+import "./styles/EditPharmacyForm.css";
 
 const EditPharmacyForm = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -51,8 +53,9 @@ const EditPharmacyForm = (props) => {
 
     return (
         <>
+            <NavBar />
 
-            <Form>
+            <Form className="editPharmacyForm--container">
                 <FormGroup>
                     <Label htmlFor="name"><strong>Pharmacy Name</strong></Label>
                     <Input className="p-2 bd-highlight justify-content-center"
@@ -86,14 +89,15 @@ const EditPharmacyForm = (props) => {
 
                 />
 
+                <div className="editPharmacyFormButtons--container">
+                    <Button className="btn-editPharmacy" type="button" onClick={handleEditPharmacy}>
+                        {'Edit Pharmacy'}
+                    </Button>
 
-                <Button className="btn-addMedication" type="button" color="success" onClick={handleEditPharmacy}>
-                    {'Edit Pharmacy'}
-                </Button>
-
-                <Button className="btn-cancelAdd" type="button" color="danger" onClick={() => props.history.goBack()}>
-                    {'Cancel'}
-                </Button>
+                    <Button className="btn-cancelEditPharmacy" type="button" onClick={() => props.history.goBack()}>
+                        {'Cancel'}
+                    </Button>
+                </div>
             </Form>
         </>
     )

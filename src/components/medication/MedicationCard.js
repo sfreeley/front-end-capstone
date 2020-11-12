@@ -13,6 +13,7 @@ const MedicationCard = (props) => {
     id: props.drug.id,
     name: props.drug.name,
     userId: sessionUser.id,
+    pharmacyId: props.drug.pharmacyId,
     strength: props.drug.strength,
     dosageForm: props.drug.dosageForm,
     directions: props.drug.directions,
@@ -80,7 +81,7 @@ const MedicationCard = (props) => {
 
           <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
           <Button
-
+            outline
             className="btn-pharmacy-details-medList"
             type="button"
             id={`drug${props.drug.pharmacyId}`}
@@ -212,30 +213,14 @@ const MedicationCard = (props) => {
               <CardText>
                 <ListGroup className="list-group list-group">
 
-                  <ListGroupItem className="list-group-item"><strong>Pharmacy Name:</strong> {props.drug.pharmacy.name}</ListGroupItem>
+                  <ListGroupItem className={'background-yellow'}><strong>Pharmacy Name:</strong> {props.drug.pharmacy.name}</ListGroupItem>
 
-
-                  <ListGroupItem className={'background-red'}><strong>Pharmacy Address:</strong> {props.drug.pharmacy.address} </ListGroupItem>
+                  <ListGroupItem className="list-group-item" ><strong>Pharmacy Address:</strong> {props.drug.pharmacy.address} </ListGroupItem>
 
                   <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {props.drug.pharmacy.phone}</ListGroupItem>
 
                 </ListGroup>
               </CardText>
-
-              {/* <div className="btn-all">
-                <Button
-                  className="btn-edit"
-                  id={props.drug.id}
-                  type="button"
-                  onClick={props.getIdOfDrug}
-                >
-                  Edit
-              </Button>
-
-                <Link to={`/medication/detail/${props.drug.id}`}>
-                  <Button className="btn-expand">Expand</Button>
-                </Link>
-              </div> */}
             </Card>
           </PopoverBody>
         </UncontrolledPopover>

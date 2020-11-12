@@ -1,103 +1,128 @@
 * {
-    font-family: 'Noto Sans', sans-serif;
+  font-family: "Noto Sans", sans-serif;
 }
 
 .background-red {
-    background-color: rgba(255, 0, 0, 0.678);
-    border: 2px solid #40476dd7;
-    border-radius: 5px;
+  background-color: rgba(255, 0, 0, 0.678);
+  border: 2px solid #40476dd7;
+  border-radius: 5px;
 }
 
 .div-countdownToRefill {
-    display: flex;
-    justify-content: center;
-    
+  display: flex;
+  justify-content: center;
 }
 
 .dueForRefill {
-    color: rgba(255, 0, 0, 0.678);
-    animation:blinkingText 1s infinite;
+  color: rgba(255, 0, 0, 0.678);
+  animation: blinkingText 1s infinite;
 }
-@keyframes blinkingText{
-    0%{     color: rgba(255, 0, 0, 0.678);    }
-    49%{    color: rgba(255, 0, 0, 0.678); }
-    60%{    color: transparent; }
-    99%{    color:transparent;  }
-    100%{   color: #000;    }
+@keyframes blinkingText {
+  0% {
+    color: rgba(255, 0, 0, 0.678);
+  }
+  49% {
+    color: rgba(255, 0, 0, 0.678);
+  }
+  60% {
+    color: transparent;
+  }
+  99% {
+    color: transparent;
+  }
+  100% {
+    color: #000;
+  }
 }
 
 .div-date-medicationCard {
-    font-size: 1.1em;
-    color: #40476dd7;
-    display: flex;
-    align-self: flex-start;
-    justify-content: center;
-    padding: 0.5em;
+  font-size: 1.1em;
+  color: #40476dd7;
+  display: flex;
+  align-self: flex-start;
+  justify-content: center;
+  padding: 0.5em;
 }
 
 .medicationCard {
-    background-color: #acbea380;
-    box-shadow: 1px 1px 1px inset;
-    margin: 1.5em;
-    
+  background-color: #acbea380;
+  box-shadow: 1px 1px 1px inset;
+  margin: 1.5em;
 }
 
 .card {
-    width: 100%;
+  width: 100%;
 }
 
 .item-medicationCard {
-    background-color: #40476dd7;
-    font-size: 1.2em;
-    color: #f1f1f1;
-    display: flex;
-    justify-content: center;
-    border: 2px solid #ad5c4eaf;
-    box-shadow: 1px 1px 1px inset;
+  background-color: #40476dd7;
+  font-size: 1.2em;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #ad5c4eaf;
+  box-shadow: 1px 1px 1px inset;
 }
 
 .background-yellow {
-    padding: 0.5em;
-    background-color: #ad5c4eaf;
-    border: 2px solid #40476dd7;
-    border-radius: 5px;
+  padding: 0.5em;
+  background-color: #ad5c4eaf;
+  border: 2px solid #40476dd7;
+  border-radius: 5px;
 }
 
 .background-neutral {
-    padding: 0.5em;
-    border: 2px solid #40476dd7;
-    border-radius: 5px;
+  padding: 0.5em;
+  border: 2px solid #40476dd7;
+  border-radius: 5px;
 }
 
 .checkbox-alignment {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .checkbox-saveToMedHx {
-    color: black;
-    font-size: 1.1em;
-    text-shadow: .5px .5px black;
+  color: black;
+  font-size: 1.1em;
+  text-shadow: 0.5px 0.5px black;
 }
 
 .btn-all-medicationCard {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .btn-rxDetails-container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
-.btn-edit-medList, .btn-expand-medList, .btn-delete-medList, .btn-rx-details-medList {
-   margin: 5px;
-   border: none;
-   color: #f1f1f1;
-   background-color: #444f8fb9;
+.btn-edit-medList,
+.btn-expand-medList,
+.btn-delete-medList,
+.btn-rx-details-medList {
+  margin: 5px;
+  border: none;
+  color: #f1f1f1;
+  background-color: #444f8fb9;
 }
 
 .img-thumbnail-medicationCard {
-    max-width: 10%;
+  max-width: 10%;
 }
 
+.pharmacyLinks--container {
+  display: flex;
+  justify-content: center;
+}
+
+.pharmacyEdit--link {
+  margin-right: 0.5rem;
+  color: darkslategray;
+}
+
+.pharmacyAdd--link {
+  margin-left: 0.5rem;
+  color: darkslategray;
+}
