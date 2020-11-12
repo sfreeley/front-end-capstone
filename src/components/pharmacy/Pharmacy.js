@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardText, ListGroup, ListGroupItem, Button, CardFooter } from "reactstrap";
+import { Card, CardText, ListGroup, ListGroupItem, Button, CardFooter, CardBody } from "reactstrap";
 import "./styles/Pharmacy.css";
 
 const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
@@ -15,17 +15,17 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
 
     return (
         <Card className="pharmacyIndividualCard--container">
-            <CardText>
+            <CardBody>
                 <ListGroup className="list-group list-group">
 
-                    <ListGroupItem className="list-group-item"><strong>Pharmacy Name:</strong> {pharmacy.name}</ListGroupItem>
+                    <ListGroupItem className="list-group-item"><strong>Pharmacy Name:</strong> <em>{pharmacy.name}</em></ListGroupItem>
 
                     <ListGroupItem className="list-group-item"><strong>Pharmacy Address:</strong> {pharmacy.address} </ListGroupItem>
 
                     <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {pharmacy.phone}</ListGroupItem>
 
                 </ListGroup>
-            </CardText>
+            </CardBody>
             <CardFooter>
                 <div className="pharmacyButtons--container">
                     <Button outline className="editPharmacy--button" onClick={() => props.history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>

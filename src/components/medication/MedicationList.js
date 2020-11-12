@@ -350,7 +350,9 @@ const MedicationList = (props) => {
 
             <SearchBar className="searchBar-medicationList" {...props} getDrugs={getDrugs} removeDrug={removeDrug} removeDrugFromHxList={removeDrugFromHxList} toggleEdit={toggleEdit} drug={drug} getIdOfDrug={getIdOfDrug} handleEditChange={handleEditChange} editingDrug={editingDrug} handleChange={handleChange} isChecked={isChecked} setIsChecked={setIsChecked}
             />
-            <Button onClick={() => props.history.push("/medication/pharmacies")}>Pharmacy List</Button>
+            <div className="pharmacyListButton--container">
+                <Button onClick={() => props.history.push("/medication/pharmacies")}>My Pharmacy List</Button>
+            </div>
             <Container className="section-currentMedicationList--container">
                 <CardDeck xs="4" >
 
