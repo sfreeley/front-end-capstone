@@ -28,7 +28,7 @@ const SearchBar = (props) => {
     }
 
     useEffect(() => {
-        ApplicationManager.getDrugsForUser(sessionUser.id)
+        ApplicationManager.getPharmaciesForDrugs(sessionUser.id)
             .then(drugsFromAPI => {
                 setDrugsArray(drugsFromAPI)
             })

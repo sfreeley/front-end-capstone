@@ -36,6 +36,13 @@ export default {
     return fetch(`${remoteURL}/drugs/${id}`).then(data => data.json())
   },
 
+  //get drug by drugId with pharmacy info
+  //get drug by drugId
+  getDrugByIdWithPharmacy(id) {
+    return fetch(`${remoteURL}/drugs/${id}/?_expand=pharmacy`).then(data => data.json())
+  },
+
+
   //get drug by drugId specific to userId that takes the drug
   getUserDrugById(drugId) {
     return fetch(`${remoteURL}/drugs/${drugId}/?_expand=user`).then(data => data.json())
@@ -121,18 +128,6 @@ export default {
     }).then(data => data.json())
 
   },
-
-  // //DELETE pharmacy
-  // hidePharmacy(pharmacyObject) {
-  //   return fetch(`${remoteURL}/pharmacies/${pharmacyObject.id}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(pharmacyObject)
-  //   }).then(data => data.json())
-
-  // },
 
   //PUT pharmacy
   editPharmacy(pharmacyObject) {
