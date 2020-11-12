@@ -11,6 +11,10 @@
 }
 
 .addPharmacy--button {
-  background-color: #acbea380;
+  background-color: #767c9c67;
   color: black;
+}
+
+.background-grey {
+  background-color: #bdc5f767;
 }

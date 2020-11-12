@@ -19,11 +19,11 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
             <CardBody>
                 <ListGroup className="list-group list-group">
 
-                    <ListGroupItem className="list-group-item"><strong>Pharmacy Name:</strong> <em>{pharmacy.name}</em></ListGroupItem>
+                    <ListGroupItem className={"background-grey"}><strong>Pharmacy Name:</strong> <em>{pharmacy.name}</em></ListGroupItem>
 
                     <ListGroupItem className="list-group-item"><strong>Pharmacy Address:</strong> {pharmacy.address} </ListGroupItem>
 
-                    <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {pharmacy.phone}</ListGroupItem>
+                    <ListGroupItem className={"background-grey"}><strong>Pharmacy Contact Info:</strong> {pharmacy.phone}</ListGroupItem>
 
                 </ListGroup>
             </CardBody>
