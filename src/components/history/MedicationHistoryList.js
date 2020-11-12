@@ -30,13 +30,14 @@ const MedicationHistoryList = (props) => {
     //controls showing of upload image button (will not be able to edit if in med hx list)
     const [movingToHx, setMovingToHx] = useState(false);
     const [pharmacyList, setPharmacyList] = useState([]);
+    const [pharmaciesWithDrugs, setPharmacies] = useState([]);
 
     //get drugs based on user
     const getDrugs = () => {
 
-        return ApplicationManager.getDrugsForUser(sessionUser.id).then(drugsFromAPI => {
+        return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
             const sortHistoryDrugs = drugsFromAPI.sort((date1, date2) => new Date(date1.dateInput) - new Date(date2.dateInput))
-            setDrugs(sortHistoryDrugs)
+            setPharmacies(sortHistoryDrugs)
         })
     }
 
@@ -51,8 +52,8 @@ const MedicationHistoryList = (props) => {
         setIsLoading(true)
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
-                ApplicationManager.getDrugsForUser(sessionUser.id).then((drugsFromAPI) => {
-                    setDrugs(drugsFromAPI)
+                ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then((drugsFromAPI) => {
+                    setPharmacies(drugsFromAPI)
                     props.history.push("/medication/list")
                 })
             })
@@ -93,7 +94,7 @@ const MedicationHistoryList = (props) => {
         id: drug.id,
         name: drug.name,
         userId: sessionUser.id,
-        pharmacyId: drug.pharmacyId,
+        pharmacyId: parseInt(drug.pharmacyId),
         strength: drug.strength,
         dosageForm: drug.dosageForm,
         directions: drug.directions,
@@ -179,7 +180,7 @@ const MedicationHistoryList = (props) => {
 
             <Container className="section-historicalMedicationList--container">
                 <CardDeck xs="4">
-                    {drugs && drugs.map(drug => !drug.taking && <MedicationHistoryCard
+                    {pharmaciesWithDrugs && pharmaciesWithDrugs.map(drug => !drug.taking && <MedicationHistoryCard
                         key={drug.id}
                         drug={drug}
                         handleChange={handleChange}

@@ -8,11 +8,12 @@ import "./styles/MedicationHistoryCard.css";
 
 const MedicationHistoryCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  
+
   const currentDrugNotTaking = {
     id: props.drug.id,
     name: props.drug.name,
     userId: sessionUser.id,
+    pharmacyId: props.drug.pharmacyId,
     strength: props.drug.strength,
     dosageForm: props.drug.dosageForm,
     directions: props.drug.directions,

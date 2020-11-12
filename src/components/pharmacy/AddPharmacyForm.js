@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormGroup, Button, Label, Input, Form } from "reactstrap";
 import ApplicationManager from "../modules/ApplicationManager";
+import NavBar from "../nav/NavBar";
 import "./styles/AddPharmacyForm.css";
 
 const AddPharmacyForm = (props) => {
@@ -50,6 +51,7 @@ const AddPharmacyForm = (props) => {
 
     return (
         <>
+            <NavBar />
 
             <Form className="addPharmacyForm--container">
                 <FormGroup>

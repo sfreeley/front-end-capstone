@@ -215,26 +215,12 @@ const MedicationCard = (props) => {
 
                   <ListGroupItem className={'background-yellow'}><strong>Pharmacy Name:</strong> {props.drug.pharmacy.name}</ListGroupItem>
 
-
                   <ListGroupItem className="list-group-item" ><strong>Pharmacy Address:</strong> {props.drug.pharmacy.address} </ListGroupItem>
 
                   <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {props.drug.pharmacy.phone}</ListGroupItem>
 
                 </ListGroup>
               </CardText>
-
-              <div className="pharmacyLinks--container">
-                <Link
-                  className="pharmacyEdit--link"
-                  to={`/medication/pharmacy/edit/${props.drug.pharmacyId}`}
-                >
-                  Edit Pharmacy
-              </Link>
-
-                <Link className="pharmacyAdd--link" to={`/medication/pharmacy/add`}>
-                  Add Pharmacy
-                </Link>
-              </div>
             </Card>
           </PopoverBody>
         </UncontrolledPopover>

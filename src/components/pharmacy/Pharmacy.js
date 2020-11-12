@@ -8,8 +8,9 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
     const currentPharmacyEntry = {
         id: pharmacy.id,
         userId: sessionUser.id,
-        name: pharmacy.name,
-        phone: pharmacy.phone,
+        name: "no pharmacy selected",
+        address: "no pharmacy selected",
+        phone: "no pharmacy selected",
         hidden: true
     }
 
