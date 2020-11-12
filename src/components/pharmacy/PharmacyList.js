@@ -3,6 +3,7 @@ import ApplicationManager from "../modules/ApplicationManager";
 import { Button } from "reactstrap";
 import Pharmacy from "../pharmacy/Pharmacy";
 import NavBar from "../nav/NavBar";
+import "./styles/PharmacyList.css";
 
 const PharmacyList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -43,8 +44,11 @@ const PharmacyList = (props) => {
     return (
         <>
             <NavBar {...props} />
-            <div>
-                <Button onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
+            <div className="addPharmacyButton--container">
+                <Button className="addPharmacy--button" onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
+            </div>
+            <div className="pharmacy--container">
+
 
                 {
                     pharmacies && pharmacies.map(pharmacy => !pharmacy.hidden &&

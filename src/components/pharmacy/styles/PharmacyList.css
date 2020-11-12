@@ -1,0 +1,16 @@
+.pharmacy-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addPharmacyButton--container {
+  display: flex;
+  justify-content: center;
+}
+
+.addPharmacy--button {
+  background-color: #acbea380;
+  color: black;
+}

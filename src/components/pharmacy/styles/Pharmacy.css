@@ -1,0 +1,22 @@
+.pharmacyIndividualCard--container {
+  width: 50%;
+  align-self: center;
+  margin-left: 25%;
+}
+
+.pharmacyButtons--container {
+  display: flex;
+  justify-content: center;
+}
+
+.editPharmacy--button {
+  margin-right: 0.5rem;
+  color: #f1f1f1;
+  background-color: #444f8fb9;
+}
+
+.removePharmacy--button {
+  margin-left: 0.5rem;
+  color: #f1f1f1;
+  background-color: #444f8fb9;
+}

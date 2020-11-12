@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, CardText, ListGroup, ListGroupItem, Button } from "reactstrap";
+import { Card, CardText, ListGroup, ListGroupItem, Button, CardFooter } from "reactstrap";
+import "./styles/Pharmacy.css";
 
 const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
@@ -13,7 +14,7 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
     }
 
     return (
-        <Card>
+        <Card className="pharmacyIndividualCard--container">
             <CardText>
                 <ListGroup className="list-group list-group">
 
@@ -25,8 +26,12 @@ const Pharmacy = ({ pharmacy, props, removePharmacy }) => {
 
                 </ListGroup>
             </CardText>
-            <Button onClick={() => props.history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>
-            <Button id={pharmacy.id} onClick={() => removePharmacy(currentPharmacyEntry)}>Delete</Button>
+            <CardFooter>
+                <div className="pharmacyButtons--container">
+                    <Button outline className="editPharmacy--button" onClick={() => props.history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>
+                    <Button outline className="removePharmacy--button" id={pharmacy.id} onClick={() => removePharmacy(currentPharmacyEntry)}>Delete</Button>
+                </div>
+            </CardFooter>
         </Card>
     )
 
