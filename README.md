@@ -6,6 +6,10 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
 
 - What are the features of the application?
 
+***Update: 11/12/2020***
+ - Users can now input their own pharmacies, perform full CRUD functionality on a pharmacy, and whatever pharmacy a drug is currently being filled at will display on their medication list. Users, upon entering a new medication will be able to select from a dropdown of pharmacies they have input and select the one they are currently using. Video walkthrough available here: [TrackRx Pharmacy functionality](https://www.loom.com/share/215080dd05544f1f962bb208b481b897)
+
+***Functionality already implemented***
   - Users can document the drug name, dosage, dosage form, their patient specific directions, indication, and patient specific notes all in one place (ie doctor notes/comments or any questions they may have for their provider and/or pharmacist). CRUD functionality will be present for each inidivudal medication entry.
 
   - Users are also able to input prescription numbers and refills (if applicable) as well as last fill date and days supply, which will then automatically calculate their next refill date.
@@ -17,6 +21,8 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
   - Users are able to upload any image (ie bottle, pill picture, reminders) and attach it to their medication entry for future reference (made possible through Cloudinary)
 
   - Provide resources for health and medication information in one location. By utilizing [health.gov external API](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/how-use-api), users can select a health topic from a dropdown menu and click any of the links pertaining to the topic they wish to learn more about
+  
+  - [Video Walkthrough](https://www.loom.com/share/d6fdb8f7cd5443b389e95af70ca55398)
 
 ## Installation
 
