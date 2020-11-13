@@ -96,7 +96,7 @@ const AddPharmacyForm = (props) => {
 
                 <div className="addPharmacyFormButtons--container">
                     <Button outline className="btn-addPharmacy" type="button" onClick={handleAddNewPharmacy}>
-                        {'Add Pharmacy'}
+                        {'Save'}
                     </Button>
 
                     <Button outline className="btn-cancelAddPharmacy" type="button" onClick={() => props.history.goBack()}>
