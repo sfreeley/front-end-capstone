@@ -51,6 +51,24 @@
       "taking": true
     }
   ],
+  "pharmacies": [
+    {
+      "id": 1,
+      "userId": 2,
+      "name": "",
+      "address": "",
+      "phone": "",
+      "hidden": true
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "name": "",
+      "address": "",
+      "phone": "",
+      "hidden": true
+    }
+  ],
   "resources": [
     {
       "id": 1,
