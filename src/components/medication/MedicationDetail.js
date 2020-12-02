@@ -5,7 +5,7 @@ import {
   Card, Button, CardImg, CardTitle, CardText, CardBody, Container, Row, Col, ListGroup,
   ListGroupItem, Input, Label
 } from 'reactstrap';
-import EditMedicationFormModal from "../medication/EditMedicationFormModal";
+import MedicationFormModal from "../medication/MedicationFormModal";
 import { calculateNextRefill } from "../modules/helperFunctions";
 import "./styles/MedicationDetail.css";
 
@@ -220,7 +220,7 @@ const MedicationDetail = (props) => {
 
   return (
     <>
-      <EditMedicationFormModal pharmacyList={pharmacyList} handlePharmacyDropdown={handlePharmacyDropdown} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+      <MedicationFormModal pharmacyList={pharmacyList} handlePharmacyDropdown={handlePharmacyDropdown} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
         nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
       <NavBar {...props} />
       <h3>Individual Medication View</h3>

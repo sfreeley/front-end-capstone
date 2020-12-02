@@ -36,7 +36,7 @@ const Login = (props) => {
                     }
                 })
             })
-        }
+    }
 
 
     return (
@@ -55,7 +55,6 @@ const Login = (props) => {
                             name="email"
                             id="email"
                             required=""
-                        // placeholder="Email address"
                         />
                     </div>
                     <div className="form-group">
@@ -66,7 +65,6 @@ const Login = (props) => {
                             name="password"
                             id="password"
                             required=""
-                        // placeholder="Password"
                         />
                         <div className="btn-login registerAcct">
                             <Button className="login-form-btn" outline color="info" onClick={handleLogin}>
@@ -76,14 +74,13 @@ const Login = (props) => {
                         <span className="registerAcct__text">
                             New User?
                         <Link to="/register">
-                            <p>Register</p>
-                        </Link>
+                                <p>Register</p>
+                            </Link>
                         </span>
                     </div>
                 </div>
             </div>
             <div className="footer">
-
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Alert</ModalHeader>
                     <ModalBody>
@@ -96,10 +93,7 @@ const Login = (props) => {
                     </ModalFooter>
                 </Modal>
             </div>
-
         </>
-
-
 
     )
 

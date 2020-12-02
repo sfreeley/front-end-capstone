@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ApplicationViews from "./ApplicationViews";
+import ApplicationManager from "./components/modules/ApplicationManager";
+import { currentDateTime } from "./components/modules/helperFunctions";
+import { calculateNextRefill } from "./components/modules/helperFunctions";
 import './App.css';
 
 const TrackRx = () => {
@@ -12,15 +15,20 @@ const TrackRx = () => {
     setHasUser(isAuthenticated());
   };
 
+
+
   return (
-   
+
     <div className="applicationViews">
-    <ApplicationViews hasUser={hasUser} setUser={setUser} />
+      <ApplicationViews
+        hasUser={hasUser}
+        setUser={setUser}
+      />
     </div>
-    
+
   )
 
 }
-  
+
 
 export default TrackRx;

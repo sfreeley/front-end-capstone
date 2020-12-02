@@ -4,8 +4,7 @@ import MedicationCard from "./MedicationCard";
 import SearchBar from "../search/SearchBar";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
-import AddMedicationFormModal from "../medication/AddMedicationFormModal";
-import EditMedicationFormModal from "../medication/EditMedicationFormModal";
+import MedicationFormModal from "./MedicationFormModal";
 import { currentDateTime } from "../modules/helperFunctions";
 import { calculateNextRefill } from "../modules/helperFunctions";
 import { Container, CardDeck, Button } from "reactstrap"
@@ -136,15 +135,68 @@ const MedicationList = (props) => {
     }, []);
 
     // adding new drug 
-    const handleAddNewDrug = (event) => {
+    // const handleAddNewDrug = (event) => {
 
+    //     event.preventDefault();
+    //     if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
+    //         || newDrug.directions === "" || newDrug.indication === "" || newDrug.dateFilled === "" ||
+    //         newDrug.daysSupply === "" || newDrug.pharmacyId === null) {
+    //         alert("Please fill out required fields")
+    //     } else {
+    //         setIsLoading(true);
+
+    //         ApplicationManager.postNewDrug(newMed).then(() => {
+    //             ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugs => {
+    //                 const sortDrugsByDate = drugs.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+    //                 setPharmaciesWithDrugs(sortDrugsByDate)
+
+    //                 toggle();
+
+    //             })
+    //         })
+
+
+    //     }
+    //     setIsLoading(false);
+    // }
+
+    const handleDrugForm = (event) => {
         event.preventDefault();
-        if (newDrug.name === "" || newDrug.strength === "" || newDrug.dosageForm === ""
-            || newDrug.directions === "" || newDrug.indication === "" || newDrug.dateFilled === "" ||
-            newDrug.daysSupply === "" || newDrug.pharmacyId === null) {
+        if (drug.name === "" || drug.strength === "" || drug.dosageForm === ""
+            || drug.directions === "" || drug.indication === "") {
             alert("Please fill out required fields")
-        } else {
+        }
+        else if (getIdOfDrug) {
+            ApplicationManager.editDrug(editingDrug)
+                .then(() => {
+                    ApplicationManager.getDrugById(editingDrug.id).then((drugFromAPI) => {
+                        setDrug(drugFromAPI)
+                        // drugFromAPI.taking ? props.history.push("/medication/list") : props.history.push("medication/history")
+                    })
+
+                })
+        }
+        else {
             setIsLoading(true);
+            const timestamp = Date.now()
+            const newMed = {
+                userId: sessionUser.id,
+                name: drug.name,
+                pharmacyId: drug.pharmacyId,
+                strength: drug.strength,
+                dosageForm: drug.dosageForm,
+                directions: drug.directions,
+                indication: drug.indication,
+                notes: drug.notes,
+                rxNumber: drug.rxNumber,
+                dateFilled: drug.dateFilled,
+                daysSupply: parseInt(drug.daysSupply),
+                nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
+                taking: true,
+                dateInput: currentDateTime(timestamp),
+                refills: parseInt(drug.refills),
+                image: drugImage
+            }
 
             ApplicationManager.postNewDrug(newMed).then(() => {
                 ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugs => {
@@ -155,10 +207,7 @@ const MedicationList = (props) => {
 
                 })
             })
-
-
         }
-        setIsLoading(false);
     }
 
     //handling input field for posting new drug
@@ -177,19 +226,17 @@ const MedicationList = (props) => {
         console.log(e.target.value)
     };
 
-    //handling pharmacy dropdown state
-    const handlePharmacyDropdownEdit = (e) => {
-        const stateToChange = { ...drug };
-        stateToChange[e.target.id] = e.target.value;
-        setDrug(stateToChange);
-        console.log(e.target.value)
-    };
-
 
     //edit taking to false and move card to medication hx  
     const handleChange = (drugToEdit) => {
         setIsChecked(true)
         setIsLoading(true)
+        if (drugToEdit.taking === true) {
+            drugToEdit.taking = false
+        }
+        else {
+            drugToEdit.taking = true
+        }
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
                 ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then((drugsFromAPI) => {
@@ -223,12 +270,6 @@ const MedicationList = (props) => {
 
     })
 
-    //handle field changes for whole drug entry edit functionality
-    const handleEditFieldChange = (event) => {
-        const stateToChange = { ...drug };
-        stateToChange[event.target.id] = event.target.value;
-        setDrug(stateToChange);
-    };
 
     //this is the whole drug entry that will be edited
     const editingDrug = {
@@ -259,7 +300,7 @@ const MedicationList = (props) => {
                 setDrug(result)
                 setIsLoading(false)
             })
-        toggleEdit()
+        toggle()
     }
 
     //editing in modal
@@ -323,11 +364,8 @@ const MedicationList = (props) => {
                 <div className="addMedication-image--label">
                     <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
                 </div>
-                <AddMedicationFormModal handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleAddNewDrug={handleAddNewDrug} newDrug={newDrug}
+                <MedicationFormModal drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} isLoading={isLoading} setIsLoading={setIsLoading} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
-
-                <EditMedicationFormModal handlePharmacyDropdownEdit={handlePharmacyDropdownEdit} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
-                    nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
                 <h2>Current Medication List</h2>
             </div>

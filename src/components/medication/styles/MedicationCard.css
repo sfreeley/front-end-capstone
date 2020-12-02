@@ -44,8 +44,23 @@
   padding: 0.5em;
 }
 
-.medicationCard {
+/* .medicationCard {
   background-color: #acbea380;
+  box-shadow: 1px 1px 1px inset;
+  margin: 1.5em;
+} */
+
+.medicationCard--background-green {
+  height: 100%;
+  background-color: #acbea380;
+  box-shadow: 1px 1px 1px inset;
+  margin: 1.5em;
+}
+
+.medicationCard--background-gradient {
+  height: 100%;
+  background-color: darkgray;
+  background-image: url(https://cdn.pixabay.com/photo/2016/08/01/20/15/green-1562016_1280.png);
   box-shadow: 1px 1px 1px inset;
   margin: 1.5em;
 }

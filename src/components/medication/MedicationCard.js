@@ -8,8 +8,9 @@ import "./styles/MedicationCard.css"
 const MedicationCard = (props) => {
   const sessionUser = JSON.parse(sessionStorage.getItem("user"))
   const oneRefillRemaining = props.drug.refills === 1 ? true : false
+  const taking = props.drug.taking === true;
 
-  const currentDrugTaking = {
+  const currentDrug = {
     id: props.drug.id,
     name: props.drug.name,
     userId: sessionUser.id,
@@ -25,7 +26,7 @@ const MedicationCard = (props) => {
     nextRefillDate: props.drug.nextRefillDate,
     dateInput: props.drug.dateInput,
     refills: props.drug.refills,
-    taking: false
+    taking: props.drug.taking
   }
 
   const calculateTimeLeftUntilRefill = () => {
@@ -77,7 +78,7 @@ const MedicationCard = (props) => {
   return (
     <>
       <Col xs="6">
-        <Card className="shadow-lg medicationCard h-100" >
+        <Card className={taking ? 'medicationCard--background-green' : 'medicationCard--background-gradient'} >
 
           <CardImg className="img-thumbnail-medicationCard" src={"https://img.icons8.com/windows/32/000000/prescription.png"} alt="medicationRx-symbol" />
           <Button
@@ -117,7 +118,7 @@ const MedicationCard = (props) => {
               </ListGroup>
               <div className="checkbox-alignment">
                 <span>
-                  <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrugTaking)}
+                  <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrug)}
                   />
                   <Label className="checkbox-saveToMedHx" htmlFor="checkbox">Save to Medication History</Label>
                 </span>

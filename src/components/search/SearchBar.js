@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ApplicationManager from "../modules/ApplicationManager";
-import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
 import { Input, Row, Col } from "reactstrap"
 import "./styles/SearchBar.css"
@@ -55,11 +54,11 @@ const SearchBar = (props) => {
                             </Col>
                         </Row> :
 
-                        <Row className="div-medicationHxCard-searchResult">
+                        {/* <Row className="div-medicationHxCard-searchResult">
                             <Col>
                                 <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
                             </Col>
-                        </Row>
+                        </Row> */}
 
 
                 })}

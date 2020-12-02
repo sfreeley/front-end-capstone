@@ -49,8 +49,7 @@ const Registration = (props) => {
                 alert("Please fill out each field")
             } else if (newUser.password !== confirmPassword) {
                 alert("Your passwords do not match. Please try again")
-            } else {
-                
+            } else {  
                 setIsLoading(true)
                 ApplicationManager.postNewUser(newUser).then(() => {
                     ApplicationManager.getUsers().then(result => {
@@ -67,13 +66,12 @@ const Registration = (props) => {
                 })
                
             }
-        
-    }  
+        }  
 
  
 
    return (
-        <>
+    <>
          <div className="content-container">
           <div className="image-logo">
             <img src={require("../../images/circle-logo.png")} alt="trackRx-logo" />
@@ -148,7 +146,7 @@ const Registration = (props) => {
 </div> 
 
 
-        </>        
+</>        
          
   );
 }

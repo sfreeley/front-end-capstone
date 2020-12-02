@@ -12,7 +12,6 @@ import Home from "./components/home/Home";
 
 //medication
 import MedicationDetail from "./components/medication/MedicationDetail";
-import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";
 import MedicationHistoryList from "./components/history/MedicationHistoryList";
 
@@ -28,8 +27,6 @@ import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
 const ApplicationViews = (props) => {
     const hasUser = props.hasUser
     const setUser = props.setUser
-
-
     return (
         <>
             <Route path="/login"
@@ -49,11 +46,11 @@ const ApplicationViews = (props) => {
                 }}
             />
 
-            <Route exact path="/medication/new"
+            {/* <Route exact path="/medication/new"
                 render={props => {
                     return <AddMedicationFormModal {...props} />
                 }}
-            />
+            /> */}
 
             <Route exact path="/medication/list"
                 render={props => {

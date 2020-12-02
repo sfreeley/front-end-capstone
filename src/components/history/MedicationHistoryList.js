@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import MedicationHistoryCard from "./MedicationHistoryCard";
+import MedicationCard from "../medication/MedicationCard";
 import ApplicationManager from "../modules/ApplicationManager";
 import NavBar from "../nav/NavBar";
 import SearchBar from "../search/SearchBar";
 import { calculateNextRefill } from "../modules/helperFunctions";
-import EditMedicationFormModal from "../medication/EditMedicationFormModal";
+import MedicationFormModal from "../medication/MedicationFormModal";
 import { Container, CardDeck } from "reactstrap";
 import "./styles/MedicationHistoryList.css";
 
@@ -46,14 +46,22 @@ const MedicationHistoryList = (props) => {
         getPharmaciesForForm();
     }, []);
 
-    //edit taking to true to bring it back to medication list   
+    //edit taking to false and move card to medication hx  
     const handleChange = (drugToEdit) => {
         setIsChecked(true)
         setIsLoading(true)
+        if (drugToEdit.taking === true) {
+            drugToEdit.taking = false
+        }
+        else {
+            drugToEdit.taking = true
+        }
         ApplicationManager.editDrug(drugToEdit)
             .then(() => {
                 ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then((drugsFromAPI) => {
                     setPharmacies(drugsFromAPI)
+                    setIsChecked(false)
+                    setIsLoading(false)
                     props.history.push("/medication/list")
                 })
             })
@@ -172,7 +180,7 @@ const MedicationHistoryList = (props) => {
     return (
         <>
             <NavBar {...props} />
-            <EditMedicationFormModal pharmacyList={pharmacyList} movingToHx={movingToHx} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
+            <MedicationFormModal pharmacyList={pharmacyList} movingToHx={movingToHx} drug={drug} getIdOfDrug={getIdOfDrug} isLoading={isLoading} setIsLoading={setIsLoading} handleEditFieldChange={handleEditFieldChange} handleEditChange={handleEditChange}
                 nestedModal={nestedModal} toggleEdit={toggleEdit} editModal={editModal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
             <h3>Medication History</h3>
@@ -180,7 +188,7 @@ const MedicationHistoryList = (props) => {
 
             <Container className="section-historicalMedicationList--container">
                 <CardDeck xs="4">
-                    {pharmaciesWithDrugs && pharmaciesWithDrugs.map(drug => !drug.taking && <MedicationHistoryCard
+                    {pharmaciesWithDrugs && pharmaciesWithDrugs.map(drug => !drug.taking && <MedicationCard
                         key={drug.id}
                         drug={drug}
                         handleChange={handleChange}

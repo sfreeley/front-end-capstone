@@ -2,7 +2,7 @@ import React from "react";
 import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form } from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, uploadImage, isLoading, handleFieldChange, handleAddNewDrug, newDrug, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const MedicationFormModal = ({ drug, handlePharmacyDropdown, pharmacyList, uploadImage, isLoading, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     return (
         <>
@@ -22,7 +22,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                         <Label htmlFor="name"><strong>Medication Name*</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"
-                            value={newDrug.name}
+                            value={drug.name}
                             onChange={handleFieldChange}
                             type="text"
                             name="name"
@@ -33,7 +33,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                         <Label htmlFor="strength"><strong>Medication Strength*</strong></Label>
                         <Input className="p-2 bd-highlight"
-                            value={newDrug.strength}
+                            value={drug.strength}
                             onChange={handleFieldChange}
                             type="text"
                             name="strength"
@@ -43,7 +43,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
                         />
                         <Label htmlFor="dosageForm"><strong>Medication Type*</strong></Label>
                         <Input className="p-2 bd-highlight"
-                            value={newDrug.dosageForm}
+                            value={drug.dosageForm}
                             onChange={handleFieldChange}
                             type="text"
                             name="dosageForm"
@@ -54,7 +54,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                         <Label htmlFor="directions"><strong>Medication Directions*</strong></Label>
                         <Input className="p-2 bd-highlight"
-                            value={newDrug.directions}
+                            value={drug.directions}
                             onChange={handleFieldChange}
                             type="text"
                             name="directions"
@@ -66,7 +66,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                         <Label htmlFor="indication"><strong>Purpose of Medication*</strong></Label>
                         <Input className="p-2 bd-highlight"
-                            value={newDrug.indication}
+                            value={drug.indication}
                             onChange={handleFieldChange}
                             type="text"
                             name="indication"
@@ -78,7 +78,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                         <Label htmlFor="notes"><strong>Medication Notes</strong></Label>
                         <Input className="p-2 bd-highlight"
-                            value={newDrug.notes}
+                            value={drug.notes}
                             onChange={handleFieldChange}
                             type="textarea"
                             name="notes"
@@ -97,7 +97,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                             <Label htmlFor="pharmacyId"><strong>Pharmacy*</strong></Label>
                             <Input className="p-2 bd-highlight justify-content-center"
-                                value={parseInt(newDrug.pharmacyId)}
+                                value={parseInt(drug.pharmacyId)}
                                 onChange={handlePharmacyDropdown}
                                 type="select"
                                 name="pharmacyId"
@@ -117,7 +117,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                             <Label htmlFor="rxNumber"><strong>Prescription Number</strong></Label>
                             <Input className="p-2 bd-highlight justify-content-center"
-                                value={newDrug.rxNumber}
+                                value={drug.rxNumber}
                                 onChange={handleFieldChange}
                                 type="text"
                                 name="rxNumber"
@@ -128,21 +128,21 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
 
                             <Label htmlFor="refills"><strong>Number of Refills Left</strong></Label>
                             <Input className="p-2 bd-highlight justify-content-center"
-                                value={newDrug.refills}
+                                value={drug.refills}
                                 onChange={handleFieldChange}
                                 type="select"
                                 name="refills"
                                 id="refills"
                             >
                                 {numberRefillArray.map(refill => {
-                                    return <option value={newDrug.refill}>{refill}</option>
+                                    return <option value={drug.refill}>{refill}</option>
                                 })}
                             </Input>
 
 
                             <Label htmlFor="dateFilled"><strong>Last Date Filled*</strong></Label>
                             <Input className="p-2 bd-highlight justify-content-center"
-                                value={newDrug.dateFilled}
+                                value={drug.dateFilled}
                                 onChange={handleFieldChange}
                                 type="date"
                                 name="dateFilled"
@@ -154,7 +154,7 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
                             <Label htmlFor="daysSupply"><strong>Days Supply*</strong></Label>
                             <FormText>Can be an approximate number if OTC</FormText>
                             <Input className="p-2 bd-highlight justify-content-center"
-                                value={newDrug.daysSupply}
+                                value={drug.daysSupply}
                                 onChange={handleFieldChange}
                                 type="text"
                                 name="daysSupply"
@@ -173,8 +173,8 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
                     </Modal>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="btn-addMedication" type="button" color="success" isLoading={isLoading} onClick={handleAddNewDrug}>
-                        {'Add Medication'}
+                    <Button className="btn-addMedication" type="button" color="success" isLoading={isLoading} onClick={handleDrugForm}>
+                        {'Save'}
                     </Button>
 
                     <Button className="btn-cancelAdd" type="button" color="danger" onClick={toggle}>
@@ -189,4 +189,4 @@ const AddMedicationFormModal = ({ handlePharmacyDropdown, pharmacyList, props, u
     )
 }
 
-export default AddMedicationFormModal
+export default MedicationFormModal
