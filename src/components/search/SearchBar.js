@@ -45,21 +45,17 @@ const SearchBar = (props) => {
 
             <div className="searchBar-result-overlay">
                 {filteredDrugsArray && filteredDrugsArray.map(drug => {
-                    return drug.taking ?
+                    return (
 
 
                         <Row className="div-medicationCard-searchResult">
                             <Col>
-                                <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
+                                <MedicationCard drugId={drug.id} {...props} drug={drug} />
                             </Col>
-                        </Row> :
+                        </Row>
 
-                        {/* <Row className="div-medicationHxCard-searchResult">
-                            <Col>
-                                <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
-                            </Col>
-                        </Row> */}
 
+                    )
 
                 })}
             </div>

@@ -37,7 +37,6 @@ export default {
   },
 
   //get drug by drugId with pharmacy info
-  //get drug by drugId
   getDrugByIdWithPharmacy(id) {
     return fetch(`${remoteURL}/drugs/${id}/?_expand=pharmacy`).then(data => data.json())
   },

@@ -120,7 +120,10 @@ const MedicationCard = (props) => {
                 <span>
                   <Input id="checkbox" type="checkbox" className="checkbox" checked={props.isChecked} value={props.drug.taking} onClick={() => props.handleChange(currentDrug)}
                   />
-                  <Label className="checkbox-saveToMedHx" htmlFor="checkbox">Save to Medication History</Label>
+                  {window.location.pathname === "/medication/list" ?
+                    <Label className="checkbox-saveToMedHx" htmlFor="checkbox">Save to Medication History</Label> :
+                    <Label className="checkbox-saveToMedHx" htmlFor="checkbox">Save Back to Medication List</Label>
+                  }
                 </span>
               </div>
               <hr />
@@ -159,7 +162,6 @@ const MedicationCard = (props) => {
                 >
                   Rx Details
               </Button>
-
               }
 
             </div>

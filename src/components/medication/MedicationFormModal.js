@@ -173,7 +173,7 @@ const MedicationFormModal = ({ drug, handlePharmacyDropdown, pharmacyList, uploa
                     </Modal>
                 </ModalBody>
                 <ModalFooter>
-                    <Button className="btn-addMedication" type="button" color="success" isLoading={isLoading} onClick={handleDrugForm}>
+                    <Button className="btn-addMedication" type="button" color="success" onClick={handleDrugForm}>
                         {'Save'}
                     </Button>
 
