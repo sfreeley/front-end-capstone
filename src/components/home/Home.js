@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Label } from "reactstrap";
 import NavBar from "../nav/NavBar";
 import MedicationFormModal from "../medication/MedicationFormModal";
-import ApplicationManager from "../modules/ApplicationManager";
-import { currentDateTime } from "../modules/helperFunctions";
-import { calculateNextRefill } from "../modules/helperFunctions";
 import SearchBar from "../search/SearchBar";
 
 const Home = (props) => {
     const { removeDrug, drugImage, setDrugs, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
     const hasUser = props.hasUser
     const clearUser = props.clearUser
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     const [isChecked, setIsChecked] = useState(false);
 
     return (

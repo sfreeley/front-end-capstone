@@ -63,7 +63,9 @@ const ApplicationViews = (props) => {
 
             <Route exact path="/medication/history"
                 render={props => {
-                    return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+                    return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)}
+                        removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setDrugs={setDrugs} /> : <Redirect to="/login" />)
                 }}
             />
 

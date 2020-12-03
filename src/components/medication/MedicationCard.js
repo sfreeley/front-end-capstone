@@ -209,24 +209,27 @@ const MedicationCard = (props) => {
         </UncontrolledPopover>
 
 
-        <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.pharmacy.id}`}  >
+        <UncontrolledPopover trigger="legacy" placement="top" target={`drug${props.drug.pharmacy.id}`}>
           <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
           <PopoverBody>
             <Card>
               <CardText>
                 <ListGroup className="list-group list-group">
 
-                  <ListGroupItem className={'background-yellow'}><strong>Pharmacy Name:</strong> {props.drug.pharmacy.name}</ListGroupItem>
+                  <>
+                    <ListGroupItem className={'background-yellow'}><strong>Pharmacy Name:</strong> {props.drug.pharmacy.name}</ListGroupItem>
 
-                  <ListGroupItem className="list-group-item" ><strong>Pharmacy Address:</strong> {props.drug.pharmacy.address} </ListGroupItem>
+                    <ListGroupItem className="list-group-item" ><strong>Pharmacy Address:</strong> {props.drug.pharmacy.address} </ListGroupItem>
 
-                  <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {props.drug.pharmacy.phone}</ListGroupItem>
+                    <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {props.drug.pharmacy.phone}</ListGroupItem>
+                  </>
 
                 </ListGroup>
               </CardText>
             </Card>
           </PopoverBody>
         </UncontrolledPopover>
+
       </Col>
 
 

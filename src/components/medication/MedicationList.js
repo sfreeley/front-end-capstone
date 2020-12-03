@@ -48,7 +48,6 @@ const MedicationList = (props) => {
                             isLoading={isLoading}
                             removeDrug={removeDrug}
                             handleChange={handleChange}
-
                         />)}
 
                 </CardDeck>

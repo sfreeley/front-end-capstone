@@ -150,13 +150,12 @@ const TrackRx = () => {
     }
     ApplicationManager.editDrug(drugToEdit)
       .then(() => {
-        ApplicationManager.getDrugByIdWithPharmacy(sessionUser.id).then((drugFromAPI) => {
-          setDrug(drugFromAPI)
-          setIsChecked(false)
-          setIsLoading(false)
-          drugToEdit.taking ? history.push("medication/list") : history.push("/medication/history")
-        })
+        getDrugs();
+        setIsChecked(false)
+        setIsLoading(false)
+        drugToEdit.taking ? history.push("/medication/list") : history.push("/medication/history")
       })
+
   }
 
 
