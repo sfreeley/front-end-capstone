@@ -14,7 +14,7 @@ const SearchBar = (props) => {
 
     const getMatchingCards = (event) => {
         let searchEvent = event.target.value
-        let filteringDrugsArray = drugsArray.filter(drug => {
+        let filteringDrugsArray = props.drugs.filter(drug => {
             let drugValues = Object.values(drug)
             for (let i = 0; i < drugValues.length; i++) {
                 return drugValues.join().toLowerCase().includes(searchEvent.toLowerCase())
@@ -23,7 +23,7 @@ const SearchBar = (props) => {
         if (searchEvent === "") {
             filteringDrugsArray = []
         }
-        setDrugsArray(filteringDrugsArray)
+        setFilteredDrugsArray(filteringDrugsArray)
     }
 
     useEffect(() => {
@@ -52,7 +52,6 @@ const SearchBar = (props) => {
                                 <MedicationCard drugId={drug.id} {...props} drug={drug} />
                             </Col>
                         </Row>
-
 
                     )
 

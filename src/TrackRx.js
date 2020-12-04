@@ -182,6 +182,7 @@ const TrackRx = () => {
               toggle();
               setDrug(drugFromAPI)
               if (window.location.pathname === "/") {
+                getDrugs();
                 drugFromAPI.taking ? history.push("/medication/list") : history.push("medication/history")
               }
               else if (window.location.pathname === "/medication/list") {
