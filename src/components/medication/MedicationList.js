@@ -8,7 +8,7 @@ import { Container, CardDeck, Button } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
-    const { renderWidget, imageName, isChecked, drugs, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { imageDesc, renderWidget, imageName, isChecked, drugs, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
 
     return (
         <>
@@ -20,7 +20,7 @@ const MedicationList = (props) => {
                 <div className="addMedication-image--label">
                     <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
                 </div>
-                <MedicationFormModal renderWidget={renderWidget} imageName={imageName} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                <MedicationFormModal imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                     nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
                 <h2>Current Medication List</h2>

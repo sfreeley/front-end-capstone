@@ -24,7 +24,7 @@ import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
 
 
 const ApplicationViews = (props) => {
-    const { hasUser, setUser, renderWidget, imageName, isChecked, removeDrug, drugs, setDrugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { hasUser, setUser, renderWidget, imageDesc, imageName, isChecked, removeDrug, drugs, setDrugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
 
     return (
         <>
@@ -41,7 +41,7 @@ const ApplicationViews = (props) => {
 
             <Route exact path="/"
                 render={props => {
-                    return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} setDrugs={setDrugs} drugs={drugs} removeDrug={removeDrug} isChecked={isChecked}
+                    return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugs={drugs} removeDrug={removeDrug} isChecked={isChecked}
                         drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange}
                     /> : <Redirect to="/login" />)
@@ -50,7 +50,7 @@ const ApplicationViews = (props) => {
 
             <Route exact path="/medication/list"
                 render={props => {
-                    return (hasUser ? <MedicationList renderWidget={renderWidget} imageName={imageName} drugId={parseInt(props.match.params.drugId)} {...props} removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                    return (hasUser ? <MedicationList imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugId={parseInt(props.match.params.drugId)} {...props} removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setDrugs={setDrugs} isChecked={isChecked}
                     /> : <Redirect to="/login" />)
                 }}

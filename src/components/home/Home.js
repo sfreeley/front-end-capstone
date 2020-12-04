@@ -9,7 +9,6 @@ const Home = (props) => {
     const hasUser = props.hasUser
     const clearUser = props.clearUser
 
-
     return (
         <>
             <NavBar hasUser={hasUser} clearUser={clearUser} />

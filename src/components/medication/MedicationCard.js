@@ -5,7 +5,7 @@ import {
 import "./styles/MedicationCard.css"
 
 const MedicationCard = (props) => {
-  const { renderWidget, imageName, isChecked, drugs, removeDrug, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, toggleNested, toggleAll, nestedModal, closeAll } = props
+  const { isChecked, removeDrug, handleChange, getIdOfDrug, drug } = props
   const oneRefillRemaining = drug.refills === 1 ? true : false
   const taking = drug.taking === true;
 

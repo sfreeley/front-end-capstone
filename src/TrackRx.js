@@ -24,14 +24,15 @@ const TrackRx = () => {
 
   //start Cloudinary code
   const [imageName, setImageName] = useState("");
+  const [imageDesc, setImageDesc] = useState("");
 
   const checkUploadResult = (resultEvent) => {
     if (resultEvent.event === 'success') {
-
       setImageName(resultEvent.info.secure_url)
-
+      setImageDesc(resultEvent.info.original_filename)
     }
   }
+
   const renderWidget = () => {
     let widget = window.cloudinary.createUploadWidget({
       cloudName: "digj43ynr",
@@ -41,23 +42,6 @@ const TrackRx = () => {
 
     widget.open();
   }
-
-  // const uploadImage = async event => {
-  //   const files = event.target.files
-  //   const data = new FormData()
-  //   data.append("file", files[0])
-  //   data.append("upload_preset", "uploadDrugs")
-  //   setIsLoading(true)
-  //   const res = await fetch(
-  //     "http://api.cloudinary.com/v1_1/digj43ynr/image/upload", {
-  //     method: "POST",
-  //     body: data
-  //   })
-
-  //   const file = await res.json()
-  //   setDrugImage(file.secure_url)
-  //   setIsLoading(false)
-  // }
 
   //modal states
   const [modal, setModal] = useState(false);
@@ -96,25 +80,7 @@ const TrackRx = () => {
 
   //display medication cards state
   const [drugs, setDrugs] = useState([])
-  const [pharmacyList, setPharmacyList] = useState([]);
-
-  //get drugs based on user to display in medication list and sort by earliest upcoming refill date
-  const getDrugs = () => {
-    return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
-      const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-      setDrugs(sortDrugsByDate)
-    })
-  }
-
-  const getPharmaciesForForm = () => {
-    ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
-  }
-
-  useEffect(() => {
-    getDrugs()
-    getPharmaciesForForm()
-  }, []);
-
+  //individual drug state
   const [drug, setDrug] = useState({
     id: "",
     name: "",
@@ -134,49 +100,25 @@ const TrackRx = () => {
     taking: true,
     image: imageName
   })
+  //display pharmacy list in dropdown
+  const [pharmacyList, setPharmacyList] = useState([]);
 
-  //this is the whole drug entry that will be edited
-  const editingDrug = {
-    id: drug.id,
-    name: drug.name,
-    userId: sessionUser.id,
-    pharmacyId: drug.pharmacyId,
-    strength: drug.strength,
-    dosageForm: drug.dosageForm,
-    directions: drug.directions,
-    indication: drug.indication,
-    notes: drug.notes,
-    rxNumber: drug.rxNumber,
-    dateFilled: drug.dateFilled,
-    daysSupply: parseInt(drug.daysSupply),
-    nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
-    dateInput: drug.dateInput,
-    refills: parseInt(drug.refills),
-    taking: drug.taking,
-    image: imageName
-
+  //get drugs based on user to display in medication list and sort by earliest upcoming refill date
+  const getDrugs = () => {
+    return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
+      const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+      setDrugs(sortDrugsByDate)
+    })
   }
 
-  //edit taking to false if true and vice versa and move card back and forth from med hx to med list
-  const handleChange = (drugToEdit) => {
-    setIsChecked(true)
-    setIsLoading(true)
-    if (drugToEdit.taking === true) {
-      drugToEdit.taking = false
-    }
-    else {
-      drugToEdit.taking = true
-    }
-    ApplicationManager.editDrug(drugToEdit)
-      .then(() => {
-        getDrugs();
-        setIsChecked(false)
-        setIsLoading(false)
-        drugToEdit.taking ? history.push("/medication/list") : history.push("/medication/history")
-      })
-
+  const getPharmaciesForForm = () => {
+    ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
   }
 
+  useEffect(() => {
+    getDrugs()
+    getPharmaciesForForm()
+  }, []);
 
   //handling pharmacy dropdown state in medication modal
   const handlePharmacyDropdown = (e) => {
@@ -203,6 +145,27 @@ const TrackRx = () => {
     console.log(stateToChange)
     setDrug(stateToChange);
   };
+
+  //this is the whole drug entry that will be edited
+  const editingDrug = {
+    id: drug.id,
+    name: drug.name,
+    userId: sessionUser.id,
+    pharmacyId: drug.pharmacyId,
+    strength: drug.strength,
+    dosageForm: drug.dosageForm,
+    directions: drug.directions,
+    indication: drug.indication,
+    notes: drug.notes,
+    rxNumber: drug.rxNumber,
+    dateFilled: drug.dateFilled,
+    daysSupply: parseInt(drug.daysSupply),
+    nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
+    dateInput: drug.dateInput,
+    refills: parseInt(drug.refills),
+    taking: drug.taking,
+    image: imageName
+  }
 
   //once 'save' button clicked on medication card, function handles whether it adds or edits
   const handleDrugForm = (event) => {
@@ -250,7 +213,6 @@ const TrackRx = () => {
           refills: parseInt(drug.refills),
           image: imageName
         }
-
         ApplicationManager.postNewDrug(newMed).then(() => {
           getDrugs();
           toggle();
@@ -258,8 +220,27 @@ const TrackRx = () => {
 
         })
       }
-
     }
+  };
+
+  //edit taking to false if true and vice versa and move card back and forth from med hx to med list
+  const handleChange = (drugToEdit) => {
+    setIsChecked(true)
+    setIsLoading(true)
+    if (drugToEdit.taking === true) {
+      drugToEdit.taking = false
+    }
+    else {
+      drugToEdit.taking = true
+    }
+    ApplicationManager.editDrug(drugToEdit)
+      .then(() => {
+        getDrugs();
+        setIsChecked(false)
+        setIsLoading(false)
+        drugToEdit.taking ? history.push("/medication/list") : history.push("/medication/history")
+      })
+
   }
 
   //delete drugs from medication list upon search for medication card
@@ -283,7 +264,7 @@ const TrackRx = () => {
         handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
         drug={drug} drugs={drugs} nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested}
         toggleAll={toggleAll} closeAll={closeAll} handleChange={handleChange} getIdOfDrug={getIdOfDrug}
-        setDrugs={setDrugs} imageName={imageName} renderWidget={renderWidget} removeDrug={removeDrug} isChecked={isChecked}
+        setDrugs={setDrugs} imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget} removeDrug={removeDrug} isChecked={isChecked}
       />
     </div>
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup } from "reactstrap";
-import "./styles/AddMedicationFormModal.css"
+import "./styles/MedicationFormModal.css"
 
-const MedicationFormModal = ({ renderWidget, imageName, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const MedicationFormModal = ({ imageDesc, renderWidget, imageName, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
     return (
@@ -14,7 +14,7 @@ const MedicationFormModal = ({ renderWidget, imageName, drug, handlePharmacyDrop
                 <ModalBody>
                     <Form>
                         <FormGroup>
-                            <Button className="uploadDrugImage" outline onClick={renderWidget}>Upload Image</Button> <p className="imageNameSizing">{imageName}</p>
+                            <Button className="uploadDrugImage" outline onClick={renderWidget}>Upload Image</Button> <p className="imageNameSizing">{imageDesc}</p>
                         </FormGroup>
 
                         <Label htmlFor="name"><strong>Medication Name*</strong></Label>
