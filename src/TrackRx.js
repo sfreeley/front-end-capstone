@@ -31,7 +31,7 @@ const TrackRx = () => {
       setImageName(resultEvent.info.secure_url)
       setImageDesc(resultEvent.info.original_filename)
     }
-  }
+  };
 
   const renderWidget = () => {
     let widget = window.cloudinary.createUploadWidget({
@@ -41,7 +41,7 @@ const TrackRx = () => {
       (error, result) => { checkUploadResult(result) })
 
     widget.open();
-  }
+  };
 
   //modal states
   const [modal, setModal] = useState(false);
@@ -64,19 +64,20 @@ const TrackRx = () => {
       taking: true,
       dateInput: "",
       refills: "",
-      image: imageName
+      image: ""
     })
     setModal(!modal);
+  };
 
-  }
   const toggleNested = () => {
     setNestedModal(!nestedModal);
     setCloseAll(false);
-  }
+  };
+
   const toggleAll = () => {
     setNestedModal(!nestedModal);
     setCloseAll(true);
-  }
+  };
 
   //display medication cards state
   const [drugs, setDrugs] = useState([])
@@ -113,7 +114,7 @@ const TrackRx = () => {
 
   const getPharmaciesForForm = () => {
     ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
-  }
+  };
 
   useEffect(() => {
     getDrugs()
@@ -136,7 +137,7 @@ const TrackRx = () => {
         setIsLoading(false)
       })
     toggle()
-  }
+  };
 
   //medication form field change handler
   const handleFieldChange = (event) => {
@@ -165,7 +166,7 @@ const TrackRx = () => {
     refills: parseInt(drug.refills),
     taking: drug.taking,
     image: imageName
-  }
+  };
 
   //once 'save' button clicked on medication card, function handles whether it adds or edits
   const handleDrugForm = (event) => {
@@ -188,9 +189,7 @@ const TrackRx = () => {
               else if (window.location.pathname === "/medication/list") {
                 getDrugs();
               }
-
             })
-
           })
       }
       else {
@@ -241,8 +240,7 @@ const TrackRx = () => {
         setIsLoading(false)
         drugToEdit.taking ? history.push("/medication/list") : history.push("/medication/history")
       })
-
-  }
+  };
 
   //delete drugs from medication list upon search for medication card
   const removeDrug = (id) => {
@@ -255,6 +253,25 @@ const TrackRx = () => {
       });
   };
 
+  const filterMedicationCards = (e) => {
+    let searchTerm = e.target.value
+    let filteringDrugsArray = drugs.filter(drug => {
+      let drugValues = Object.values(drug)
+      for (let i = 0; i < drugValues.length; i++) {
+
+        return drugValues.join().toLowerCase().includes(searchTerm.toLowerCase())
+      }
+
+    })
+
+    if (searchTerm === "") {
+      filteringDrugsArray = []
+      getDrugs();
+    }
+    setDrugs(filteringDrugsArray)
+  }
+
+
   return (
 
     <div className="applicationViews">
@@ -265,7 +282,7 @@ const TrackRx = () => {
         handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll}
         handleChange={handleChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} isChecked={isChecked}
-        imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget}
+        imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget} filterMedicationCards={filterMedicationCards}
       />
     </div>
 

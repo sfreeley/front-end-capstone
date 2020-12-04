@@ -24,7 +24,7 @@ import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
 
 
 const ApplicationViews = (props) => {
-    const { hasUser, setUser, getMatchingCards, renderWidget, imageDesc, imageName, isChecked, removeDrug, drugs, setDrugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { hasUser, setUser, clearSearch, searchTerm, filterMedicationCards, renderWidget, imageDesc, imageName, isChecked, removeDrug, drugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
 
     return (
         <>
@@ -50,8 +50,10 @@ const ApplicationViews = (props) => {
 
             <Route exact path="/medication/list"
                 render={props => {
-                    return (hasUser ? <MedicationList imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugId={parseInt(props.match.params.drugId)} {...props} removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
-                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setDrugs={setDrugs} isChecked={isChecked}
+                    return (hasUser ? <MedicationList clearSearch={clearSearch} searchTerm={searchTerm} imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugId={parseInt(props.match.params.drugId)} filterMedicationCards={filterMedicationCards} removeDrug={removeDrug}
+                        drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll}
+                        getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked}
                     /> : <Redirect to="/login" />)
                 }}
             />
@@ -59,8 +61,8 @@ const ApplicationViews = (props) => {
             <Route exact path="/medication/history"
                 render={props => {
                     return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)}
-                        removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
-                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setDrugs={setDrugs} isChecked={isChecked} /> : <Redirect to="/login" />)
+                        removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} /> : <Redirect to="/login" />)
                 }}
             />
 

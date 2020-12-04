@@ -1,7 +1,6 @@
 import React from "react";
 import MedicationCard from "../medication/MedicationCard";
 import NavBar from "../nav/NavBar";
-import SearchBar from "../search/SearchBar";
 import MedicationFormModal from "../medication/MedicationFormModal";
 import { Container, CardDeck } from "reactstrap";
 import "./styles/MedicationHistoryList.css";
@@ -16,7 +15,6 @@ const MedicationHistoryList = (props) => {
                 nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
             <h3>Medication History</h3>
-            <SearchBar {...props} handleChange={handleChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} drug={drug} />
 
             <Container className="section-historicalMedicationList--container">
                 <CardDeck xs="4">

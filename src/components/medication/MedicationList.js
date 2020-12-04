@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
-import SearchBar from "../search/SearchBar";
 import NavBar from "../nav/NavBar";
 import MedicationFormModal from "./MedicationFormModal";
-import { Container, CardDeck, Button } from "reactstrap"
+import { Container, CardDeck, Button, Input } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
-    const { imageDesc, renderWidget, imageName, isChecked, drugs, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { filterMedicationCards, imageDesc, renderWidget, imageName, isChecked, drugs, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
 
     return (
         <>
@@ -26,7 +25,12 @@ const MedicationList = (props) => {
                 <h2>Current Medication List</h2>
             </div>
 
-            <SearchBar className="searchBar-medicationList" drugs={drugs} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} />
+            <div className="searchBar-container">
+                <Input className="form-control searchBar-position" name="searchTerm" id="keywordSearch" onChange={filterMedicationCards}
+                    type="text" placeholder="Search for keywords"
+                    aria-label="Search" />
+            </div>
+
             <div className="pharmacyListButton--container">
                 <Button onClick={() => props.history.push("/medication/pharmacies")}>My Pharmacy List</Button>
             </div>
