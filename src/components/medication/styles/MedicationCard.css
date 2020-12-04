@@ -101,6 +101,7 @@
   text-shadow: 0.5px 0.5px black;
 }
 
+.btn-all,
 .btn-all-medicationCard {
   display: flex;
   justify-content: center;
@@ -111,6 +112,7 @@
   justify-content: center;
 }
 
+.btn-edit,
 .btn-edit-medList,
 .btn-expand-medList,
 .btn-delete-medList,

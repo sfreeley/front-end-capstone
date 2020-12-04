@@ -26,7 +26,7 @@ const MedicationList = (props) => {
                 <h2>Current Medication List</h2>
             </div>
 
-            <SearchBar className="searchBar-medicationList" {...props} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} />
+            <SearchBar className="searchBar-medicationList" drugs={drugs} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} />
             <div className="pharmacyListButton--container">
                 <Button onClick={() => props.history.push("/medication/pharmacies")}>My Pharmacy List</Button>
             </div>

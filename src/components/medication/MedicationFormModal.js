@@ -2,7 +2,7 @@ import React from "react";
 import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup } from "reactstrap";
 import "./styles/MedicationFormModal.css"
 
-const MedicationFormModal = ({ imageDesc, renderWidget, imageName, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const MedicationFormModal = ({ imageDesc, renderWidget, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
     return (

@@ -157,14 +157,14 @@ const MedicationCard = (props) => {
               }
 
             </div>
-
           </CardBody>
-
         </Card>
 
         <Modal isOpen={imageModal} toggle={toggleImage}>
           <ModalBody>
-            <img className="imageModal" src={drug.image} alt="medicationRx" />
+            {!drug.image ? <p>No image available</p> :
+              <img className="imageModal" src={drug.image} alt="medicationRx" />
+            }
             <Button onClick={toggleImage} >Close</Button>
           </ModalBody>
         </Modal>
@@ -202,14 +202,12 @@ const MedicationCard = (props) => {
           </PopoverBody>
         </UncontrolledPopover>
 
-
         <UncontrolledPopover trigger="legacy" placement="top" target={`drug${drug.pharmacy.id}`}>
           <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
           <PopoverBody>
             <Card>
               <CardText>
                 <ListGroup className="list-group list-group">
-
                   <>
                     <ListGroupItem className={'background-yellow'}><strong>Pharmacy Name:</strong> {drug.pharmacy.name}</ListGroupItem>
 
@@ -217,21 +215,14 @@ const MedicationCard = (props) => {
 
                     <ListGroupItem className="list-group-item"><strong>Pharmacy Contact Info:</strong> {drug.pharmacy.phone}</ListGroupItem>
                   </>
-
                 </ListGroup>
               </CardText>
             </Card>
           </PopoverBody>
         </UncontrolledPopover>
-
-
       </Col>
 
-
-
     </>
-
-
 
   )
 }

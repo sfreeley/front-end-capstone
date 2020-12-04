@@ -261,11 +261,11 @@ const TrackRx = () => {
       <ApplicationViews
         hasUser={hasUser}
         setUser={setUser}
-        handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList}
-        handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
-        drug={drug} drugs={drugs} nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested}
-        toggleAll={toggleAll} closeAll={closeAll} handleChange={handleChange} getIdOfDrug={getIdOfDrug}
-        setDrugs={setDrugs} imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget} removeDrug={removeDrug} isChecked={isChecked}
+        drug={drug} drugs={drugs}
+        handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll}
+        handleChange={handleChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} isChecked={isChecked}
+        imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget}
       />
     </div>
 
