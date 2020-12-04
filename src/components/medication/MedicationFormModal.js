@@ -1,24 +1,21 @@
 import React from "react";
-import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form } from "reactstrap";
+import { FormText, Button, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup } from "reactstrap";
 import "./styles/AddMedicationFormModal.css"
 
-const MedicationFormModal = ({ drug, handlePharmacyDropdown, pharmacyList, uploadImage, isLoading, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
+const MedicationFormModal = ({ renderWidget, imageName, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll }) => {
     const numberRefillArray = ["No refills", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
     return (
         <>
             <Modal isOpen={modal} toggle={toggle} >
                 <ModalHeader className="modal-header-mainPage" toggle={toggle}><strong>What does your medication bottle tell you?</strong>
-                    <FormText>*required</FormText></ModalHeader>
+                    <FormText>*required</FormText>
+                </ModalHeader>
                 <ModalBody>
                     <Form>
-                        <Input type="file"
-                            name="file"
-                            placeholder="Upload an image"
-                            onChange={uploadImage} />
-                        {isLoading ? (
-                            <h3> Loading ... </h3>
-                        ) : ""}
-
+                        <FormGroup>
+                            <Button className="uploadDrugImage" outline onClick={renderWidget}>Upload Image</Button> <p className="imageNameSizing">{imageName}</p>
+                        </FormGroup>
 
                         <Label htmlFor="name"><strong>Medication Name*</strong></Label>
                         <Input className="p-2 bd-highlight justify-content-center"

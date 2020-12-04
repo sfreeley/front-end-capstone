@@ -23,7 +23,7 @@ const SearchBar = (props) => {
         if (searchEvent === "") {
             filteringDrugsArray = []
         }
-        setFilteredDrugsArray(filteringDrugsArray)
+        setDrugsArray(filteringDrugsArray)
     }
 
     useEffect(() => {
@@ -46,7 +46,6 @@ const SearchBar = (props) => {
             <div className="searchBar-result-overlay">
                 {filteredDrugsArray && filteredDrugsArray.map(drug => {
                     return (
-
 
                         <Row className="div-medicationCard-searchResult">
                             <Col>

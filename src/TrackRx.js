@@ -23,24 +23,41 @@ const TrackRx = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   //start Cloudinary code
-  const [drugImage, setDrugImage] = useState("")
+  const [imageName, setImageName] = useState("");
 
-  const uploadImage = async event => {
-    const files = event.target.files
-    const data = new FormData()
-    data.append("file", files[0])
-    data.append("upload_preset", "uploadDrugs")
-    setIsLoading(true)
-    const res = await fetch(
-      "http://api.cloudinary.com/v1_1/digj43ynr/image/upload", {
-      method: "POST",
-      body: data
-    })
+  const checkUploadResult = (resultEvent) => {
+    if (resultEvent.event === 'success') {
 
-    const file = await res.json()
-    setDrugImage(file.secure_url)
-    setIsLoading(false)
+      setImageName(resultEvent.info.secure_url)
+
+    }
   }
+  const renderWidget = () => {
+    let widget = window.cloudinary.createUploadWidget({
+      cloudName: "digj43ynr",
+      uploadPreset: "uploadDrugs"
+    },
+      (error, result) => { checkUploadResult(result) })
+
+    widget.open();
+  }
+
+  // const uploadImage = async event => {
+  //   const files = event.target.files
+  //   const data = new FormData()
+  //   data.append("file", files[0])
+  //   data.append("upload_preset", "uploadDrugs")
+  //   setIsLoading(true)
+  //   const res = await fetch(
+  //     "http://api.cloudinary.com/v1_1/digj43ynr/image/upload", {
+  //     method: "POST",
+  //     body: data
+  //   })
+
+  //   const file = await res.json()
+  //   setDrugImage(file.secure_url)
+  //   setIsLoading(false)
+  // }
 
   //modal states
   const [modal, setModal] = useState(false);
@@ -63,7 +80,7 @@ const TrackRx = () => {
       taking: true,
       dateInput: "",
       refills: "",
-      image: drugImage
+      image: imageName
     })
     setModal(!modal);
 
@@ -114,7 +131,8 @@ const TrackRx = () => {
     nextRefillDate: "",
     dateInput: "",
     refills: "",
-    taking: true
+    taking: true,
+    image: imageName
   })
 
   //this is the whole drug entry that will be edited
@@ -134,7 +152,8 @@ const TrackRx = () => {
     nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
     dateInput: drug.dateInput,
     refills: parseInt(drug.refills),
-    taking: drug.taking
+    taking: drug.taking,
+    image: imageName
 
   }
 
@@ -229,7 +248,7 @@ const TrackRx = () => {
           taking: true,
           dateInput: currentDateTime(timestamp),
           refills: parseInt(drug.refills),
-          image: drugImage
+          image: imageName
         }
 
         ApplicationManager.postNewDrug(newMed).then(() => {
@@ -261,10 +280,10 @@ const TrackRx = () => {
         hasUser={hasUser}
         setUser={setUser}
         handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList}
-        uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+        handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
         drug={drug} drugs={drugs} nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested}
         toggleAll={toggleAll} closeAll={closeAll} handleChange={handleChange} getIdOfDrug={getIdOfDrug}
-        setDrugs={setDrugs} drugImage={drugImage} removeDrug={removeDrug}
+        setDrugs={setDrugs} imageName={imageName} renderWidget={renderWidget} removeDrug={removeDrug} isChecked={isChecked}
       />
     </div>
 

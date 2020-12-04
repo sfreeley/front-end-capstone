@@ -9,7 +9,7 @@ const ConfirmDelete = ({ toggle, modal, removePharmacy, pharmacy, currentPharmac
     return (
         <>
             <div>
-                <Modal isOpen={modal} toggle={toggle} className="deletePuzzle">
+                <Modal isOpen={modal} toggle={toggle} className="deletePharmacy">
                     <ModalHeader toggle={toggle}>Please Confirm Delete</ModalHeader>
                     <ModalBody>
                         Are you sure you want to delete this pharmacy?

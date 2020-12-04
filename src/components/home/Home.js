@@ -5,10 +5,10 @@ import MedicationFormModal from "../medication/MedicationFormModal";
 import SearchBar from "../search/SearchBar";
 
 const Home = (props) => {
-    const { removeDrug, drugImage, setDrugs, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
+    const { removeDrug, isChecked, drugImage, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
     const hasUser = props.hasUser
     const clearUser = props.clearUser
-    const [isChecked, setIsChecked] = useState(false);
+
 
     return (
         <>
@@ -21,9 +21,9 @@ const Home = (props) => {
                     <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
                 </div>
 
-                <SearchBar setDrugs={setDrugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setIsChecked={setIsChecked} isChecked={isChecked} />
+                <SearchBar removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} />
                 <MedicationFormModal drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
-                    getIdOfDrug={getIdOfDrug} nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
+                    getIdOfDrug={getIdOfDrug} nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} isChecked={isChecked} />
             </div>
         </>
     )
