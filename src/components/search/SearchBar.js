@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ApplicationManager from "../modules/ApplicationManager";
-import MedicationHistoryCard from "../history/MedicationHistoryCard";
 import MedicationCard from "../medication/MedicationCard";
 import { Input, Row, Col } from "reactstrap"
 import "./styles/SearchBar.css"
@@ -15,7 +14,7 @@ const SearchBar = (props) => {
 
     const getMatchingCards = (event) => {
         let searchEvent = event.target.value
-        let filteringDrugsArray = drugsArray.filter(drug => {
+        let filteringDrugsArray = props.drugs.filter(drug => {
             let drugValues = Object.values(drug)
             for (let i = 0; i < drugValues.length; i++) {
                 return drugValues.join().toLowerCase().includes(searchEvent.toLowerCase())
@@ -46,21 +45,15 @@ const SearchBar = (props) => {
 
             <div className="searchBar-result-overlay">
                 {filteredDrugsArray && filteredDrugsArray.map(drug => {
-                    return drug.taking ?
-
+                    return (
 
                         <Row className="div-medicationCard-searchResult">
                             <Col>
-                                <MedicationCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
-                            </Col>
-                        </Row> :
-
-                        <Row className="div-medicationHxCard-searchResult">
-                            <Col>
-                                <MedicationHistoryCard drugId={parseInt(props.match.params.drugId)} {...props} drug={drug} />
+                                <MedicationCard drugId={drug.id} {...props} drug={drug} />
                             </Col>
                         </Row>
 
+                    )
 
                 })}
             </div>

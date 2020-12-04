@@ -6,23 +6,25 @@ Inspired by my experience as a pharmacist, and understanding that patients have 
 
 - What are the features of the application?
 
-***Update: 11/12/2020***
- - Users can now input their own pharmacies, perform full CRUD functionality on a pharmacy, and whatever pharmacy a drug is currently being filled at will display on their medication list. Users, upon entering a new medication will be able to select from a dropdown of pharmacies they have input and select the one they are currently using. Video walkthrough available here: [TrackRx Pharmacy functionality](https://www.loom.com/share/215080dd05544f1f962bb208b481b897)
+**_Update: 11/12/2020_**
 
-***Functionality already implemented***
-  - Users can document the drug name, dosage, dosage form, their patient specific directions, indication, and patient specific notes all in one place (ie doctor notes/comments or any questions they may have for their provider and/or pharmacist). CRUD functionality will be present for each inidivudal medication entry.
+- Users can now input their own pharmacies, perform full CRUD functionality on a pharmacy, and whatever pharmacy a drug is currently being filled at will display on their medication list. Users, upon entering a new medication will be able to select from a dropdown of pharmacies they have input and select the one they are currently using. Video walkthrough available here: [TrackRx Pharmacy functionality](https://www.loom.com/share/215080dd05544f1f962bb208b481b897)
 
-  - Users are also able to input prescription numbers and refills (if applicable) as well as last fill date and days supply, which will then automatically calculate their next refill date.
+**_Functionality already implemented_**
 
-  - A running, real-time countdown (by days) until next refill date for each individual medication will also be displayed on each individual medication entry to help prevent users from running out of their medication.
+- Users can document the drug name, dosage, dosage form, their patient specific directions, indication, and patient specific notes all in one place (ie doctor notes/comments or any questions they may have for their provider and/or pharmacist). CRUD functionality will be present for each inidivudal medication entry.
 
-  - Allow users to use a search tool to query for specific keywords regarding their medications (ie 10 mg, drug name, indication, etc)
+- Users are also able to input prescription numbers and refills (if applicable) as well as last fill date and days supply, which will then automatically calculate their next refill date.
 
-  - Users are able to upload any image (ie bottle, pill picture, reminders) and attach it to their medication entry for future reference (made possible through Cloudinary)
+- A running, real-time countdown (by days) until next refill date for each individual medication will also be displayed on each individual medication entry to help prevent users from running out of their medication.
 
-  - Provide resources for health and medication information in one location. By utilizing [health.gov external API](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/how-use-api), users can select a health topic from a dropdown menu and click any of the links pertaining to the topic they wish to learn more about
-  
-  - [Video Walkthrough](https://www.loom.com/share/d6fdb8f7cd5443b389e95af70ca55398)
+- Allow users to use a search tool to query for specific keywords regarding their medications (ie 10 mg, drug name, indication, etc)
+
+- Users are able to upload any image (ie bottle, pill picture, reminders) and attach it to their medication entry for future reference (made possible through Cloudinary)
+
+- Provide resources for health and medication information in one location. By utilizing [health.gov external API](https://health.gov/our-work/health-literacy/consumer-health-content/free-web-content/apis-developers/how-use-api), users can select a health topic from a dropdown menu and click any of the links pertaining to the topic they wish to learn more about
+
+- [Video Walkthrough](https://www.loom.com/share/d6fdb8f7cd5443b389e95af70ca55398)
 
 ## Installation
 
@@ -84,23 +86,12 @@ The following link is a walkthrough regarding most of the functionality of this 
      - if they are within 1 day or the due date for refill, 'Due for Refill' will display on designated medication card
    - `Edit` button: brings up edit form similar to 'add medication' form where they can edit any field (changes should appear after user clicks `Save Edited Medication`)
      - Image can also be edited, however the image will only appear in `Individual Medication View`
-   - `Expand` button: brings user to individual medication details view (please see below)
+   - `Image` button: shows image associated with medication entry
    - `Permanently Remove` button: once clicked will completely delete medication entry from database
    - `Rx Details` button: once clicked will show a pop-up of their prescription number, refills remaining, last fill date, days supply, and next refill/renewal date
      - if one refill remains, refills will be highlighted yellow; if no refills remain, it will be highlighted red
      - if medication is due or past due for refill, it will be highlighted red unless user edits the prescription details information
 3. Search functionality is available on this page as well, with CRUD functionality available for each medication entry result
-
-### Individual Medication View Page
-
-![trackRx Individual Medication View Page](./src/images/individualMedicationViewScreenshot.png)
-
-Once user clicks `Expand` from `Current Medication List` page, user will be brought to this view, which includes:
-
-- all the information present in the `Current Medication List`, however prescription details will be clearly visible to the right of the main medication card
-- user will have the option to click `Pill Identifier` button, which will take them to an external link where they can verify the identity of the medication (ie if they get a different manufacturer or become unsure of what they are taking)
-- user will be able to edit any fields on medication card, including editing the image, if needed.
-- user will be able to click `Save to Medication History` checkbox and send medication card to the `Medication History List`
 
 ### Medication History List Page
 
@@ -155,9 +146,3 @@ In addition, I would like to add a reminder (ie daily alarm) they can set to rem
 ## Support and Contributions
 
 If any users have any additional questions, concerns, or feedback for future improvements, please do not hesitate to submit an issue ticket. I am open to any and all suggestions and ideas.
-
-## Planning Links
-
-1. [ERD](https://dbdiagram.io/d/5f146e1274ca2227330d8a66)
-
-2. [Wireframe](https://sketchboard.me/XCfnZXA8pWcG#/)

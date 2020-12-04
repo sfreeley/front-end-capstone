@@ -11,8 +11,6 @@ import Registration from "./components/auth/Registration"
 import Home from "./components/home/Home";
 
 //medication
-import MedicationDetail from "./components/medication/MedicationDetail";
-import AddMedicationFormModal from "./components/medication/AddMedicationFormModal";
 import MedicationList from "./components/medication/MedicationList";
 import MedicationHistoryList from "./components/history/MedicationHistoryList";
 
@@ -26,9 +24,7 @@ import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
 
 
 const ApplicationViews = (props) => {
-    const hasUser = props.hasUser
-    const setUser = props.setUser
-
+    const { hasUser, setUser, getMatchingCards, renderWidget, imageDesc, imageName, isChecked, removeDrug, drugs, setDrugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
 
     return (
         <>
@@ -45,31 +41,26 @@ const ApplicationViews = (props) => {
 
             <Route exact path="/"
                 render={props => {
-                    return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
-                }}
-            />
-
-            <Route exact path="/medication/new"
-                render={props => {
-                    return <AddMedicationFormModal {...props} />
+                    return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugs={drugs} removeDrug={removeDrug} isChecked={isChecked}
+                        drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange}
+                    /> : <Redirect to="/login" />)
                 }}
             />
 
             <Route exact path="/medication/list"
                 render={props => {
-                    return (hasUser ? <MedicationList drugId={parseInt(props.match.params.drugId)} {...props} /> : <Redirect to="/login" />)
+                    return (hasUser ? <MedicationList imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugId={parseInt(props.match.params.drugId)} {...props} removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setDrugs={setDrugs} isChecked={isChecked}
+                    /> : <Redirect to="/login" />)
                 }}
             />
 
             <Route exact path="/medication/history"
                 render={props => {
-                    return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
-                }}
-            />
-
-            <Route exact path="/medication/detail/:drugId(\d+)"
-                render={props => {
-                    return (hasUser ? <MedicationDetail {...props} drugId={parseInt(props.match.params.drugId)} /> : <Redirect to="/login" />)
+                    return (hasUser ? <MedicationHistoryList {...props} drugId={parseInt(props.match.params.drugId)}
+                        removeDrug={removeDrug} drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+                        nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange} setDrugs={setDrugs} isChecked={isChecked} /> : <Redirect to="/login" />)
                 }}
             />
 
@@ -90,6 +81,7 @@ const ApplicationViews = (props) => {
                     return (hasUser ? <AddPharmacyForm {...props} /> : <Redirect to="/login" />)
                 }}
             />
+
             <Route path="/medication/pharmacy/edit/:pharmacyId(\d+)"
                 render={props => {
                     return (hasUser ? <EditPharmacyForm {...props} /> : <Redirect to="/login" />)
@@ -97,7 +89,6 @@ const ApplicationViews = (props) => {
             />
         </>
     )
-
 
 }
 export default ApplicationViews;

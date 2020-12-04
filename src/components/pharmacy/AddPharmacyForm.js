@@ -24,7 +24,6 @@ const AddPharmacyForm = (props) => {
 
     // adding new pharmacy
     const handleAddNewPharmacy = (e) => {
-
         e.preventDefault();
         if (newPharmacy.name === "" || newPharmacy.address === "" || newPharmacy.phone === "") {
             alert("Please fill out required fields")
@@ -36,13 +35,11 @@ const AddPharmacyForm = (props) => {
                 name: newPharmacy.name,
                 address: newPharmacy.address,
                 phone: newPharmacy.phone
-
             }
 
             ApplicationManager.postNewPharmacy(newPharmacyEntry).then(() => {
                 props.history.push("/medication/pharmacies")
             })
-
 
         }
         setIsLoading(false);

@@ -19,7 +19,7 @@ const PharmacyList = (props) => {
 
     const getPharmaciesWithDrugs = () => {
         ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(dataFromAPI => {
-            setDrugsWithPharmacy([...new Set(dataFromAPI)])
+            setDrugsWithPharmacy(dataFromAPI)
         })
     }
 
