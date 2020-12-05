@@ -19,6 +19,7 @@ const Resource = (props) => {
 
   const getAllTopics = () => {
     ApplicationManager.getTopics().then(topicsFromAPI => setTopics(topicsFromAPI))
+
   }
 
   const getTopicsAndResources = () => {
@@ -119,13 +120,13 @@ const Resource = (props) => {
                             </Card>
                           </TabPane>
                         </TabContent>
-                        )
-                      })
-                    }
+                    )
+                  })
+                  }
                 </>
               )
             })
-          }
+            }
           </NavItem>
         </Nav>
       </div>

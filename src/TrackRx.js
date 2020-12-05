@@ -186,7 +186,7 @@ const TrackRx = () => {
                 getDrugs();
                 drugFromAPI.taking ? history.push("/medication/list") : history.push("medication/history")
               }
-              else if (window.location.pathname === "/medication/list") {
+              else if (window.location.pathname === "/medication/list" || window.location.pathname === "/medication/history") {
                 getDrugs();
               }
             })
@@ -253,24 +253,6 @@ const TrackRx = () => {
       });
   };
 
-  const filterMedicationCards = (e) => {
-    let searchTerm = e.target.value
-    let filteringDrugsArray = drugs.filter(drug => {
-      let drugValues = Object.values(drug)
-      for (let i = 0; i < drugValues.length; i++) {
-
-        return drugValues.join().toLowerCase().includes(searchTerm.toLowerCase())
-      }
-
-    })
-
-    if (searchTerm === "") {
-      filteringDrugsArray = []
-      getDrugs();
-    }
-    setDrugs(filteringDrugsArray)
-  }
-
 
   return (
 
@@ -282,7 +264,7 @@ const TrackRx = () => {
         handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll}
         handleChange={handleChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} isChecked={isChecked}
-        imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget} filterMedicationCards={filterMedicationCards}
+        imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget}
       />
     </div>
 

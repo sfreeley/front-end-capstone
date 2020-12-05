@@ -26,7 +26,6 @@ const NavBar = () => {
         <span className="nav-bar-logo">
 
           <Navbar light className="nav-bar-container" expand="md"  >
-            {/* <NavbarBrand href="/" className="nav-bar-logo"><img src={require("../../images/circle-logo.png")} alt="trackRx-logo" /></NavbarBrand> */}
             <NavbarBrand href="/" className="nav-bar-title"><h5>Welcome to TrackRx, {firstLetterCase(sessionUser.username)}</h5></NavbarBrand>
             <NavbarToggler onClick={toggleNavbar} className="mr-2" />
             <Collapse isOpen={!collapsed} navbar>

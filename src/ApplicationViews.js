@@ -24,7 +24,7 @@ import EditPharmacyForm from "./components/pharmacy/EditPharmacyForm";
 
 
 const ApplicationViews = (props) => {
-    const { hasUser, setUser, clearSearch, searchTerm, filterMedicationCards, renderWidget, imageDesc, imageName, isChecked, removeDrug, drugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { hasUser, setUser, getMatchingCards, filteredDrugsArray, clearSearch, searchTerm, filterMedicationCards, renderWidget, imageDesc, imageName, isChecked, removeDrug, drugs, handleChange, getIdOfDrug, drug, drugImage, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
 
     return (
         <>
@@ -41,7 +41,7 @@ const ApplicationViews = (props) => {
 
             <Route exact path="/"
                 render={props => {
-                    return (hasUser ? <Home hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugs={drugs} removeDrug={removeDrug} isChecked={isChecked}
+                    return (hasUser ? <Home drugs={drugs} hasUser={hasUser} {...props} drugId={parseInt(props.match.params.drugId)} filteredDrugsArray={filteredDrugsArray} filterMedicationCards={filterMedicationCards} imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} removeDrug={removeDrug} isChecked={isChecked}
                         drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} getIdOfDrug={getIdOfDrug} handleChange={handleChange}
                     /> : <Redirect to="/login" />)
@@ -53,7 +53,7 @@ const ApplicationViews = (props) => {
                     return (hasUser ? <MedicationList clearSearch={clearSearch} searchTerm={searchTerm} imageDesc={imageDesc} renderWidget={renderWidget} imageName={imageName} drugId={parseInt(props.match.params.drugId)} filterMedicationCards={filterMedicationCards} removeDrug={removeDrug}
                         drugs={drugs} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll}
-                        getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked}
+                        getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} getMatchingCards={getMatchingCards}
                     /> : <Redirect to="/login" />)
                 }}
             />
@@ -74,7 +74,7 @@ const ApplicationViews = (props) => {
 
             <Route path="/medication/pharmacies"
                 render={props => {
-                    return (hasUser ? <PharmacyList {...props} /> : <Redirect to="/login" />)
+                    return (hasUser ? <PharmacyList {...props} pharmacyList={pharmacyList} /> : <Redirect to="/login" />)
                 }}
             />
 
