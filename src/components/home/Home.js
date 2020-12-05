@@ -5,7 +5,7 @@ import MedicationFormModal from "../medication/MedicationFormModal";
 import SearchBar from "../search/SearchBar";
 
 const Home = (props) => {
-    const { renderWidget, imageDesc, drugs, removeDrug, isChecked, drugImage, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
+    const { drugs, renderWidget, imageDesc, removeDrug, isChecked, drugImage, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
     const hasUser = props.hasUser
     const clearUser = props.clearUser
 

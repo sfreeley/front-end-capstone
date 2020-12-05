@@ -8,26 +8,16 @@ import "./styles/PharmacyList.css";
 const PharmacyList = (props) => {
     const sessionUser = JSON.parse(sessionStorage.getItem("user"))
     const [pharmacies, setPharmacies] = useState([]);
-    const [drugsWithPharmacy, setDrugsWithPharmacy] = useState([]);
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
-
 
     const getPharmacies = () => {
         ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(data => setPharmacies(data))
     }
 
-    const getPharmaciesWithDrugs = () => {
-        ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(dataFromAPI => {
-            setDrugsWithPharmacy(dataFromAPI)
-        })
-    }
-
     useEffect(() => {
         getPharmacies();
-        getPharmaciesWithDrugs();
     }, [])
-
 
     const removePharmacy = (pharmacyToEdit) => {
 
@@ -48,8 +38,6 @@ const PharmacyList = (props) => {
                 <Button className="addPharmacy--button" onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
             </div>
             <div className="pharmacy--container">
-
-
                 {
                     pharmacies && pharmacies.map(pharmacy => !pharmacy.hidden &&
 

@@ -31,7 +31,7 @@ const TrackRx = () => {
       setImageName(resultEvent.info.secure_url)
       setImageDesc(resultEvent.info.original_filename)
     }
-  }
+  };
 
   const renderWidget = () => {
     let widget = window.cloudinary.createUploadWidget({
@@ -41,7 +41,7 @@ const TrackRx = () => {
       (error, result) => { checkUploadResult(result) })
 
     widget.open();
-  }
+  };
 
   //modal states
   const [modal, setModal] = useState(false);
@@ -64,19 +64,20 @@ const TrackRx = () => {
       taking: true,
       dateInput: "",
       refills: "",
-      image: imageName
+      image: ""
     })
     setModal(!modal);
+  };
 
-  }
   const toggleNested = () => {
     setNestedModal(!nestedModal);
     setCloseAll(false);
-  }
+  };
+
   const toggleAll = () => {
     setNestedModal(!nestedModal);
     setCloseAll(true);
-  }
+  };
 
   //display medication cards state
   const [drugs, setDrugs] = useState([])
@@ -113,7 +114,7 @@ const TrackRx = () => {
 
   const getPharmaciesForForm = () => {
     ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
-  }
+  };
 
   useEffect(() => {
     getDrugs()
@@ -136,7 +137,7 @@ const TrackRx = () => {
         setIsLoading(false)
       })
     toggle()
-  }
+  };
 
   //medication form field change handler
   const handleFieldChange = (event) => {
@@ -165,7 +166,7 @@ const TrackRx = () => {
     refills: parseInt(drug.refills),
     taking: drug.taking,
     image: imageName
-  }
+  };
 
   //once 'save' button clicked on medication card, function handles whether it adds or edits
   const handleDrugForm = (event) => {
@@ -185,12 +186,10 @@ const TrackRx = () => {
                 getDrugs();
                 drugFromAPI.taking ? history.push("/medication/list") : history.push("medication/history")
               }
-              else if (window.location.pathname === "/medication/list") {
+              else if (window.location.pathname === "/medication/list" || window.location.pathname === "/medication/history") {
                 getDrugs();
               }
-
             })
-
           })
       }
       else {
@@ -241,8 +240,7 @@ const TrackRx = () => {
         setIsLoading(false)
         drugToEdit.taking ? history.push("/medication/list") : history.push("/medication/history")
       })
-
-  }
+  };
 
   //delete drugs from medication list upon search for medication card
   const removeDrug = (id) => {
@@ -254,6 +252,7 @@ const TrackRx = () => {
         });
       });
   };
+
 
   return (
 

@@ -109,8 +109,6 @@ This list becomes practical in certain scenarios when:
 - User can permanently remove the medication entry by clicking `Permanently Remove`
 - User can see prescription details by clicking `Rx Details` button, however nothing will be highlighted according to refills remaining or next refill/renewal date. There will also not be any real-time countdown to their next refill/renewal date
 
-3. Search functionality is available on this page as well, with CRUD functionality available for each medication entry result
-
 ### Resources Page
 
 ![trackRx Resources Page](./src/images/resourcesPageScreenshot.png)

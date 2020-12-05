@@ -1,14 +1,22 @@
 import React, { useState } from "react";
-import { Label } from "reactstrap";
 import MedicationCard from "./MedicationCard";
-import SearchBar from "../search/SearchBar";
 import NavBar from "../nav/NavBar";
+import { useHistory } from "react-router-dom";
 import MedicationFormModal from "./MedicationFormModal";
-import { Container, CardDeck, Button } from "reactstrap"
+import { Container, CardDeck, Button, Label, Input } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
-    const { imageDesc, renderWidget, imageName, isChecked, drugs, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { drugs, imageDesc, renderWidget, imageName, isChecked, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const history = useHistory();
+    const [searchEvent, setSearchEvent] = useState("")
+
+    const filtered = drugs.filter(drug => {
+        let drugValues = Object.values(drug)
+        for (let i = 0; i < drugValues.length; i++) {
+            return drugValues.join().toLowerCase().includes(searchEvent.toLowerCase())
+        }
+    })
 
     return (
         <>
@@ -26,13 +34,18 @@ const MedicationList = (props) => {
                 <h2>Current Medication List</h2>
             </div>
 
-            <SearchBar className="searchBar-medicationList" drugs={drugs} drug={drug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} />
+            <div className="searchBar-container">
+                <Input className="form-control searchBar-position" name="searchTerm" id="keywordSearch" onChange={(e) => setSearchEvent(e.target.value)}
+                    type="text" placeholder="Search for keywords"
+                    aria-label="Search" />
+            </div>
+
             <div className="pharmacyListButton--container">
-                <Button onClick={() => props.history.push("/medication/pharmacies")}>My Pharmacy List</Button>
+                <Button onClick={() => history.push("/medication/pharmacies")}>My Pharmacy List</Button>
             </div>
             <Container className="section-currentMedicationList--container">
                 <CardDeck xs="4" >
-                    {drugs && drugs.map(drug => drug.taking &&
+                    {filtered && filtered.map(drug => drug.taking &&
                         <MedicationCard
                             key={drug.id}
                             drug={drug}

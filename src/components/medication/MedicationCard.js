@@ -15,7 +15,6 @@ const MedicationCard = (props) => {
     setImageModal(!imageModal);
   }
 
-
   const currentDrug = {
     ...drug
   }
@@ -119,6 +118,7 @@ const MedicationCard = (props) => {
               </div>
               <hr />
               <div className="btn-all-medicationCard">
+
                 <Button className="btn-edit-medList"
                   id={drug.id}
                   type="button"

@@ -1,38 +1,26 @@
-import React, { useState, useEffect } from "react";
-import ApplicationManager from "../modules/ApplicationManager";
+import React, { useState } from "react";
 import MedicationCard from "../medication/MedicationCard";
 import { Input, Row, Col } from "reactstrap"
 import "./styles/SearchBar.css"
 
 
 const SearchBar = (props) => {
-
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-    const [drugsArray, setDrugsArray] = useState([])
+    const { drugs } = props
     const [filteredDrugsArray, setFilteredDrugsArray] = useState([])
 
-
-    const getMatchingCards = (event) => {
-        let searchEvent = event.target.value
-        let filteringDrugsArray = props.drugs.filter(drug => {
+    const getMatchingCards = (e) => {
+        let searchTerm = e.target.value
+        let filteringDrugsArray = drugs.filter(drug => {
             let drugValues = Object.values(drug)
             for (let i = 0; i < drugValues.length; i++) {
-                return drugValues.join().toLowerCase().includes(searchEvent.toLowerCase())
+                return drugValues.join().toLowerCase().includes(searchTerm.toLowerCase())
             }
         })
-        if (searchEvent === "") {
-            filteringDrugsArray = []
+        if (searchTerm === "") {
+            filteringDrugsArray = [];
         }
         setFilteredDrugsArray(filteringDrugsArray)
     }
-
-    useEffect(() => {
-        ApplicationManager.getPharmaciesForDrugs(sessionUser.id)
-            .then(drugsFromAPI => {
-                setDrugsArray(drugsFromAPI)
-            })
-    }, [sessionUser.id])
-
 
     return (
         <>
@@ -41,7 +29,6 @@ const SearchBar = (props) => {
                     type="text" placeholder="Search for keywords"
                     aria-label="Search" />
             </div>
-
 
             <div className="searchBar-result-overlay">
                 {filteredDrugsArray && filteredDrugsArray.map(drug => {
@@ -52,14 +39,13 @@ const SearchBar = (props) => {
                                 <MedicationCard drugId={drug.id} {...props} drug={drug} />
                             </Col>
                         </Row>
-
                     )
-
                 })}
             </div>
 
         </>
     )
+
 }
 
 export default SearchBar
