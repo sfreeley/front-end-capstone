@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, ListGroup, ListGroupItem, Button, CardFooter, CardBody } from "reactstrap";
+import { useHistory } from "react-router-dom";
 import ConfirmDelete from "./ConfirmDeleteModal";
 import "./styles/Pharmacy.css";
 
-const Pharmacy = ({ pharmacy, props, removePharmacy, toggle, modal }) => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-
+const Pharmacy = ({ pharmacy, removePharmacy, toggle, modal, sessionUser }) => {
+    const history = useHistory();
     const currentPharmacyEntry = {
         id: pharmacy.id,
         userId: sessionUser.id,
@@ -32,7 +32,7 @@ const Pharmacy = ({ pharmacy, props, removePharmacy, toggle, modal }) => {
                 </CardBody>
                 <CardFooter>
                     <div className="pharmacyButtons--container">
-                        <Button outline className="editPharmacy--button" onClick={() => props.history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>
+                        <Button outline className="editPharmacy--button" onClick={() => history.push(`/medication/pharmacy/edit/${pharmacy.id}`)}>Edit</Button>
                         <Button outline className="removePharmacy--button" id={pharmacy.id} onClick={toggle}>Delete</Button>
                     </div>
                 </CardFooter>

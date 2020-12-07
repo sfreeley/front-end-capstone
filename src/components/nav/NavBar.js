@@ -5,11 +5,9 @@ import { NavLink as routerNavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import "./styles/NavBar.css"
 
-const NavBar = () => {
+const NavBar = ({ sessionUser }) => {
   const isAuthenticated = () => sessionStorage.getItem("user") !== null;
   const [hasUser, setHasUser] = useState(isAuthenticated());
-
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
 
   const [collapsed, setCollapsed] = useState(true);
 
@@ -35,13 +33,13 @@ const NavBar = () => {
                 <NavItem>
                   <NavLink tag={routerNavLink} to="/" exact path="/" className="nav-link" activeClassName="nav-link--active">
                     Home
-                </NavLink>
+                  </NavLink>
                 </NavItem>
 
                 <NavItem>
                   <NavLink tag={routerNavLink} to="/medication/list" className="nav-link" activeClassName="nav-link--active">
                     Current Medication List
-                    </NavLink>
+                  </NavLink>
                 </NavItem>
 
                 <NavItem>

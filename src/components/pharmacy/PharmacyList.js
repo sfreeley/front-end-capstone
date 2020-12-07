@@ -6,7 +6,7 @@ import NavBar from "../nav/NavBar";
 import "./styles/PharmacyList.css";
 
 const PharmacyList = (props) => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+    const { sessionUser } = props
     const [pharmacies, setPharmacies] = useState([]);
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -33,7 +33,7 @@ const PharmacyList = (props) => {
     return (
         <>
 
-            <NavBar {...props} />
+            <NavBar {...props} sessionUser={sessionUser} />
             <div className="addPharmacyButton--container">
                 <Button className="addPharmacy--button" onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
             </div>
@@ -41,7 +41,7 @@ const PharmacyList = (props) => {
                 {
                     pharmacies && pharmacies.map(pharmacy => !pharmacy.hidden &&
 
-                        <Pharmacy key={pharmacy.id} pharmacy={pharmacy} props={props} removePharmacy={removePharmacy} toggle={toggle} modal={modal} />
+                        <Pharmacy key={pharmacy.id} pharmacy={pharmacy} {...props} sessionUser={sessionUser} removePharmacy={removePharmacy} toggle={toggle} modal={modal} />
                     )
                 }
             </div>

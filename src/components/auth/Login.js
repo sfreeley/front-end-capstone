@@ -4,8 +4,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Label, Input } from
 import ApplicationManager from "../modules/ApplicationManager";
 import "./styles/Login.css"
 
-
-
 const Login = (props) => {
     const setUser = props.setUser;
     const [modal, setModal] = useState(false);
@@ -32,7 +30,6 @@ const Login = (props) => {
                         props.history.push("/");
                     } else {
                         toggle()
-
                     }
                 })
             })

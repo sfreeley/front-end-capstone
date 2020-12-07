@@ -7,7 +7,7 @@ import { Container, CardDeck, Button, Label, Input } from "reactstrap"
 import "./styles/MedicationList.css"
 
 const MedicationList = (props) => {
-    const { drugs, imageDesc, renderWidget, imageName, isChecked, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
+    const { drugs, imageDesc, renderWidget, imageName, sessionUser, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props
     const history = useHistory();
     const [searchEvent, setSearchEvent] = useState("")
 
@@ -50,7 +50,8 @@ const MedicationList = (props) => {
                             key={drug.id}
                             drug={drug}
                             getIdOfDrug={getIdOfDrug}
-                            isChecked={isChecked}
+                            imageName={imageName}
+                            sessionUser={sessionUser}
                             removeDrug={removeDrug}
                             handleChange={handleChange}
                         />)}
