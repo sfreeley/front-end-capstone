@@ -4,6 +4,8 @@ import ApplicationManager from "./components/modules/ApplicationManager";
 import { currentDateTime } from "./components/modules/helperFunctions";
 import { calculateNextRefill } from "./components/modules/helperFunctions";
 import { useHistory } from "react-router-dom";
+import NavBar from "../src/components/nav/NavBar";
+import Login from "./components/auth/Login";
 import './App.css';
 
 const TrackRx = () => {
@@ -85,7 +87,7 @@ const TrackRx = () => {
   const [drug, setDrug] = useState({
     id: "",
     name: "",
-    userId: sessionUser.id,
+    userId: sessionUser && sessionUser.id,
     pharmacyId: null,
     strength: "",
     dosageForm: "",
@@ -106,14 +108,18 @@ const TrackRx = () => {
 
   //get drugs based on user to display in medication list and sort by earliest upcoming refill date
   const getDrugs = () => {
-    return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
-      const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
-      setDrugs(sortDrugsByDate)
-    })
+    if (sessionUser !== null) {
+      return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
+        const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
+        setDrugs(sortDrugsByDate)
+      })
+    }
   }
 
   const getPharmaciesForForm = () => {
-    ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
+    if (sessionUser !== null) {
+      ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => setPharmacyList(dataFromAPI))
+    }
   };
 
   useEffect(() => {
@@ -151,7 +157,7 @@ const TrackRx = () => {
   const editingDrug = {
     id: drug.id,
     name: drug.name,
-    userId: sessionUser.id,
+    userId: sessionUser && sessionUser.id,
     pharmacyId: drug.pharmacyId,
     strength: drug.strength,
     dosageForm: drug.dosageForm,
@@ -266,6 +272,7 @@ const TrackRx = () => {
         handleChange={handleChange} getIdOfDrug={getIdOfDrug} removeDrug={removeDrug} isChecked={isChecked}
         imageName={imageName} imageDesc={imageDesc} renderWidget={renderWidget}
       />
+
     </div>
 
   )
