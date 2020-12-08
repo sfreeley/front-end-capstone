@@ -103,9 +103,8 @@ const AddPharmacyForm = (props) => {
             </Form>
         </>
     )
-
-
 }
+
 export default AddPharmacyForm;
 
 
