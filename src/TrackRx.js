@@ -110,6 +110,7 @@ const TrackRx = () => {
       return ApplicationManager.getPharmaciesForDrugs(sessionUser.id).then(drugsFromAPI => {
         const sortDrugsByDate = drugsFromAPI.sort((date1, date2) => new Date(date1.nextRefillDate) - new Date(date2.nextRefillDate))
         setDrugs(sortDrugsByDate)
+
       })
     }
   }
@@ -123,7 +124,7 @@ const TrackRx = () => {
   useEffect(() => {
     getDrugs()
     getPharmaciesForForm()
-  }, []);
+  }, [drug.pharmacyId, drug.id]);
 
   //handling pharmacy dropdown state in medication modal
   const handlePharmacyDropdown = (e) => {

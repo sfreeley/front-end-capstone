@@ -6,7 +6,7 @@ import { Container, CardDeck } from "reactstrap";
 import "./styles/MedicationHistoryList.css";
 
 const MedicationHistoryList = (props) => {
-    const { drugs, sessionUser, renderWidget, imageDesc, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
+    const { drugs, imageName, sessionUser, renderWidget, imageDesc, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
 
     return (
         <>
@@ -21,10 +21,11 @@ const MedicationHistoryList = (props) => {
                     {drugs && drugs.map(drug => !drug.taking && <MedicationCard
                         key={drug.id}
                         drug={drug}
-                        handleChange={handleChange}
-                        sessionUser={sessionUser}
+                        imageName={imageName}
                         getIdOfDrug={getIdOfDrug}
+                        sessionUser={sessionUser}
                         removeDrug={removeDrug}
+                        handleChange={handleChange}
                     />
                     )}
                 </CardDeck>

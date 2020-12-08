@@ -49,11 +49,9 @@ const EditPharmacyForm = (props) => {
     }
 
 
-
-
     return (
         <>
-            <NavBar sessionUser={sessionUser} />
+            <NavBar />
 
             <Form className="editPharmacyForm--container">
                 <FormGroup>
