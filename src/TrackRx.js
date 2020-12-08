@@ -10,9 +10,11 @@ const TrackRx = () => {
   const isAuthenticated = () => sessionStorage.getItem("user") !== null;
 
   const [hasUser, setHasUser] = useState(isAuthenticated());
+  const [aUser, setAUser] = useState("")
 
   const setUser = user => {
     sessionStorage.setItem("user", JSON.stringify(user));
+    setAUser(user.id)
     setHasUser(isAuthenticated());
   };
 
@@ -121,10 +123,15 @@ const TrackRx = () => {
     }
   };
 
+
   useEffect(() => {
-    getDrugs()
+    getDrugs();
+  }, [aUser]);
+
+
+  useEffect(() => {
     getPharmaciesForForm()
-  }, [drug.pharmacyId, drug.id]);
+  }, [drug.id]);
 
   //handling pharmacy dropdown state in medication modal
   const handlePharmacyDropdown = (e) => {
@@ -188,7 +195,6 @@ const TrackRx = () => {
               toggle();
               setDrug(drugFromAPI)
               if (window.location.pathname === "/") {
-                getDrugs();
                 drugFromAPI.taking ? history.push("/medication/list") : history.push("medication/history")
               }
               else if (window.location.pathname === "/medication/list" || window.location.pathname === "/medication/history") {
@@ -219,9 +225,13 @@ const TrackRx = () => {
           image: imageName
         }
         ApplicationManager.postNewDrug(newMed).then(() => {
-          getDrugs();
           toggle();
-          if (window.location.pathname === "/") history.push("/medication/list")
+          if (window.location.pathname === "/") {
+            history.push("/medication/list")
+          }
+          else {
+            getDrugs();
+          }
 
         })
       }
@@ -257,6 +267,7 @@ const TrackRx = () => {
         });
       });
   };
+
 
 
   return (

@@ -76,7 +76,7 @@ const ApplicationViews = (props) => {
 
             <Route path="/medication/pharmacies"
                 render={props => {
-                    return (hasUser ? <PharmacyList {...props} sessionUser={sessionUser} /> : <Redirect to="/login" />)
+                    return (hasUser ? <PharmacyList {...props} sessionUser={sessionUser} pharmacyList={pharmacyList} /> : <Redirect to="/login" />)
                 }}
             />
 

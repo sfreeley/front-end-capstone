@@ -19,7 +19,7 @@ const MedicationCard = (props) => {
 
   const currentDrug = {
     id: drug.id,
-    userId: sessionUser.id,
+    userId: sessionUser && sessionUser.id,
     name: drug.name,
     pharmacyId: parseInt(drug.pharmacyId),
     strength: drug.strength,
@@ -93,7 +93,7 @@ const MedicationCard = (props) => {
             outline
             className="btn-pharmacy-details-medList"
             type="button"
-            id={`drug${drug.pharmacyId}`}
+            id={`rx${drug.pharmacyId}`}
           >
             Pharmacy Details
           </Button>
@@ -220,8 +220,8 @@ const MedicationCard = (props) => {
           </PopoverBody>
         </UncontrolledPopover>
 
-        <UncontrolledPopover trigger="legacy" placement="top" target={`drug${drug.pharmacy.id}`}>
-          <PopoverHeader><strong>Prescription Details</strong></PopoverHeader>
+        <UncontrolledPopover trigger="legacy" placement="top" target={`rx${drug.pharmacyId}`}>
+          <PopoverHeader><strong>Pharmacy Details</strong></PopoverHeader>
           <PopoverBody>
             <Card>
               <CardText>

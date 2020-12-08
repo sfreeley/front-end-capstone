@@ -36,7 +36,7 @@ const SearchBar = (props) => {
 
                         <Row className="div-medicationCard-searchResult">
                             <Col>
-                                <MedicationCard drugId={drug.id} {...props} drug={drug} />
+                                <MedicationCard key={drug.id} {...props} drug={drug} />
                             </Col>
                         </Row>
                     )
