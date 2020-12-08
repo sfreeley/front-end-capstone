@@ -18,7 +18,7 @@ const Home = (props) => {
                     <Label htmlFor="addMedication-image"><h5>Add New Medication</h5></Label>
                 </div>
 
-                <SearchBar drugs={drugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} />
+                <SearchBar sessionUser={sessionUser} drugs={drugs} removeDrug={removeDrug} getIdOfDrug={getIdOfDrug} handleChange={handleChange} isChecked={isChecked} />
                 <MedicationFormModal imageDesc={imageDesc} renderWidget={renderWidget} drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} drugImage={drugImage} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                     getIdOfDrug={getIdOfDrug} nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} isChecked={isChecked} />
             </div>
