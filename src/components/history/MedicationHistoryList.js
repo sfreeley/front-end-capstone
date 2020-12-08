@@ -6,12 +6,12 @@ import { Container, CardDeck } from "reactstrap";
 import "./styles/MedicationHistoryList.css";
 
 const MedicationHistoryList = (props) => {
-    const { drugs, isChecked, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, uploadImage, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
+    const { drugs, sessionUser, renderWidget, imageDesc, removeDrug, handleChange, getIdOfDrug, drug, handlePharmacyDropdown, pharmacyList, handleFieldChange, handleDrugForm, toggle, modal, toggleNested, toggleAll, nestedModal, closeAll } = props;
 
     return (
         <>
             <NavBar {...props} />
-            <MedicationFormModal drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} uploadImage={uploadImage} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
+            <MedicationFormModal drug={drug} handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} renderWidget={renderWidget} imageDesc={imageDesc} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
                 nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll} />
 
             <h3>Medication History</h3>
@@ -22,7 +22,7 @@ const MedicationHistoryList = (props) => {
                         key={drug.id}
                         drug={drug}
                         handleChange={handleChange}
-                        isChecked={isChecked}
+                        sessionUser={sessionUser}
                         getIdOfDrug={getIdOfDrug}
                         removeDrug={removeDrug}
                     />

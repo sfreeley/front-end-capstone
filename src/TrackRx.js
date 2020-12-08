@@ -4,8 +4,6 @@ import ApplicationManager from "./components/modules/ApplicationManager";
 import { currentDateTime } from "./components/modules/helperFunctions";
 import { calculateNextRefill } from "./components/modules/helperFunctions";
 import { useHistory } from "react-router-dom";
-import NavBar from "../src/components/nav/NavBar";
-import Login from "./components/auth/Login";
 import './App.css';
 
 const TrackRx = () => {
@@ -158,7 +156,7 @@ const TrackRx = () => {
     id: drug.id,
     name: drug.name,
     userId: sessionUser && sessionUser.id,
-    pharmacyId: drug.pharmacyId,
+    pharmacyId: parseInt(drug.pharmacyId),
     strength: drug.strength,
     dosageForm: drug.dosageForm,
     directions: drug.directions,
@@ -174,7 +172,7 @@ const TrackRx = () => {
     image: imageName
   };
 
-  //once 'save' button clicked on medication card, function handles whether it adds or edits
+  //once 'save' button clicked on medication form modal, function handles whether it adds or edits
   const handleDrugForm = (event) => {
     event.preventDefault();
     if (drug.name === "" || drug.strength === "" || drug.dosageForm === ""
@@ -204,7 +202,7 @@ const TrackRx = () => {
         const newMed = {
           userId: sessionUser.id,
           name: drug.name,
-          pharmacyId: drug.pharmacyId,
+          pharmacyId: parseInt(drug.pharmacyId),
           strength: drug.strength,
           dosageForm: drug.dosageForm,
           directions: drug.directions,
@@ -266,6 +264,7 @@ const TrackRx = () => {
       <ApplicationViews
         hasUser={hasUser}
         setUser={setUser}
+        sessionUser={sessionUser}
         drug={drug} drugs={drugs}
         handlePharmacyDropdown={handlePharmacyDropdown} pharmacyList={pharmacyList} handleFieldChange={handleFieldChange} handleDrugForm={handleDrugForm}
         nestedModal={nestedModal} toggle={toggle} modal={modal} toggleNested={toggleNested} toggleAll={toggleAll} closeAll={closeAll}

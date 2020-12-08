@@ -23,7 +23,6 @@ const MedicationFormModal = ({ imageDesc, renderWidget, drug, handlePharmacyDrop
                             onChange={handleFieldChange}
                             type="text"
                             name="name"
-                            defaultValue=""
                             id="name"
                             required=""
                         />
@@ -132,7 +131,7 @@ const MedicationFormModal = ({ imageDesc, renderWidget, drug, handlePharmacyDrop
                                 id="refills"
                             >
                                 {numberRefillArray.map(refill => {
-                                    return <option value={drug.refill}>{refill}</option>
+                                    return <option key={refill} value={drug.refill}>{refill}</option>
                                 })}
                             </Input>
 

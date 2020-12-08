@@ -52,7 +52,7 @@ const Resource = (props) => {
 
   return (
     <>
-      <NavBar {...props} />
+      <NavBar {...props} sessionUser={props.sessionUser} />
 
       <h3>Helpful Resources</h3>
       <div className="div-resourceSelector">
@@ -102,6 +102,7 @@ const Resource = (props) => {
               return (
                 <>
                   <NavLink
+                    key={topic.id}
                     role="button"
                     className={classnames({ active: activeTab === topic.id })}
                     onClick={() => { toggle(topic.id); }}>

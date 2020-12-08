@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { calculateNextRefill, currentDateTime } from "../modules/helperFunctions";
 import {
   Card, Button, CardImg, CardTitle, CardText, CardBody, UncontrolledPopover, PopoverHeader, PopoverBody, Col, ListGroup, ListGroupItem, Input, Label, Modal, ModalBody
 } from 'reactstrap';
 import "./styles/MedicationCard.css"
 
 const MedicationCard = (props) => {
-  const { isChecked, removeDrug, handleChange, getIdOfDrug, drug } = props
+  const { sessionUser, removeDrug, handleChange, getIdOfDrug, drug, imageName } = props
   const oneRefillRemaining = drug.refills === 1 ? true : false
   const taking = drug.taking === true;
+  const timestamp = Date.now()
 
   const [imageModal, setImageModal] = useState(false);
 
@@ -16,7 +18,23 @@ const MedicationCard = (props) => {
   }
 
   const currentDrug = {
-    ...drug
+    id: drug.id,
+    userId: sessionUser.id,
+    name: drug.name,
+    pharmacyId: parseInt(drug.pharmacyId),
+    strength: drug.strength,
+    dosageForm: drug.dosageForm,
+    directions: drug.directions,
+    indication: drug.indication,
+    notes: drug.notes,
+    rxNumber: drug.rxNumber,
+    dateFilled: drug.dateFilled,
+    daysSupply: parseInt(drug.daysSupply),
+    nextRefillDate: calculateNextRefill(drug.dateFilled, parseInt(drug.daysSupply)),
+    taking: drug.taking,
+    dateInput: currentDateTime(timestamp),
+    refills: parseInt(drug.refills),
+    image: imageName
   }
 
   const calculateTimeLeftUntilRefill = () => {
@@ -58,7 +76,7 @@ const MedicationCard = (props) => {
     }
 
     timerInDays.push(
-      <span>
+      <span key={drug.id}>
         <h5 className={sevenDaysUntilRefill ? 'background-yellow' : 'background-neutral'}> <strong>{timeLeftUntilDate[interval]}</strong> {interval} {`until refill or renewal`} </h5>
       </span>
     )
@@ -108,7 +126,7 @@ const MedicationCard = (props) => {
               </ListGroup>
               <div className="checkbox-alignment">
                 <span>
-                  <Input id="checkbox" type="checkbox" className="checkbox" checked={isChecked} value={drug.taking} onClick={() => handleChange(currentDrug)}
+                  <Input id="checkbox" type="checkbox" className="checkbox" value={drug.taking} onClick={() => handleChange(currentDrug)}
                   />
                   {window.location.pathname === "/medication/list" ?
                     <Label className="checkbox-saveToMedHx" htmlFor="checkbox">Save to Medication History</Label> :

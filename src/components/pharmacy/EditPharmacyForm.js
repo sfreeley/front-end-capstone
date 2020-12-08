@@ -5,7 +5,7 @@ import NavBar from "../nav/NavBar";
 import "./styles/EditPharmacyForm.css";
 
 const EditPharmacyForm = (props) => {
-    const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+    const { sessionUser } = props;
     const [isLoading, setIsLoading] = useState(false);
     const [pharmacy, setPharmacy] = useState({
         userId: sessionUser.Id,
@@ -53,7 +53,7 @@ const EditPharmacyForm = (props) => {
 
     return (
         <>
-            <NavBar />
+            <NavBar sessionUser={sessionUser} />
 
             <Form className="editPharmacyForm--container">
                 <FormGroup>
