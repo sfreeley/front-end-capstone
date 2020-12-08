@@ -5,9 +5,10 @@ import { NavLink as routerNavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import "./styles/NavBar.css"
 
-const NavBar = ({ sessionUser }) => {
+const NavBar = () => {
   const isAuthenticated = () => sessionStorage.getItem("user") !== null;
   const [hasUser, setHasUser] = useState(isAuthenticated());
+  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
 
   const [collapsed, setCollapsed] = useState(true);
 

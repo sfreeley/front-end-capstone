@@ -31,12 +31,12 @@ const ApplicationViews = (props) => {
 
             <Route path="/login"
                 render={props => {
-                    return <Login setUser={setUser} {...props} />
+                    return <Login setUser={setUser} {...props} sessionUser={sessionUser} />
                 }}
             />
             <Route path="/register"
                 render={props => {
-                    return (<Registration {...props} setUser={setUser} />)
+                    return (<Registration {...props} setUser={setUser} sessionUser={sessionUser} />)
                 }}
             />
 

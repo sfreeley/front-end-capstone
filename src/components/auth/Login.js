@@ -27,7 +27,7 @@ const Login = (props) => {
                     if (user.email === emailValue && user.password === passwordValue) {
                         sessionStorage.setItem('user', JSON.stringify(user))
                         setUser(user);
-                        props.history.push("/");
+                        props.history.push("/")
                     } else {
                         toggle()
                     }

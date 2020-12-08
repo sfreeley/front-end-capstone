@@ -52,7 +52,7 @@ const Resource = (props) => {
 
   return (
     <>
-      <NavBar {...props} sessionUser={props.sessionUser} />
+      <NavBar {...props} />
 
       <h3>Helpful Resources</h3>
       <div className="div-resourceSelector">

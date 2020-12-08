@@ -11,7 +11,8 @@ const AddPharmacyForm = (props) => {
         userId: sessionUser.Id,
         name: "",
         address: "",
-        phone: ""
+        phone: "",
+        hidden: false
     });
 
     //handling input field for posting new drug
@@ -34,7 +35,8 @@ const AddPharmacyForm = (props) => {
                 userId: sessionUser.id,
                 name: newPharmacy.name,
                 address: newPharmacy.address,
-                phone: newPharmacy.phone
+                phone: newPharmacy.phone,
+                hidden: false
             }
 
             ApplicationManager.postNewPharmacy(newPharmacyEntry).then(() => {
@@ -48,7 +50,7 @@ const AddPharmacyForm = (props) => {
 
     return (
         <>
-            <NavBar sessionUser={sessionUser} />
+            <NavBar />
 
             <Form className="addPharmacyForm--container">
                 <FormGroup>

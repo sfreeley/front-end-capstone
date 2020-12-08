@@ -15,6 +15,7 @@ const PharmacyList = (props) => {
         ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(data => setPharmacies(data))
     }
 
+
     useEffect(() => {
         getPharmacies();
     }, [])
@@ -25,7 +26,9 @@ const PharmacyList = (props) => {
             .then(() => {
                 ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => {
                     setPharmacies(dataFromAPI)
+
                 });
+
             });
         toggle();
     }
@@ -33,7 +36,7 @@ const PharmacyList = (props) => {
     return (
         <>
 
-            <NavBar {...props} sessionUser={sessionUser} />
+            <NavBar {...props} />
             <div className="addPharmacyButton--container">
                 <Button className="addPharmacy--button" onClick={() => props.history.push("/medication/pharmacy/add")}>Add New Pharmacy</Button>
             </div>
