@@ -191,16 +191,11 @@ const TrackRx = () => {
       if (drug.id !== undefined) {
         ApplicationManager.editDrug(editingDrug)
           .then(() => {
-            ApplicationManager.getDrugByIdWithPharmacy(editingDrug.id).then((drugFromAPI) => {
-              toggle();
-              setDrug(drugFromAPI)
-              if (window.location.pathname === "/") {
-                drugFromAPI.taking ? history.push("/medication/list") : history.push("medication/history")
-              }
-              else if (window.location.pathname === "/medication/list" || window.location.pathname === "/medication/history") {
-                getDrugs();
-              }
-            })
+            getDrugs();
+            toggle();
+            if (window.location.pathname === "/") {
+              editingDrug.taking ? history.push("/medication/list") : history.push("medication/history")
+            }
           })
       }
       else {
@@ -267,8 +262,6 @@ const TrackRx = () => {
         });
       });
   };
-
-
 
   return (
 
