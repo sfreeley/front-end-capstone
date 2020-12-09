@@ -1,37 +1,34 @@
 import React, { useState, useEffect } from "react";
-import ApplicationManager from "../modules/ApplicationManager";
 import { Button } from "reactstrap";
+import ApplicationManager from "../modules/ApplicationManager";
 import Pharmacy from "../pharmacy/Pharmacy";
 import NavBar from "../nav/NavBar";
 import "./styles/PharmacyList.css";
 
 const PharmacyList = (props) => {
     const { sessionUser } = props
-    const [pharmacies, setPharmacies] = useState([]);
     const [modal, setModal] = useState(false);
+    const [pharmacies, setPharmacies] = useState([]);
     const toggle = () => setModal(!modal);
 
-    const getPharmacies = () => {
+    const getPharmacyList = () => {
         ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(data => setPharmacies(data))
     }
 
-
     useEffect(() => {
-        getPharmacies();
+        getPharmacyList();
     }, [])
+
 
     const removePharmacy = (pharmacyToEdit) => {
 
         ApplicationManager.editPharmacy(pharmacyToEdit)
             .then(() => {
-                ApplicationManager.getAllPharmaciesForUser(sessionUser.id).then(dataFromAPI => {
-                    setPharmacies(dataFromAPI)
-
-                });
-
+                getPharmacyList();
             });
         toggle();
     }
+
 
     return (
         <>
